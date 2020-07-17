@@ -4,22 +4,29 @@ import CoreBluetooth
 class BluetoothViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var swithControll: UISwitch!
+    @IBOutlet weak var switchControll: UISwitch!
     @IBOutlet weak var bluetoothStateLabel: UILabel!
+    @IBOutlet weak var bluetoothScanIndicator: UIActivityIndicatorView!
+    
     
     lazy var viewmodel : BluetoothViewModel = {
         let vm  = BluetoothViewModel()
+        
         vm.bluetoothStateDidChange = { [unowned self] state in
             var currentState: String
             switch state {
             case .poweredOff:
                 currentState = "poweredOff"
+                self.switchControll.isEnabled = false
             case .poweredOn:
                 currentState = "poweredOn"
+                self.switchControll.isEnabled = true
             case.unauthorized:
                 currentState = "unauthorized"
+                self.switchControll.isEnabled = false
             default:
                 currentState = "unknow"
+                self.switchControll.isEnabled = false
             }
             self.bluetoothStateLabel.text = currentState
         }
@@ -32,7 +39,7 @@ class BluetoothViewController: UIViewController {
         
         vm.bluetoothScanStateDidChange = { [unowned self] state in
             DispatchQueue.main.async {
-                self.swithControll.setOn(state, animated: true)
+                self.switchControll.setOn(state, animated: true)
             }
         }
         
@@ -46,11 +53,6 @@ class BluetoothViewController: UIViewController {
         
         self.tableView.delegate  = self
         self.tableView.dataSource = self
-        
-        self.tableView.register(
-            UINib(nibName: "ScanDeviceHeaderView", bundle: nil),
-            forHeaderFooterViewReuseIdentifier: "ScanDeviceHeaderView"
-        )
         
         self.tableView.register(
             UINib(nibName: "ScanDeviceTableViewCell", bundle: nil),
@@ -84,18 +86,6 @@ extension BluetoothViewController: UITableViewDataSource{
         cell.loaddCell(with: model)
         return cell
         
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = self.tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: "ScanDeviceHeaderView"
-            ) as! ScanDeviceHeaderView
-        
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
     }
     
 }

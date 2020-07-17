@@ -11,8 +11,6 @@
 		DB267DEF24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB267DED24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib */; };
 		DB267DF124C15424004C83B2 /* Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267DF024C15424004C83B2 /* Peripheral.swift */; };
 		DB267DF424C15F2B004C83B2 /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267DF324C15F2B004C83B2 /* BluetoothService.swift */; };
-		DB267DF824C1633B004C83B2 /* ScanDeviceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267DF724C1633B004C83B2 /* ScanDeviceHeaderView.swift */; };
-		DB267DFA24C16347004C83B2 /* ScanDeviceHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB267DF924C16347004C83B2 /* ScanDeviceHeaderView.xib */; };
 		DB267DFD24C18B03004C83B2 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267DFC24C18B03004C83B2 /* UIViewController.swift */; };
 		DBE7188524C011E500EB9734 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE7188424C011E500EB9734 /* AppDelegate.swift */; };
 		DBE7188C24C011E500EB9734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE7188A24C011E500EB9734 /* Main.storyboard */; };
@@ -38,8 +36,6 @@
 		DB267DED24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanDeviceTableViewCell.xib; sourceTree = "<group>"; };
 		DB267DF024C15424004C83B2 /* Peripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peripheral.swift; sourceTree = "<group>"; };
 		DB267DF324C15F2B004C83B2 /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
-		DB267DF724C1633B004C83B2 /* ScanDeviceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDeviceHeaderView.swift; sourceTree = "<group>"; };
-		DB267DF924C16347004C83B2 /* ScanDeviceHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanDeviceHeaderView.xib; sourceTree = "<group>"; };
 		DB267DFC24C18B03004C83B2 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DBE7188124C011E500EB9734 /* BlueToothScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueToothScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE7188424C011E500EB9734 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,8 +82,6 @@
 			children = (
 				DB267DEC24C14BFC004C83B2 /* ScanDeviceTableViewCell.swift */,
 				DB267DED24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib */,
-				DB267DF724C1633B004C83B2 /* ScanDeviceHeaderView.swift */,
-				DB267DF924C16347004C83B2 /* ScanDeviceHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,7 +259,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB267DFA24C16347004C83B2 /* ScanDeviceHeaderView.xib in Resources */,
 				DB267DEF24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib in Resources */,
 				DBE7189124C011E700EB9734 /* LaunchScreen.storyboard in Resources */,
 				DBE7188E24C011E700EB9734 /* Assets.xcassets in Resources */,
@@ -287,7 +280,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB267DF824C1633B004C83B2 /* ScanDeviceHeaderView.swift in Sources */,
 				DB267DF124C15424004C83B2 /* Peripheral.swift in Sources */,
 				DB267DEE24C14BFC004C83B2 /* ScanDeviceTableViewCell.swift in Sources */,
 				DBE718AC24C014FA00EB9734 /* BluetoothViewController.swift in Sources */,
