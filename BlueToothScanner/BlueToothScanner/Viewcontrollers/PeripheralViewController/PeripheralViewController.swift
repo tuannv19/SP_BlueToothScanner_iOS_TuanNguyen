@@ -7,7 +7,7 @@ class PeripheralViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let vm = viewModel {
-            self.infoTextView.text = vm.peripheralModel?.prettyPrint()
+            self.infoTextView.text = vm.peripheralModel?.prettyString()
             self.title = vm.peripheralModel?.name
         }
         

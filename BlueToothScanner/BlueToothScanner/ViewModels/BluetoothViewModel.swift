@@ -86,7 +86,7 @@ extension BluetoothViewModel{
         }
         
         //check if Peripheral had existing
-        guard let indexOfExistModel = self.listPeripheral
+        guard let indexOfExistPeripheral = self.listPeripheral
             .firstIndex(where: { (model: PeripheralModel) -> Bool in
                 model.identifier == peripheralInfo.0.identifier.uuidString
             }) as Int? else{
@@ -97,7 +97,7 @@ extension BluetoothViewModel{
         }
         
         //update RSSI number is enough
-        self.listPeripheral[indexOfExistModel].rssi = peripheralInfo.2
+        self.listPeripheral[indexOfExistPeripheral].rssi = peripheralInfo.2
         
     }
 }
