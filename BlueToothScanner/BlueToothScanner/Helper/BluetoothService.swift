@@ -21,7 +21,7 @@ class BluetoothService : NSObject {
     
     // MARK: - Public Properties
     static let shared = BluetoothService()
-
+    
     var bluetoothStateCallBack : BluetoothStateCallback?
     var peripheralStateCallback : BluetoothPeripheralStateCallback?
     
@@ -45,9 +45,10 @@ class BluetoothService : NSObject {
     }
     
     func stopScan() {
-        self.cbManager.stopScan()
+        if self.cbManager.isScanning{
+            self.cbManager.stopScan()
+        }   
     }
-    
 }
 
 extension BluetoothService: CBCentralManagerDelegate {
