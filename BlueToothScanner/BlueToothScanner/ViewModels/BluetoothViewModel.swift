@@ -50,14 +50,6 @@ class BluetoothViewModel{
         self.registerBluetoothServicesCallback()
     }
     
-    func startScan() {
-        self.bluetoothService.startScan()
-    }
-    
-    func stopScan() {
-        self.bluetoothService.stopScan()
-    }
-    
     private func registerBluetoothServicesCallback(){
         
         self.bluetoothService.bluetoothStateCallBack = { [weak self] state in
@@ -71,9 +63,37 @@ class BluetoothViewModel{
             guard let self = self else {
                 return
             }
-            if let peripheralModel = PeripheralModel(info: peripheralInfo) {
-                self.listPeripheral.append(peripheralModel)
-            }
+            self.addOrUpdatePeripheralIfNeed(peripheralInfo: peripheralInfo)
         }
+    }
+}
+extension BluetoothViewModel{
+    func startScan() {
+        self.bluetoothService.startScan()
+    }
+    
+    func stopScan() {
+        self.bluetoothService.stopScan()
+    }
+    func addOrUpdatePeripheralIfNeed(peripheralInfo: PeripheralInfo) {
+        
+        guard let peripheralModel = PeripheralModel(info: peripheralInfo) else {
+            return
+        }
+        
+        //check if Peripheral had existing
+        guard let indexOfExistModel = self.listPeripheral
+            .firstIndex(where: { (model: PeripheralModel) -> Bool in
+                model.identifier == peripheralInfo.0.identifier.uuidString
+            }) as Int? else{
+
+                //if not exit just add and update UI
+                self.listPeripheral.append(peripheralModel)
+                return
+        }
+
+        //update RSSI number is enough
+        self.listPeripheral[indexOfExistModel].rssi = peripheralInfo.2
+        
     }
 }

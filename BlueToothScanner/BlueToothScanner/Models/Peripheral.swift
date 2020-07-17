@@ -6,7 +6,7 @@ public typealias PeripheralInfo = (CBPeripheral, [String : Any], NSNumber)
 
 struct PeripheralModel {
     var name: String?
-    var UUID: String?
+    var identifier: String?
     var rssi: NSNumber?
     var customeValue : [String: Any]?
     init?(info: PeripheralInfo) {
@@ -14,8 +14,8 @@ struct PeripheralModel {
             return nil
         }
         self.name = name
+        self.identifier = info.0.identifier.uuidString
         self.rssi = info.2
         self.customeValue = info.1
     }
 }
-
