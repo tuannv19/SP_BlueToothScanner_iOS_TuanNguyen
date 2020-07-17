@@ -5,15 +5,39 @@ class BluetoothViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var swithControll: UISwitch!
-    
+    @IBOutlet weak var bluetoothStateLabel: UILabel!
     
     lazy var viewmodel : BluetoothViewModel = {
-        let inputController = BluetoothViewModel.InputControll(
-            peripheralTableView: self.tableView,
-            swithScanStateController: self.swithControll
-        )
+        let vm  = BluetoothViewModel()
+        vm.bluetoothStateDidChange = { [unowned self] state in
+            var currentState: String
+            switch state {
+            case .poweredOff:
+                currentState = "poweredOff"
+            case .poweredOn:
+                currentState = "poweredOn"
+            case.unauthorized:
+                currentState = "unauthorized"
+            default:
+                currentState = "unknow"
+            }
+            self.bluetoothStateLabel.text = currentState
+        }
         
-        let vm  = BluetoothViewModel(input: inputController)
+        vm.reloadTableview = { [unowned self] in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        vm.bluetoothScanStateDidChange = { [unowned self] state in
+            DispatchQueue.main.async {
+                self.swithControll.setOn(state, animated: true)
+            }
+        }
+        
+        vm.initialBluetoothService()
+        
         return vm
     }()
     
@@ -38,7 +62,7 @@ class BluetoothViewController: UIViewController {
 
 extension BluetoothViewController {
     @IBAction func sliderStartsScanValueChanged(_ sender: UISwitch) {
-        self.viewmodel.isScanning = sender.isOn
+        self.viewmodel.scan(isScanning: sender.isOn)
     }
 }
 

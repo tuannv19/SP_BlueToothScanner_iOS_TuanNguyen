@@ -1,51 +1,37 @@
 import  CoreBluetooth
-import  UIKit
 
 class BluetoothViewModel{
     
-    struct InputControll {
-        var peripheralTableView: UITableView
-        var swithScanStateController: UISwitch
-    }
-    
-    //MARK: - Properties
-    var input : InputControll!
-    var isScanning: Bool = false {
+    //MARK: - Private Properties
+    private var isScanning: Bool = false {
         didSet {
-            if(isScanning){
-                self.startScan()
-            }else{
-                self.stopScan()
-            }
-            DispatchQueue.main.async {
-                self.input.swithScanStateController.setOn(self.isScanning, animated: true)
-            }
+            self.bluetoothScanStateDidChange?(isScanning)
         }
     }
     
-    var listPeripheral: [PeripheralModel] = [] {
+    private var bluetoothState : CBManagerState = .unknown {
         didSet {
-            DispatchQueue.main.async {
-                self.input.peripheralTableView.reloadData()
-            }
+            self.bluetoothStateDidChange?(bluetoothState)
         }
     }
     
+    //MARK: - public Properties
     var numbrOfPeripheralModel: Int {
         return self.listPeripheral.count
     }
-    
-    var bluetoothState : CBManagerState = .unknown {
+    var listPeripheral: [PeripheralModel] = [] {
         didSet {
-            print("State2: \(bluetoothState.rawValue)")
+            self.reloadTableview?()
         }
     }
+    var reloadTableview:(()->())?
+    var bluetoothScanStateDidChange: ((Bool)->())?
+    var bluetoothStateDidChange: ((CBManagerState)->())?
+    
     //MARK: - Bluetooth
     private let bluetoothService = BluetoothService.shared
     
-    
-    init(input: InputControll) {
-        self.input = input
+    func initialBluetoothService() {
         self.isScanning = self.bluetoothService.isScanning
         self.registerBluetoothServicesCallback()
     }
@@ -68,6 +54,14 @@ class BluetoothViewModel{
     }
 }
 extension BluetoothViewModel{
+    func scan(isScanning: Bool) {
+        self.isScanning = isScanning
+        if isScanning {
+            self.startScan()
+        }else {
+            self.stopScan()
+        }
+    }
     func startScan() {
         self.bluetoothService.startScan()
     }
@@ -86,12 +80,12 @@ extension BluetoothViewModel{
             .firstIndex(where: { (model: PeripheralModel) -> Bool in
                 model.identifier == peripheralInfo.0.identifier.uuidString
             }) as Int? else{
-
+                
                 //if not exit just add and update UI
                 self.listPeripheral.append(peripheralModel)
                 return
         }
-
+        
         //update RSSI number is enough
         self.listPeripheral[indexOfExistModel].rssi = peripheralInfo.2
         
