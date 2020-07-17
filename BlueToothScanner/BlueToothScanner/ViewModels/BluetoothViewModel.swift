@@ -12,10 +12,15 @@ class BluetoothViewModel{
     private var bluetoothState : CBManagerState = .unknown {
         didSet {
             self.bluetoothStateDidChange?(bluetoothState)
+            if(bluetoothState != .poweredOn && isScanning == true) {
+                // stop all services
+                self.stopScan()
+                self.isScanning = false
+            }
         }
     }
     
-    //MARK: - public Properties
+    //MARK: - Public Properties
     var numbrOfPeripheralModel: Int {
         return self.listPeripheral.count
     }
@@ -24,6 +29,8 @@ class BluetoothViewModel{
             self.reloadTableview?()
         }
     }
+
+    //MARK: - Clousure Properties
     var reloadTableview:(()->())?
     var bluetoothScanStateDidChange: ((Bool)->())?
     var bluetoothStateDidChange: ((CBManagerState)->())?

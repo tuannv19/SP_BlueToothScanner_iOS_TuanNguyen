@@ -7,6 +7,7 @@ class BluetoothViewController: UIViewController {
     @IBOutlet weak var switchControll: UISwitch!
     @IBOutlet weak var bluetoothStateLabel: UILabel!
     @IBOutlet weak var bluetoothScanIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var totalDeviceLabel: UILabel!
     
     
     lazy var viewmodel : BluetoothViewModel = {
@@ -34,12 +35,20 @@ class BluetoothViewController: UIViewController {
         vm.reloadTableview = { [unowned self] in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.totalDeviceLabel.text = " (number of devices:\(self.viewmodel.numbrOfPeripheralModel))"
             }
         }
         
-        vm.bluetoothScanStateDidChange = { [unowned self] state in
+        vm.bluetoothScanStateDidChange = { [unowned self] isScanning in
             DispatchQueue.main.async {
-                self.switchControll.setOn(state, animated: true)
+                self.switchControll.setOn(isScanning, animated: true)
+                if isScanning == true {
+                    self.bluetoothScanIndicator.startAnimating()
+                    self.bluetoothScanIndicator.isHidden = false
+                }else {
+                    self.bluetoothScanIndicator.stopAnimating()
+                    self.bluetoothScanIndicator.isHidden = true
+                }
             }
         }
         
@@ -53,6 +62,9 @@ class BluetoothViewController: UIViewController {
         
         self.tableView.delegate  = self
         self.tableView.dataSource = self
+        
+        //remove empty table cell
+        self.tableView.tableFooterView = UIView()
         
         self.tableView.register(
             UINib(nibName: "ScanDeviceTableViewCell", bundle: nil),
