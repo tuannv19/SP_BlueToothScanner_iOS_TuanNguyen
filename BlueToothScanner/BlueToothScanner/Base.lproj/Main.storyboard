@@ -30,6 +30,9 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vgr-uS-41R">
                                                 <rect key="frame" x="345" y="48.5" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="sliderStartsScanValueChanged:" destination="yFW-2u-h12" eventType="valueChanged" id="es4-mL-Bk5"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="18" left="20" bottom="8" right="20"/>
@@ -52,6 +55,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="a2N-0P-3TD"/>
                     <connections>
+                        <outlet property="swithControll" destination="vgr-uS-41R" id="mCT-Wk-zHM"/>
                         <outlet property="tableView" destination="AgX-5w-FIl" id="vma-NY-hyI"/>
                     </connections>
                 </viewController>
