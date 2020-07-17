@@ -17,8 +17,8 @@ class ScanDeviceTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     func loaddCell(with peripheralModel: PeripheralModel) {
-        lbName.text = peripheralModel.name ?? ""
-        lbRSSI.text = peripheralModel.rssi?.stringValue ?? ""
+        self.lbName.text = peripheralModel.name ?? ""
+        self.lbRSSI.text = peripheralModel.rssi?.stringValue ?? ""
     }
     
 }

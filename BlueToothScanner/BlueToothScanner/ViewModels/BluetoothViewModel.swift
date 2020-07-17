@@ -37,7 +37,9 @@ class BluetoothViewModel{
     
     //MARK: - Bluetooth
     private let bluetoothService = BluetoothService.shared
-    
+}
+
+extension BluetoothViewModel{
     func initialBluetoothService() {
         self.isScanning = self.bluetoothService.isScanning
         self.registerBluetoothServicesCallback()
@@ -60,6 +62,7 @@ class BluetoothViewModel{
         }
     }
 }
+
 extension BluetoothViewModel{
     func scan(isScanning: Bool) {
         self.isScanning = isScanning

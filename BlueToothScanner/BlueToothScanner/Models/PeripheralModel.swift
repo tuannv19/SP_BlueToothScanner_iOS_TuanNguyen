@@ -20,7 +20,7 @@ struct PeripheralModel {
         self.customeValue = info.1
     }
 
-    func prettyPrint()-> String{
+    func prettyString()-> String{
         let infor: [String]? = self.customeValue?.map { return ("\($0): \($1)") }
         let inforString = infor?.joined(separator: "\n")
         
