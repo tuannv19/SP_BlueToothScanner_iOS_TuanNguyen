@@ -19,6 +19,13 @@ public enum BLError : Error {
         }
     }
     case bluetoothUnavailable(reason: BLErrorReason)
+
+    var localizedDescription : String {
+        switch  self{
+        case .bluetoothUnavailable(reason: let reason):
+            return reason.localizedDescription
+        }
+    }
 }
 
 class BluetoothService : NSObject {

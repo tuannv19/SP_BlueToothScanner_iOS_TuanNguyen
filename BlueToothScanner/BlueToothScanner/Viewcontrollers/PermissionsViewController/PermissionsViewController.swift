@@ -6,7 +6,10 @@ class PermissionsViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.title = "BlueToothScanner"
+
         self.viewModel = PermissionViewModel()
+        
     }
     
     @IBAction func continueButtonDidClick(_ sender: Any) {
