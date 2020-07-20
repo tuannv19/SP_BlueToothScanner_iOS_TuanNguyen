@@ -1,6 +1,7 @@
 import Foundation
 
 class FillterSettingViewModel {
+    
     enum FillterModelError: Error {
         case fromMustLessThanTo
         var localizedDescription : String {
@@ -10,10 +11,16 @@ class FillterSettingViewModel {
     
     var didSendData: ((FilterModel) -> Void)?
 
+    var filterModel: FilterModel!
+    
+    init(model: FilterModel) {
+        self.filterModel = model
+    }
+
     func verifyBluetoothState(fromRSSI: Int?,
                 toRSSI: Int?,
-                fillterRSSI: Bool?,
-                fillterEmptyName: Bool?,
+                fillterRSSI: Bool,
+                fillterEmptyName: Bool,
                 completion:((FilterModel?, FillterModelError?)->Void)?){
         
         if let fromRSSI = fromRSSI, let toRSSI = toRSSI, fromRSSI > toRSSI {
@@ -21,10 +28,11 @@ class FillterSettingViewModel {
             return
         }
         
-        let fillterModel = FilterModel(rssiFrom: fromRSSI,
-                                       rssiTo: toRSSI,
-                                       fillterRSSI: fillterRSSI ?? false,
-                                       fillterEmptyName: fillterEmptyName ?? false)
-        completion?(fillterModel, nil)
+        self.filterModel.rssiFrom = fromRSSI
+        self.filterModel.rssiTo = toRSSI
+        self.filterModel.fillterRSSI = fillterRSSI
+        self.filterModel.fillterEmptyName = fillterEmptyName
+        
+        completion?(self.filterModel, nil)
     }
 }

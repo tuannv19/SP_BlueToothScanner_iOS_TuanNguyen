@@ -35,7 +35,7 @@ class BluetoothViewController: UIViewController {
         vm.reloadTableview = { [unowned self] in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.totalDeviceLabel.text = " (number of devices:\(self.viewmodel.numbrOfPeripheralModel))"
+                self.totalDeviceLabel.text = " (number of devices founded:\(self.viewmodel.numbrOfPeripheralModel))"
             }
         }
         
@@ -84,8 +84,10 @@ class BluetoothViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightBtn
     }
     @objc func  rightBarButtonCLick() {
-        let vc = FilterSettingViewController.Create()
-        vc.viewModel.didSendData = { [weak self] filterMode in
+        let viewModel = FillterSettingViewModel(model: self.viewmodel.fillterModel)
+        let vc = FilterSettingViewController.Create(viewModel: viewModel)
+
+        vc.viewModel?.didSendData = { [weak self] filterMode in
             guard let self = self  else {
                 return
             }

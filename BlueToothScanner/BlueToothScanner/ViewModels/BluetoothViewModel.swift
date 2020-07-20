@@ -46,6 +46,7 @@ extension BluetoothViewModel{
     func initialBluetoothService() {
         self.isScanning = self.bluetoothService.isScanning
         self.registerBluetoothServicesCallback()
+        self.bluetoothState = self.bluetoothService.state
     }
     
     private func registerBluetoothServicesCallback(){
@@ -112,25 +113,28 @@ extension BluetoothViewModel{
     
     internal func applyFilter() ->  [PeripheralModel] {
         let v = self.peripheralInfos.filter { (peripheralInfo) -> Bool in
-            var fromFilterCondition = true
-            var toFilterCondition = true
-            var nameFilterCondition = true
-
+            
+            if self.fillterModel.fillterEmptyName  {
+                guard let _ = peripheralInfo.0.name else {
+                    return false
+                }
+            }
+            
             if self.fillterModel.fillterRSSI {
                 if let rssiFrom = fillterModel.rssiFrom {
-                    fromFilterCondition = rssiFrom <= peripheralInfo.2.intValue
+                    guard rssiFrom < peripheralInfo.2.intValue else {
+                        return false
+                    }
                 }
                 
-                if let rssiToo = fillterModel.rssiFrom {
-                    toFilterCondition = rssiToo >= peripheralInfo.2.intValue
+                if let rssiToo = fillterModel.rssiTo {
+                    guard rssiToo > peripheralInfo.2.intValue else {
+                        return false
+                    }
                 }
             }
             
-            if self.fillterModel.fillterEmptyName {
-                nameFilterCondition = peripheralInfo.0.name != nil
-            }
-            
-            return fromFilterCondition && toFilterCondition && nameFilterCondition
+            return true
         }
 
         return v.compactMap { (info: PeripheralInfo) -> PeripheralModel? in
