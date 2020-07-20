@@ -12,8 +12,10 @@ class PeripheralViewController: UIViewController {
         }
         
     }
-    
-    //MARK: - Factory
+}
+
+//MARK: - Factory
+extension PeripheralViewController {
     static func Create(peripheral: PeripheralModel)-> PeripheralViewController {
         let vm = PeripheralViewModel(peripheralModel: peripheral)
         
@@ -23,5 +25,5 @@ class PeripheralViewController: UIViewController {
             ) as! PeripheralViewController
         vc.viewModel = vm
         return vc
-    }
+    }    
 }

@@ -14,6 +14,8 @@
 		DB267DFD24C18B03004C83B2 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267DFC24C18B03004C83B2 /* UIViewController.swift */; };
 		DB267E0024C1A588004C83B2 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267DFF24C1A588004C83B2 /* PeripheralViewController.swift */; };
 		DB267E0224C1A929004C83B2 /* PeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267E0124C1A929004C83B2 /* PeripheralViewModel.swift */; };
+		DB28F15C24C5325E00908C31 /* PermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB28F15B24C5325E00908C31 /* PermissionsViewController.swift */; };
+		DB28F15E24C533F000908C31 /* PermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB28F15D24C533F000908C31 /* PermissionViewModel.swift */; };
 		DBE7188524C011E500EB9734 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE7188424C011E500EB9734 /* AppDelegate.swift */; };
 		DBE7188C24C011E500EB9734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE7188A24C011E500EB9734 /* Main.storyboard */; };
 		DBE7188E24C011E700EB9734 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBE7188D24C011E700EB9734 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 		DB267DFC24C18B03004C83B2 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DB267DFF24C1A588004C83B2 /* PeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
 		DB267E0124C1A929004C83B2 /* PeripheralViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewModel.swift; sourceTree = "<group>"; };
+		DB28F15B24C5325E00908C31 /* PermissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsViewController.swift; sourceTree = "<group>"; };
+		DB28F15D24C533F000908C31 /* PermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionViewModel.swift; sourceTree = "<group>"; };
 		DBE7188124C011E500EB9734 /* BlueToothScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueToothScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE7188424C011E500EB9734 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBE7188B24C011E500EB9734 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 			children = (
 				DB267DFE24C1A563004C83B2 /* PeripheralViewController */,
 				DB267DE624C13F0B004C83B2 /* BluetoothViewController */,
+				DB28F15B24C5325E00908C31 /* PermissionsViewController.swift */,
 			);
 			path = Viewcontrollers;
 			sourceTree = "<group>";
@@ -188,6 +193,7 @@
 			children = (
 				DBE718AE24C0171700EB9734 /* BluetoothViewModel.swift */,
 				DB267E0124C1A929004C83B2 /* PeripheralViewModel.swift */,
+				DB28F15D24C533F000908C31 /* PermissionViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -296,9 +302,11 @@
 			files = (
 				DB267DF124C15424004C83B2 /* PeripheralModel.swift in Sources */,
 				DB267DEE24C14BFC004C83B2 /* ScanDeviceTableViewCell.swift in Sources */,
+				DB28F15E24C533F000908C31 /* PermissionViewModel.swift in Sources */,
 				DBE718AC24C014FA00EB9734 /* BluetoothViewController.swift in Sources */,
 				DBE718AF24C0171700EB9734 /* BluetoothViewModel.swift in Sources */,
 				DB267E0024C1A588004C83B2 /* PeripheralViewController.swift in Sources */,
+				DB28F15C24C5325E00908C31 /* PermissionsViewController.swift in Sources */,
 				DB267E0224C1A929004C83B2 /* PeripheralViewModel.swift in Sources */,
 				DB267DF424C15F2B004C83B2 /* BluetoothService.swift in Sources */,
 				DB267DFD24C18B03004C83B2 /* UIViewController.swift in Sources */,

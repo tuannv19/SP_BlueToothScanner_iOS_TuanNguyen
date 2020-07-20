@@ -29,7 +29,7 @@ class BluetoothViewModel{
             self.reloadTableview?()
         }
     }
-
+    
     //MARK: - Clousure Properties
     var reloadTableview:(()->())?
     var bluetoothScanStateDidChange: ((Bool)->())?
@@ -58,6 +58,10 @@ extension BluetoothViewModel{
             guard let self = self else {
                 return
             }
+            //bluetooth distance
+            //            if let power = peripheralInfo.1[CBAdvertisementDataTxPowerLevelKey] as? Double{
+            //                print("Distance is ", pow(10, ((power - Double(truncating: peripheralInfo.2))/20)))
+            //            }
             self.addOrUpdatePeripheralIfNeed(peripheralInfo: peripheralInfo)
         }
     }

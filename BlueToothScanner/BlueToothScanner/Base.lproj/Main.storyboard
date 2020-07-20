@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9cX-it-GcJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -135,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lwu-Xh-Iez" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="400.00000000000006" y="-635.49107142857144"/>
+            <point key="canvasLocation" x="194" y="-636"/>
         </scene>
         <!--Peripheral View Controller-->
         <scene sceneID="0Vf-EN-dEv">
@@ -171,6 +171,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pLs-m3-hmX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1070" y="-635"/>
+        </scene>
+        <!--Permissions View Controller-->
+        <scene sceneID="09X-td-UBJ">
+            <objects>
+                <viewController storyboardIdentifier="PermissionsViewController" id="snX-20-iFd" customClass="PermissionsViewController" customModule="BlueToothScanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fb8-8v-Lb6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ensure you has given all permissions to proceed on to the next screen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ha-Ts-Vos">
+                                <rect key="frame" x="10" y="54" width="394" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="ZBG-I8-IGa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rjC-iJ-pnc">
+                                <rect key="frame" x="10" y="812" width="394" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="LmI-mB-K70"/>
+                                </constraints>
+                                <state key="normal" title="Continue"/>
+                                <connections>
+                                    <action selector="continueButtonDidClick:" destination="snX-20-iFd" eventType="touchUpInside" id="K9G-qx-UHw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="rjC-iJ-pnc" firstAttribute="leading" secondItem="wvj-ai-tbj" secondAttribute="leading" constant="10" id="2BN-8M-EL0"/>
+                            <constraint firstItem="wvj-ai-tbj" firstAttribute="trailing" secondItem="rjC-iJ-pnc" secondAttribute="trailing" constant="10" id="8UR-TJ-0Rs"/>
+                            <constraint firstItem="3Ha-Ts-Vos" firstAttribute="leading" secondItem="wvj-ai-tbj" secondAttribute="leading" constant="10" id="BGb-aB-Ruo"/>
+                            <constraint firstItem="rjC-iJ-pnc" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3Ha-Ts-Vos" secondAttribute="bottom" multiplier="50" priority="750" constant="8" symbolic="YES" id="IHr-K7-xjh"/>
+                            <constraint firstItem="rjC-iJ-pnc" firstAttribute="top" secondItem="3Ha-Ts-Vos" secondAttribute="bottom" constant="8" symbolic="YES" id="L6M-FY-f1p"/>
+                            <constraint firstItem="wvj-ai-tbj" firstAttribute="trailing" secondItem="3Ha-Ts-Vos" secondAttribute="trailing" constant="10" id="Rz7-lA-YDW"/>
+                            <constraint firstItem="wvj-ai-tbj" firstAttribute="bottom" secondItem="rjC-iJ-pnc" secondAttribute="bottom" constant="10" id="fIt-Qv-Nd4"/>
+                            <constraint firstItem="3Ha-Ts-Vos" firstAttribute="top" secondItem="wvj-ai-tbj" secondAttribute="top" constant="10" id="ilD-uk-w9E"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wvj-ai-tbj"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="L6M-FY-f1p"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <size key="freeformSize" width="414" height="896"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Qz-4y-kYd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1216" y="-636"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qxb-6L-Jx0">

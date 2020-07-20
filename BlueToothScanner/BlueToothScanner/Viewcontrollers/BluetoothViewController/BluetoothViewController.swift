@@ -107,3 +107,17 @@ extension BluetoothViewController: UITableViewDataSource{
     }
     
 }
+
+//MARK: - Factory
+extension BluetoothViewController {
+    static func Create()-> BluetoothViewController {
+        let vm = BluetoothViewModel()
+        
+        let sb = UIStoryboard.init(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewController(
+            withIdentifier: "BluetoothViewController"
+            ) as! BluetoothViewController
+        vc.viewmodel = vm
+        return vc
+    }
+}
