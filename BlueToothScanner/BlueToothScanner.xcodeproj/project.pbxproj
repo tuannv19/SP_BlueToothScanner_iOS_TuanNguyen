@@ -76,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB2060EA24C53E66009E94B0 /* PermissionsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DB28F15B24C5325E00908C31 /* PermissionsViewController.swift */,
+			);
+			path = PermissionsViewController;
+			sourceTree = "<group>";
+		};
 		DB267DE624C13F0B004C83B2 /* BluetoothViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,9 +174,9 @@
 		DBE718A624C011FD00EB9734 /* Viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				DB2060EA24C53E66009E94B0 /* PermissionsViewController */,
 				DB267DFE24C1A563004C83B2 /* PeripheralViewController */,
 				DB267DE624C13F0B004C83B2 /* BluetoothViewController */,
-				DB28F15B24C5325E00908C31 /* PermissionsViewController.swift */,
 			);
 			path = Viewcontrollers;
 			sourceTree = "<group>";

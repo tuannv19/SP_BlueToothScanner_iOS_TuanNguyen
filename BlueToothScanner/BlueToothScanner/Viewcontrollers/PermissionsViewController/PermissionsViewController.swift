@@ -13,7 +13,8 @@ class PermissionsViewController: UIViewController {
         self.viewModel?.verifyAndprocessNextScreen(completion: { (error) in
             guard let error = error else {
                 let vc = BluetoothViewController.Create()
-                UIApplication.shared.keyWindow?.rootViewController = vc
+                let nav = UINavigationController(rootViewController: vc)
+                UIApplication.shared.keyWindow?.rootViewController = nav
                 UIApplication.shared.keyWindow?.makeKeyAndVisible()
 
                 return
