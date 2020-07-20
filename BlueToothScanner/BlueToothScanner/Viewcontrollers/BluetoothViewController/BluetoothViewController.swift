@@ -83,7 +83,7 @@ extension BluetoothViewController {
 extension BluetoothViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let model  = viewmodel.listPeripheral[indexPath.row]
+        let model  = viewmodel.peripherals[indexPath.row]
         let vc = PeripheralViewController.Create(peripheral: model)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -100,7 +100,7 @@ extension BluetoothViewController: UITableViewDataSource{
             for: indexPath
             ) as! ScanDeviceTableViewCell
         
-        let model  = viewmodel.listPeripheral[indexPath.row]
+        let model  = viewmodel.peripherals[indexPath.row]
         cell.loaddCell(with: model)
         return cell
         

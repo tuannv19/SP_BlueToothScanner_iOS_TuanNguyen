@@ -11,10 +11,8 @@ struct PeripheralModel {
     var customeValue : [String: Any]?
 
     init?(info: PeripheralInfo) {
-        guard let name = info.0.name else {
-            return nil
-        }
-        self.name = name
+
+        self.name = info.0.name
         self.identifier = info.0.identifier.uuidString
         self.rssi = info.2
         self.customeValue = info.1

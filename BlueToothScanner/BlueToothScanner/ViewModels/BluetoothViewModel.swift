@@ -22,9 +22,9 @@ class BluetoothViewModel{
     
     //MARK: - Public Properties
     var numbrOfPeripheralModel: Int {
-        return self.listPeripheral.count
+        return self.peripherals.count
     }
-    var listPeripheral: [PeripheralModel] = [] {
+    var peripherals: [PeripheralModel] = [] {
         didSet {
             self.reloadTableview?()
         }
@@ -37,6 +37,9 @@ class BluetoothViewModel{
     
     //MARK: - Bluetooth
     private let bluetoothService = BluetoothService.shared
+    private var peripheralInfos = [PeripheralInfo]()
+    
+    var fillterModel = FilterModel()
 }
 
 extension BluetoothViewModel{
@@ -85,23 +88,55 @@ extension BluetoothViewModel{
     }
     func addOrUpdatePeripheralIfNeed(peripheralInfo: PeripheralInfo) {
         
-        guard let peripheralModel = PeripheralModel(info: peripheralInfo) else {
-            return
-        }
-        
         //check if Peripheral had existing
-        guard let indexOfExistPeripheral = self.listPeripheral
-            .firstIndex(where: { (model: PeripheralModel) -> Bool in
-                model.identifier == peripheralInfo.0.identifier.uuidString
+        guard let indexOfExistPeripheral = self.peripheralInfos
+            .firstIndex(where: { (model: PeripheralInfo) -> Bool in
+                model.0.identifier.uuidString == peripheralInfo.0.identifier.uuidString
             }) as Int? else{
                 
                 //if not exit just add and update UI
-                self.listPeripheral.append(peripheralModel)
+                self.peripheralInfos.append(peripheralInfo)
                 return
         }
         
-        //update RSSI number is enough
-        self.listPeripheral[indexOfExistPeripheral].rssi = peripheralInfo.2
+        //update peripheral data
+        // RSSI
+        self.peripheralInfos[indexOfExistPeripheral].2 = peripheralInfo.2
         
+        //fillter data
+        self.peripherals = self.applyFilter()
+        
+    }
+    
+    func applyFilter() ->  [PeripheralModel] {
+        let v = self.peripheralInfos.filter { (peripheralInfo) -> Bool in
+            var fromFilter = true
+            var toFilter = true
+            var nameFilter = true
+
+            if self.fillterModel.fillterRSSI {
+                if let rssiFrom = fillterModel.rssiFrom {
+                    fromFilter = rssiFrom < peripheralInfo.2.intValue
+                }
+                
+                if let rssiToo = fillterModel.rssiFrom {
+                    toFilter = rssiToo > peripheralInfo.2.intValue
+                }
+            }
+            
+            if self.fillterModel.fillterEmptyName {
+                nameFilter = peripheralInfo.0.name != nil
+            }
+            
+            return fromFilter && toFilter && nameFilter
+        }
+
+        return v.compactMap { (info: PeripheralInfo) -> PeripheralModel? in
+            var model = PeripheralModel(info: info)
+            if(model?.name == nil) {
+                model?.name = info.0.identifier.uuidString
+            }
+            return model
+        }
     }
 }
