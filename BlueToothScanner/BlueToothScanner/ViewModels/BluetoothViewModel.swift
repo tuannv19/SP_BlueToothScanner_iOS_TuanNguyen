@@ -61,10 +61,7 @@ extension BluetoothViewModel{
             guard let self = self else {
                 return
             }
-            //bluetooth distance
-            //            if let power = peripheralInfo.1[CBAdvertisementDataTxPowerLevelKey] as? Double{
-            //                print("Distance is ", pow(10, ((power - Double(truncating: peripheralInfo.2))/20)))
-            //            }
+
             self.addOrUpdatePeripheralIfNeed(peripheralInfo: peripheralInfo)
         }
     }
@@ -86,7 +83,12 @@ extension BluetoothViewModel{
     func stopScan() {
         self.bluetoothService.stopScan()
     }
-    func addOrUpdatePeripheralIfNeed(peripheralInfo: PeripheralInfo) {
+    func applyNewFilter(fillterModel: FilterModel) {
+        self.fillterModel = fillterModel
+        self.peripherals = self.applyFilter()
+    }
+
+    internal func addOrUpdatePeripheralIfNeed(peripheralInfo: PeripheralInfo) {
         
         //check if Peripheral had existing
         guard let indexOfExistPeripheral = self.peripheralInfos
@@ -108,27 +110,27 @@ extension BluetoothViewModel{
         
     }
     
-    func applyFilter() ->  [PeripheralModel] {
+    internal func applyFilter() ->  [PeripheralModel] {
         let v = self.peripheralInfos.filter { (peripheralInfo) -> Bool in
-            var fromFilter = true
-            var toFilter = true
-            var nameFilter = true
+            var fromFilterCondition = true
+            var toFilterCondition = true
+            var nameFilterCondition = true
 
             if self.fillterModel.fillterRSSI {
                 if let rssiFrom = fillterModel.rssiFrom {
-                    fromFilter = rssiFrom < peripheralInfo.2.intValue
+                    fromFilterCondition = rssiFrom <= peripheralInfo.2.intValue
                 }
                 
                 if let rssiToo = fillterModel.rssiFrom {
-                    toFilter = rssiToo > peripheralInfo.2.intValue
+                    toFilterCondition = rssiToo >= peripheralInfo.2.intValue
                 }
             }
             
             if self.fillterModel.fillterEmptyName {
-                nameFilter = peripheralInfo.0.name != nil
+                nameFilterCondition = peripheralInfo.0.name != nil
             }
             
-            return fromFilter && toFilter && nameFilter
+            return fromFilterCondition && toFilterCondition && nameFilterCondition
         }
 
         return v.compactMap { (info: PeripheralInfo) -> PeripheralModel? in

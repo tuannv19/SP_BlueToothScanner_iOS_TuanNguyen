@@ -10,7 +10,7 @@ class FillterSettingViewModel {
     
     var didSendData: ((FilterModel) -> Void)?
 
-    func verify(fromRSSI: Int?,
+    func verifyBluetoothState(fromRSSI: Int?,
                 toRSSI: Int?,
                 fillterRSSI: Bool?,
                 fillterEmptyName: Bool?,

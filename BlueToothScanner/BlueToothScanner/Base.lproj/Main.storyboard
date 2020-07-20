@@ -11,7 +11,7 @@
         <!--Bluetooth View Controller-->
         <scene sceneID="clB-Od-Ojc">
             <objects>
-                <viewController storyboardIdentifier="BluetoothViewController" id="yFW-2u-h12" customClass="BluetoothViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BluetoothViewController" id="yFW-2u-h12" customClass="BluetoothViewController" customModule="BlueToothScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6AO-Ia-ZjY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -135,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lwu-Xh-Iez" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1102.8985507246377" y="-636.16071428571422"/>
+            <point key="canvasLocation" x="1280" y="-652"/>
         </scene>
         <!--Peripheral View Controller-->
         <scene sceneID="0Vf-EN-dEv">
@@ -170,12 +170,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pLs-m3-hmX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1979.7101449275365" y="-635.49107142857144"/>
+            <point key="canvasLocation" x="1983" y="-652"/>
         </scene>
-        <!--Fillter Setting View Controller-->
+        <!--Filter Setting View Controller-->
         <scene sceneID="M2M-jX-pen">
             <objects>
-                <viewController storyboardIdentifier="FillterSettingViewController" id="VHF-2F-sb5" customClass="FillterSettingViewController" customModule="BlueToothScanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FillterSettingViewController" id="VHF-2F-sb5" customClass="FilterSettingViewController" customModule="BlueToothScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bmB-ec-Qob">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -288,7 +288,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nzR-pO-6fc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2713.04347826087" y="-635.49107142857144"/>
+            <point key="canvasLocation" x="2823" y="-652"/>
         </scene>
         <!--Permissions View Controller-->
         <scene sceneID="09X-td-UBJ">

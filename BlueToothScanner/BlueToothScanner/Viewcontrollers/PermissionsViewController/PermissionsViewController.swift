@@ -14,20 +14,16 @@ class PermissionsViewController: UIViewController {
     
     @IBAction func continueButtonDidClick(_ sender: Any) {
         self.viewModel?.verifyAndprocessNextScreen(completion: { (error) in
-            guard let error = error else {
+//            guard let error = error else {
                 let vc = BluetoothViewController.Create()
                 let nav = UINavigationController(rootViewController: vc)
                 UIApplication.shared.keyWindow?.rootViewController = nav
                 UIApplication.shared.keyWindow?.makeKeyAndVisible()
 
-                return
-            }
-            
+//                return
+//            }
+//
 //            self.showAlert(title: "Error", message: error.localizedDescription)
-            let vc = FillterSettingViewController.Create()
-            vc.modalPresentationStyle = .overFullScreen
-            vc.modalTransitionStyle = .crossDissolve
-            self.present(vc, animated: true)
         })
     }
 }

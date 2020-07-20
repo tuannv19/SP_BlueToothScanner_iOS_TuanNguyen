@@ -60,6 +60,10 @@ class BluetoothViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupNavigationBarButton()
+        self.setupTableView()
+    }
+    func setupTableView() {
         self.tableView.delegate  = self
         self.tableView.dataSource = self
         
@@ -72,6 +76,26 @@ class BluetoothViewController: UIViewController {
         )
         self.tableView.reloadData()
     }
+    
+    func setupNavigationBarButton() {
+        let rightBtn = UIBarButtonItem(title: "Filter",
+                                       style: .plain,
+                                       target: self, action: #selector(rightBarButtonCLick))
+        self.navigationItem.rightBarButtonItem = rightBtn
+    }
+    @objc func  rightBarButtonCLick() {
+        let vc = FilterSettingViewController.Create()
+        vc.viewModel.didSendData = { [weak self] filterMode in
+            guard let self = self  else {
+                return
+            }
+            self.viewmodel.applyNewFilter(fillterModel: filterMode)
+        }
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .crossDissolve
+        self.present(vc, animated: true)
+    }
+    
 }
 
 extension BluetoothViewController {

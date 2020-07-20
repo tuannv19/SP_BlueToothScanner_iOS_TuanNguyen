@@ -1,10 +1,11 @@
 import UIKit
 
-class FillterSettingViewController: UIViewController {
+class FilterSettingViewController: UIViewController {
     @IBOutlet weak var rssiFromTextField: UITextField!
     @IBOutlet weak var rssiToTextField: UITextField!
     @IBOutlet weak var rssiSwitchControll: UISwitch!
     @IBOutlet weak var emptyDeviceNameSwitchControll: UISwitch!
+    internal static let MaxNumCharacters = 5
     
     let viewModel = FillterSettingViewModel()
     
@@ -18,7 +19,7 @@ class FillterSettingViewController: UIViewController {
     
     @IBAction func applyButtonDidclick(_ sender: Any) {
         self.viewModel
-            .verify(fromRSSI: Int( self.rssiFromTextField.text!) ?? nil,
+            .verifyBluetoothState(fromRSSI: Int( self.rssiFromTextField.text!) ?? nil,
                     toRSSI: Int(self.rssiToTextField.text!) ?? nil,
                     fillterRSSI: self.rssiSwitchControll.isOn,
                     fillterEmptyName: self.emptyDeviceNameSwitchControll.isOn
@@ -50,13 +51,19 @@ class FillterSettingViewController: UIViewController {
     
 }
 
-extension FillterSettingViewController: UITextFieldDelegate {
+extension FilterSettingViewController: UITextFieldDelegate {
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
+        
+        let newLength = textField.text!.count + string.count - range.length
+        if (newLength >= Self.MaxNumCharacters){
+            return false
+        }
+        
         if string == "-", range.location != 0 {
             return false
         }
@@ -68,13 +75,13 @@ extension FillterSettingViewController: UITextFieldDelegate {
 }
 
 //MARK: - Factory
-extension FillterSettingViewController {
-    static func Create()-> FillterSettingViewController {
+extension FilterSettingViewController {
+    static func Create()-> FilterSettingViewController {
         
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
             withIdentifier: "FillterSettingViewController"
-            ) as! FillterSettingViewController
+            ) as! FilterSettingViewController
         return vc
     }
 }
