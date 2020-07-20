@@ -23,7 +23,11 @@ class PermissionsViewController: UIViewController {
                 return
             }
             
-            self.showAlert(title: "Error", message: error.localizedDescription)
+//            self.showAlert(title: "Error", message: error.localizedDescription)
+            let vc = FillterSettingViewController.Create()
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true)
         })
     }
 }
