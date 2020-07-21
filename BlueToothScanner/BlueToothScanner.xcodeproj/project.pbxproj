@@ -37,7 +37,7 @@
 		DB837B5D24C6857800AB922F /* UserProfileViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */; };
 		DB837B6124C6876100AB922F /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6024C6876100AB922F /* UserProfileViewModel.swift */; };
 		DB837B6324C68E6000AB922F /* UserProfileViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6224C68E6000AB922F /* UserProfileViewModelTest.swift */; };
-		DB837B6724C6C3C300AB922F /* FillterSettingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6624C6C3C300AB922F /* FillterSettingViewModelTests.swift */; };
+		DBB5454A24C6CE1C009E9796 /* UserInfoTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5454924C6CE1C009E9796 /* UserInfoTest.swift */; };
 		DBE7188524C011E500EB9734 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE7188424C011E500EB9734 /* AppDelegate.swift */; };
 		DBE7188C24C011E500EB9734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE7188A24C011E500EB9734 /* Main.storyboard */; };
 		DBE7188E24C011E700EB9734 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBE7188D24C011E700EB9734 /* Assets.xcassets */; };
@@ -88,7 +88,7 @@
 		DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewControllerTest.swift; sourceTree = "<group>"; };
 		DB837B6024C6876100AB922F /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		DB837B6224C68E6000AB922F /* UserProfileViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModelTest.swift; sourceTree = "<group>"; };
-		DB837B6624C6C3C300AB922F /* FillterSettingViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FillterSettingViewModelTests.swift; path = BlueToothScannerTests/ViewModels/FillterSettingViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		DBB5454924C6CE1C009E9796 /* UserInfoTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoTest.swift; sourceTree = "<group>"; };
 		DBE7188124C011E500EB9734 /* BlueToothScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueToothScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE7188424C011E500EB9734 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBE7188B24C011E500EB9734 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -248,10 +248,10 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		DB837B6524C6C3B900AB922F /* Model */ = {
+		DBB5454824C6CE0B009E9796 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DB837B6624C6C3C300AB922F /* FillterSettingViewModelTests.swift */,
+				DBB5454924C6CE1C009E9796 /* UserInfoTest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,7 +295,7 @@
 		DBE7189A24C011E800EB9734 /* BlueToothScannerTests */ = {
 			isa = PBXGroup;
 			children = (
-				DB837B6524C6C3B900AB922F /* Model */,
+				DBB5454824C6CE0B009E9796 /* Model */,
 				DB57C06824C67F5F00AFF765 /* Resources */,
 				DB20611124C612B3009E94B0 /* Helper */,
 				DB20610E24C60BFE009E94B0 /* Exentions */,
@@ -505,11 +505,11 @@
 				DB20611024C60C0E009E94B0 /* UserInfoServiceTest.swift in Sources */,
 				DB20610D24C5FAB7009E94B0 /* NetworkingTest.swift in Sources */,
 				DB2060FC24C583B9009E94B0 /* FilterSettingViewControllerTests.swift in Sources */,
-				DB837B6724C6C3C300AB922F /* FillterSettingViewModelTests.swift in Sources */,
 				DB2060F924C57F0B009E94B0 /* FilterSettingViewModelTests.swift in Sources */,
 				DB20610A24C5F933009E94B0 /* BluetoothServiceTest.swift in Sources */,
 				DB837B6324C68E6000AB922F /* UserProfileViewModelTest.swift in Sources */,
 				DB20610724C5EBC2009E94B0 /* PermissionViewModelTests.swift in Sources */,
+				DBB5454A24C6CE1C009E9796 /* UserInfoTest.swift in Sources */,
 				DB2060F724C57ECA009E94B0 /* PeripheralViewModelTests.swift in Sources */,
 				DB57C06724C67EE600AFF765 /* MockURLProtocol.swift in Sources */,
 				DB837B5D24C6857800AB922F /* UserProfileViewControllerTest.swift in Sources */,

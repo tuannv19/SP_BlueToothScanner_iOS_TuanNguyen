@@ -37,10 +37,7 @@ class FilterSettingViewController: UIViewController {
                                   toRSSI: Int(self.rssiToTextField.text!) ?? nil,
                                   fillterRSSI: self.rssiSwitchControll.isOn,
                                   fillterEmptyName: self.emptyDeviceNameSwitchControll.isOn
-            ) { [ weak self] (model, error) in
-                guard let self  = self else {
-                    return
-                }
+            ) { [ unowned self] (model, error) in
                 if let  model = model {
                     self.viewModel?.didSendData?(model)
                     self.dismissAndCLoseKeyboad()
