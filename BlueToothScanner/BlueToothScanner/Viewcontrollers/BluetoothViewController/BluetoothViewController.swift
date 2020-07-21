@@ -4,12 +4,12 @@ import CoreBluetooth
 class BluetoothViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var switchControll: UISwitch!
+    @IBOutlet weak var switchControl: UISwitch!
     @IBOutlet weak var bluetoothStateLabel: UILabel!
     @IBOutlet weak var bluetoothScanIndicator: UIActivityIndicatorView!
     @IBOutlet weak var totalDeviceLabel: UILabel!
 
-    lazy var viewmodel: BluetoothViewModel = {
+    lazy var viewModel: BluetoothViewModel = {
         let vm  = BluetoothViewModel()
 
         vm.bluetoothStateDidChange = { [unowned self] state in
@@ -17,16 +17,16 @@ class BluetoothViewController: UIViewController {
             switch state {
             case .poweredOff:
                 currentState = "poweredOff"
-                self.switchControll.isEnabled = false
+                self.switchControl.isEnabled = false
             case .poweredOn:
                 currentState = "poweredOn"
-                self.switchControll.isEnabled = true
+                self.switchControl.isEnabled = true
             case.unauthorized:
                 currentState = "unauthorized"
-                self.switchControll.isEnabled = false
+                self.switchControl.isEnabled = false
             default:
-                currentState = "unknow"
-                self.switchControll.isEnabled = false
+                currentState = "unknown"
+                self.switchControl.isEnabled = false
             }
             self.bluetoothStateLabel.text = currentState
         }
@@ -34,13 +34,13 @@ class BluetoothViewController: UIViewController {
         vm.reloadTableview = { [unowned self] in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.totalDeviceLabel.text = " (number of devices founded:\(self.viewmodel.numbrOfPeripheralModel))"
+                self.totalDeviceLabel.text = " (number of devices founded:\(self.viewModel.numberOfPeripheralModel))"
             }
         }
 
         vm.bluetoothScanStateDidChange = { [unowned self] isScanning in
             DispatchQueue.main.async {
-                self.switchControll.setOn(isScanning, animated: true)
+                self.switchControl.setOn(isScanning, animated: true)
                 if isScanning == true {
                     self.bluetoothScanIndicator.startAnimating()
                     self.bluetoothScanIndicator.isHidden = false
@@ -78,20 +78,20 @@ class BluetoothViewController: UIViewController {
     }
 
     func setupNavigationBarButton() {
-        let rightBtn = UIBarButtonItem(title: "Filter",
+        let rightButton = UIBarButtonItem(title: "Filter",
                                        style: .plain,
                                        target: self, action: #selector(rightBarButtonCLick))
-        self.navigationItem.rightBarButtonItem = rightBtn
+        self.navigationItem.rightBarButtonItem = rightButton
     }
     @objc func  rightBarButtonCLick() {
-        let viewModel = FillterSettingViewModel(model: self.viewmodel.fillterModel)
+        let viewModel = FilterSettingViewModel(model: self.viewModel.filterModel)
         let vc = FilterSettingViewController.create(viewModel: viewModel)
 
         vc.viewModel?.didSendData = { [weak self] filterMode in
             guard let self = self  else {
                 return
             }
-            self.viewmodel.applyNewFilter(fillterModel: filterMode)
+            self.viewModel.applyNewFilter(filterModel: filterMode)
         }
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .crossDissolve
@@ -102,14 +102,14 @@ class BluetoothViewController: UIViewController {
 
 extension BluetoothViewController {
     @IBAction func sliderStartsScanValueChanged(_ sender: UISwitch) {
-        self.viewmodel.scan(isScanning: sender.isOn)
+        self.viewModel.scan(isScanning: sender.isOn)
     }
 }
 
 extension BluetoothViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let model  = viewmodel.peripherals[indexPath.row]
+        let model  = viewModel.peripherals[indexPath.row]
         let vc = PeripheralViewController.create(peripheral: model)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -120,7 +120,7 @@ extension BluetoothViewController: UITableViewDelegate {
 
 extension BluetoothViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewmodel.numbrOfPeripheralModel
+        return self.viewModel.numberOfPeripheralModel
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,9 +129,9 @@ extension BluetoothViewController: UITableViewDataSource {
             for: indexPath
             ) as! ScanDeviceTableViewCell
 
-        let model  = viewmodel.peripherals[indexPath.row]
-        cell.lbName.text = model.name ?? ""
-        cell.lbRSSI.text = model.rssi?.stringValue
+        let model  = viewModel.peripherals[indexPath.row]
+        cell.nameLabel.text = model.name ?? ""
+        cell.rssiLabel.text = model.rssi?.stringValue
         return cell
     }
 

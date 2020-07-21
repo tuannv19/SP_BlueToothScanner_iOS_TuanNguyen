@@ -7,7 +7,7 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var companyLabel: UILabel!
-    @IBOutlet weak var lodadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var stackView: UIStackView!
 
     let viewModel = UserProfileViewModel(
@@ -36,21 +36,21 @@ class UserProfileViewController: UIViewController {
         self.viewModel.isFetchDataDidChange = { [unowned self] isFetchingData in
             if isFetchingData {
                 self.stackView.isHidden = true
-                self.lodadingIndicator.startAnimating()
+                self.loadingIndicator.startAnimating()
             } else {
                 self.stackView.isHidden = false
-                self.lodadingIndicator.stopAnimating()
+                self.loadingIndicator.stopAnimating()
             }
         }
 
-        self.viewModel.errorHasOcur = { [unowned self] error in
+        self.viewModel.errorHasOccur = { [unowned self] error in
             DispatchQueue.main.async {
-                self.lodadingIndicator.stopAnimating()
+                self.loadingIndicator.stopAnimating()
                 self.showAlert(title: "Error", message: error.localizedDescription)
                 self.stackView.isHidden = true
             }
         }
-        self.viewModel.avartarDidChange = { [unowned self] image in
+        self.viewModel.avatarDidChange = { [unowned self] image in
             self.avatarImageView.image = image
         }
 

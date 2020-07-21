@@ -62,4 +62,29 @@ class UserProfileViewModelTest: XCTestCase {
         XCTAssertNotNil(self.viewModel.error)
 
     }
+
+    static func mockURLProtocolGetImage() -> ((URLRequest) throws -> (HTTPURLResponse, Data?))? {
+        return { request in
+            let response = HTTPURLResponse(url: URL(string: "https://api.adorable.io/avatars/285/Sincere@spdigital.sg.png")!,
+                                           statusCode: 200,
+                                           httpVersion: nil,
+                                           headerFields: nil)!
+
+            return (response, UIImage().pngData())
+        }
+    }
+    func mockURLProtocolGetUserInfo() -> ((URLRequest) throws -> (HTTPURLResponse, Data?))? {
+        let path = Bundle(for: type(of: self))
+            .url(forResource: "user.json", withExtension: nil)
+        let userData = try? Data(contentsOf: path!)
+
+        return { request in
+            let response = HTTPURLResponse(url: self.url,
+                                           statusCode: 200,
+                                           httpVersion: nil,
+                                           headerFields: nil)!
+
+            return (response, userData)
+        }
+    }
 }

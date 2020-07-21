@@ -21,7 +21,7 @@ class BluetoothViewModel {
     }
 
     // MARK: - Public Properties
-    var numbrOfPeripheralModel: Int {
+    var numberOfPeripheralModel: Int {
         return self.peripherals.count
     }
     var peripherals: [PeripheralModel] = [] {
@@ -39,7 +39,7 @@ class BluetoothViewModel {
     private let bluetoothService = BluetoothService.shared
     private var peripheralInfos = [PeripheralInfo]()
 
-    var fillterModel = FilterModel()
+    var filterModel = FilterModel()
 }
 
 extension BluetoothViewModel {
@@ -84,8 +84,8 @@ extension BluetoothViewModel {
     func stopScan() {
         self.bluetoothService.stopScan()
     }
-    func applyNewFilter(fillterModel: FilterModel) {
-        self.fillterModel = fillterModel
+    func applyNewFilter(filterModel: FilterModel) {
+        self.filterModel = filterModel
         self.peripherals = self.applyFilter()
     }
 
@@ -113,18 +113,18 @@ extension BluetoothViewModel {
 
     internal func applyFilter() -> [PeripheralModel] {
         let v = self.peripheralInfos.filter { (peripheralInfo) -> Bool in
-            if self.fillterModel.fillterEmptyName {
+            if self.filterModel.filterEmptyName {
                 guard peripheralInfo.0.name != nil else {
                     return false
                 }
             }
-            if self.fillterModel.fillterRSSI {
-                if let rssiFrom = fillterModel.rssiFrom {
+            if self.filterModel.filterRSSI {
+                if let rssiFrom = filterModel.rssiFrom {
                     guard rssiFrom < peripheralInfo.2.intValue else {
                         return false
                     }
                 }
-                if let rssiToo = fillterModel.rssiTo {
+                if let rssiToo = filterModel.rssiTo {
                     guard rssiToo > peripheralInfo.2.intValue else {
                         return false
                     }

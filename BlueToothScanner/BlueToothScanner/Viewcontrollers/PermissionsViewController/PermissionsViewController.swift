@@ -13,7 +13,7 @@ class PermissionsViewController: UIViewController {
     }
 
     @IBAction func continueButtonDidClick(_ sender: Any) {
-        self.viewModel?.verifyAndprocessNextScreen(completion: { (error) in
+        self.viewModel?.verifyAndProcessNextScreen(completion: { (error) in
             guard let error = error else {
                 let vc = Self.createTabbar()
                 UIApplication.shared.keyWindow?.rootViewController = vc

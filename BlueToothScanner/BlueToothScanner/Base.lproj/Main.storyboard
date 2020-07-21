@@ -171,7 +171,7 @@
                         <outlet property="addressLabel" destination="v5b-s3-TSF" id="lEj-Kj-9oK"/>
                         <outlet property="avatarImageView" destination="3zb-kN-QWG" id="bTd-hE-rGe"/>
                         <outlet property="companyLabel" destination="oQU-K4-yQy" id="J3T-nn-97b"/>
-                        <outlet property="lodadingIndicator" destination="A9X-sA-4JA" id="dlM-Z8-SSh"/>
+                        <outlet property="loadingIndicator" destination="A9X-sA-4JA" id="dlM-Z8-SSh"/>
                         <outlet property="nameLabel" destination="RCt-0a-I3j" id="Rsh-6A-HTp"/>
                         <outlet property="phoneLabel" destination="Dy9-Fr-oZu" id="VPw-ea-Rit"/>
                         <outlet property="stackView" destination="I6b-bp-7Wc" id="pev-3R-GTN"/>
@@ -302,7 +302,7 @@
                     <connections>
                         <outlet property="bluetoothScanIndicator" destination="TSU-gC-x7r" id="NPn-sU-ucI"/>
                         <outlet property="bluetoothStateLabel" destination="tjs-uH-u6Z" id="r3k-ag-ysl"/>
-                        <outlet property="switchControll" destination="n04-3l-mVG" id="cDz-f6-AF1"/>
+                        <outlet property="switchControl" destination="n04-3l-mVG" id="cDz-f6-AF1"/>
                         <outlet property="tableView" destination="AgX-5w-FIl" id="vma-NY-hyI"/>
                         <outlet property="totalDeviceLabel" destination="aUb-Dq-29U" id="ubQ-gT-csd"/>
                     </connections>
@@ -349,7 +349,7 @@
         <!--Filter Setting View Controller-->
         <scene sceneID="M2M-jX-pen">
             <objects>
-                <viewController storyboardIdentifier="FillterSettingViewController" id="VHF-2F-sb5" customClass="FilterSettingViewController" customModule="BlueToothScanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilterSettingViewController" id="VHF-2F-sb5" customClass="FilterSettingViewController" customModule="BlueToothScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bmB-ec-Qob">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -485,9 +485,9 @@
                     </view>
                     <size key="freeformSize" width="414" height="896"/>
                     <connections>
-                        <outlet property="emptyDeviceNameSwitchControll" destination="zbA-Nr-67J" id="zun-xZ-buv"/>
+                        <outlet property="emptyDeviceNameSwitchControl" destination="zbA-Nr-67J" id="zun-xZ-buv"/>
                         <outlet property="rssiFromTextField" destination="OpA-Xe-u0K" id="95y-VO-qa2"/>
-                        <outlet property="rssiSwitchControll" destination="9ks-5S-794" id="YAA-Zh-H7P"/>
+                        <outlet property="rssiSwitchControl" destination="9ks-5S-794" id="YAA-Zh-H7P"/>
                         <outlet property="rssiToTextField" destination="SZn-do-KeL" id="ocO-sW-DU1"/>
                     </connections>
                 </viewController>
@@ -573,6 +573,7 @@
                     <toolbarItems/>
                     <size key="freeformSize" width="414" height="896"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wjc-vJ-KR1">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

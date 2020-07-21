@@ -7,7 +7,7 @@ class UserServices {
         self.networkProvider = networkProvider
     }
 
-    func fecthUserInfo(completion: @escaping (Result<UserInfo, NetworkError>) -> Void) {
+    func fetchUserInfo(completion: @escaping (Result<UserInfo, NetworkError>) -> Void) {
         self.networkProvider.request(requestUrl: Self.url!) { (data, networkError) in
 
             if let networkError = networkError {

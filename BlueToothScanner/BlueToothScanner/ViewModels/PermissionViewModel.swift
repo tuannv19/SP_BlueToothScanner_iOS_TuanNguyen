@@ -2,7 +2,7 @@ import Foundation
 
 class PermissionViewModel {
 
-    func verifyAndprocessNextScreen(completion: ((BLError?) -> Void)?) {
+    func verifyAndProcessNextScreen(completion: ((BLError?) -> Void)?) {
         switch BluetoothService.shared.state {
         case .poweredOn:
             completion?(nil)

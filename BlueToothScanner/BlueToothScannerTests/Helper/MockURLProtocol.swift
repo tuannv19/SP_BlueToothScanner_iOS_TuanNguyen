@@ -59,4 +59,14 @@ class MockURLProtocol: URLProtocol {
         }
     }
 
+    static func create(code: Int, data: Data? = Data(), url: URL?)
+        -> ((URLRequest) throws -> (HTTPURLResponse, Data?))? {
+            return { request in
+                let response = HTTPURLResponse(url: url!,
+                                               statusCode: code,
+                                               httpVersion: nil,
+                                               headerFields: nil)!
+                return (response, data)
+            }
+    }
 }
