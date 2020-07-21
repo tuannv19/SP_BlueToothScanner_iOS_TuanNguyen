@@ -3,13 +3,13 @@ import XCTest
 
 class UserProfileViewControllerTest: XCTestCase {
     private var userProfileVC: UserProfileViewController!
-    
+
     override func setUp() {
         super.setUp()
         self.userProfileVC = UserProfileViewController.create()
         self.userProfileVC.loadViewIfNeeded()
     }
-    func testAllControllAreConnected(){
+    func testAllControllAreConnected() {
         _ = try? XCTUnwrap(self.userProfileVC.avatarImageView, "not connected")
         _ = try? XCTUnwrap(self.userProfileVC.nameLabel, "not connected")
         _ = try? XCTUnwrap(self.userProfileVC.userNameLabel, "not connected")

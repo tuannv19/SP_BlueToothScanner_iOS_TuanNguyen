@@ -5,5 +5,5 @@ class ScanDeviceTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbRSSI: UILabel!
-    
+
 }

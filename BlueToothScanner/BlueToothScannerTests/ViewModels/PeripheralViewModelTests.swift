@@ -3,7 +3,6 @@ import CoreBluetooth
 @testable import BlueToothScanner
 
 class PeripheralViewModelTests: XCTestCase {
-    var model : PeripheralViewModel!
-    
-}
+    var model: PeripheralViewModel!
 
+}

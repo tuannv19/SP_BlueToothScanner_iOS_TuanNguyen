@@ -5,7 +5,7 @@ import CoreBluetooth
 class BluetoothViewModelTest: XCTestCase {
 
     func testApplyFilter() {
-        
+
     }
-    
+
 }
