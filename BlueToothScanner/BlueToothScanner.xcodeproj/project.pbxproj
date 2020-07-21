@@ -21,7 +21,7 @@
 		DB20610724C5EBC2009E94B0 /* PermissionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB20610624C5EBC2009E94B0 /* PermissionViewModelTests.swift */; };
 		DB20610A24C5F933009E94B0 /* BluetoothServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB20610924C5F933009E94B0 /* BluetoothServiceTest.swift */; };
 		DB20610D24C5FAB7009E94B0 /* NetworkingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB20610C24C5FAB7009E94B0 /* NetworkingTest.swift */; };
-		DB20611024C60C0E009E94B0 /* UserInfoServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB20610F24C60C0E009E94B0 /* UserInfoServiceTest.swift */; };
+		DB20611024C60C0E009E94B0 /* UserServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB20610F24C60C0E009E94B0 /* UserServiceTest.swift */; };
 		DB20611324C612D8009E94B0 /* UIViewControllerExtentionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB20611224C612D8009E94B0 /* UIViewControllerExtentionTest.swift */; };
 		DB267DEE24C14BFC004C83B2 /* ScanDeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB267DEC24C14BFC004C83B2 /* ScanDeviceTableViewCell.swift */; };
 		DB267DEF24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB267DED24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib */; };
@@ -72,7 +72,7 @@
 		DB20610624C5EBC2009E94B0 /* PermissionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionViewModelTests.swift; sourceTree = "<group>"; };
 		DB20610924C5F933009E94B0 /* BluetoothServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothServiceTest.swift; sourceTree = "<group>"; };
 		DB20610C24C5FAB7009E94B0 /* NetworkingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTest.swift; sourceTree = "<group>"; };
-		DB20610F24C60C0E009E94B0 /* UserInfoServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoServiceTest.swift; sourceTree = "<group>"; };
+		DB20610F24C60C0E009E94B0 /* UserServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceTest.swift; sourceTree = "<group>"; };
 		DB20611224C612D8009E94B0 /* UIViewControllerExtentionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtentionTest.swift; sourceTree = "<group>"; };
 		DB267DEC24C14BFC004C83B2 /* ScanDeviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDeviceTableViewCell.swift; sourceTree = "<group>"; };
 		DB267DED24C14BFC004C83B2 /* ScanDeviceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanDeviceTableViewCell.xib; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				DB20610C24C5FAB7009E94B0 /* NetworkingTest.swift */,
-				DB20610F24C60C0E009E94B0 /* UserInfoServiceTest.swift */,
+				DB20610F24C60C0E009E94B0 /* UserServiceTest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -502,7 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB20611024C60C0E009E94B0 /* UserInfoServiceTest.swift in Sources */,
+				DB20611024C60C0E009E94B0 /* UserServiceTest.swift in Sources */,
 				DB20610D24C5FAB7009E94B0 /* NetworkingTest.swift in Sources */,
 				DB2060FC24C583B9009E94B0 /* FilterSettingViewControllerTests.swift in Sources */,
 				DB2060F924C57F0B009E94B0 /* FilterSettingViewModelTests.swift in Sources */,

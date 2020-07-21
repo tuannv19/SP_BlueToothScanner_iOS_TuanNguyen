@@ -27,11 +27,10 @@ class UserProfileViewModel {
     }
     var userAvartar: UIImage? {
         didSet {
-            guard let userAvartar = self.userAvartar else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.avartarDidChange?(userAvartar)
+            if let userAvartar = self.userAvartar {
+                DispatchQueue.main.async {
+                    self.avartarDidChange?(userAvartar)
+                }
             }
         }
     }

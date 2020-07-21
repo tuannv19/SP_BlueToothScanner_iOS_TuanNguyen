@@ -1,7 +1,7 @@
 import XCTest
 @testable import BlueToothScanner
 
-class UserInfoServiceTest: XCTestCase {
+class UserServiceTest: XCTestCase {
     var userInfoService: UserServices!
     let url = URL(string: "https://anypoint.mulesoft.com/mocking/api/v1/links/6b4d76c6-59e1-462d-b0ec-a2034c899983/user-info")!
 
