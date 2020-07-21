@@ -16,7 +16,7 @@ class PeripheralViewController: UIViewController {
 
 //MARK: - Factory
 extension PeripheralViewController {
-    static func Create(peripheral: PeripheralModel)-> PeripheralViewController {
+    static func create(peripheral: PeripheralModel)-> PeripheralViewController {
         let vm = PeripheralViewModel(peripheralModel: peripheral)
         
         let sb = UIStoryboard.init(name: "Main", bundle: nil)

@@ -2,7 +2,7 @@ import XCTest
 import CoreBluetooth
 @testable import BlueToothScanner
 
-class TestBluetoothViewModel: XCTestCase {
+class BluetoothViewModelTest: XCTestCase {
 
     func testApplyFilter() {
         
