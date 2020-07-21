@@ -2,13 +2,18 @@ import XCTest
 
 @testable import BlueToothScanner
 
-class testFilterSettingViewModel: XCTestCase {
-
+class FilterSettingViewModelTests: XCTestCase {
+    
     private var filterModel : FillterSettingViewModel!
     
     override func setUp() {
         super.setUp()
-        self.filterModel = FillterSettingViewModel()
+        self.filterModel = FillterSettingViewModel(model: FilterModel())
+    }
+    
+    func testFillterModelError() {
+        let error = FillterSettingViewModel.FillterModelError.fromMustLessThanTo
+        XCTAssertEqual(error.localizedDescription, "fromMustLessThanTo")
     }
     
     func testVerifyBluetoothState() {
@@ -61,6 +66,42 @@ class testFilterSettingViewModel: XCTestCase {
             XCTAssertNil(error)
         }
     }
+    func testshouldChangeCharactersIn() {
+        let vaildInput = self.filterModel
+            .shouldChangeCharactersIn(currentText: "",
+                                      range: NSMakeRange(0, 1),
+                                      replacementString: "1")
+        
+        let inVaildInput = self.filterModel
+        .shouldChangeCharactersIn(currentText: "",
+                                  range: NSMakeRange(0, 1),
+                                  replacementString: "a")
+        
+        let invalidInputStringLengt = "1234567898889989"
+        let inVaildInputLenght = self.filterModel
+        .shouldChangeCharactersIn(currentText: "",
+                                  range: NSMakeRange(0, 1),
+                                  replacementString: invalidInputStringLengt)
+        
+        let validSpecialInputString = "-"
+        let vaildSpecialInput = self.filterModel
+        .shouldChangeCharactersIn(currentText: "",
+                                  range: NSMakeRange(0, 1),
+                                  replacementString: validSpecialInputString)
+        
+        let invalidSpecialInputString = "-"
+        let invaildSpecialInput = self.filterModel
+        .shouldChangeCharactersIn(currentText: "1",
+                                  range: NSMakeRange(1,2),
+                                  replacementString: invalidSpecialInputString)
+        
+        XCTAssertTrue(vaildInput)
+        XCTAssertTrue(vaildSpecialInput)
+        
+        XCTAssertFalse(inVaildInput)
+        XCTAssertFalse(inVaildInputLenght)
+        XCTAssertFalse(invaildSpecialInput)
+           
+    }
     
-
 }

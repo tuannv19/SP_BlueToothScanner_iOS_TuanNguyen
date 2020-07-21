@@ -60,6 +60,7 @@ class BluetoothViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Bluetooth"
         self.setupNavigationBarButton()
         self.setupTableView()
     }
@@ -85,7 +86,7 @@ class BluetoothViewController: UIViewController {
     }
     @objc func  rightBarButtonCLick() {
         let viewModel = FillterSettingViewModel(model: self.viewmodel.fillterModel)
-        let vc = FilterSettingViewController.Create(viewModel: viewModel)
+        let vc = FilterSettingViewController.create(viewModel: viewModel)
 
         vc.viewModel?.didSendData = { [weak self] filterMode in
             guard let self = self  else {
@@ -100,7 +101,7 @@ class BluetoothViewController: UIViewController {
     
 }
 
-extension BluetoothViewController {
+extension BluetoothViewController{
     @IBAction func sliderStartsScanValueChanged(_ sender: UISwitch) {
         self.viewmodel.scan(isScanning: sender.isOn)
     }
@@ -110,8 +111,11 @@ extension BluetoothViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let model  = viewmodel.peripherals[indexPath.row]
-        let vc = PeripheralViewController.Create(peripheral: model)
+        let vc = PeripheralViewController.create(peripheral: model)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        self.tableView(tableView, didSelectRowAt: indexPath)
     }
 }
 
@@ -127,17 +131,16 @@ extension BluetoothViewController: UITableViewDataSource{
             ) as! ScanDeviceTableViewCell
         
         let model  = viewmodel.peripherals[indexPath.row]
-        cell.loaddCell(with: model)
+        cell.lbName.text = model.name ?? ""
+        cell.lbRSSI.text = model.rssi?.stringValue
         return cell
-        
     }
     
 }
 
 //MARK: - Factory
-extension BluetoothViewController {
-    static func Create()-> BluetoothViewController {
-        
+extension BluetoothViewController{
+    static func create()-> BluetoothViewController{
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
             withIdentifier: "BluetoothViewController"

@@ -15,9 +15,8 @@ class PermissionsViewController: UIViewController {
     @IBAction func continueButtonDidClick(_ sender: Any) {
         self.viewModel?.verifyAndprocessNextScreen(completion: { (error) in
             guard let error = error else {
-                let vc = BluetoothViewController.Create()
-                let nav = UINavigationController(rootViewController: vc)
-                UIApplication.shared.keyWindow?.rootViewController = nav
+                let vc = Self.createTabbar()
+                UIApplication.shared.keyWindow?.rootViewController = vc
                 UIApplication.shared.keyWindow?.makeKeyAndVisible()
 
                 return
@@ -30,14 +29,21 @@ class PermissionsViewController: UIViewController {
 
 //MARK: - Factory
 extension PermissionsViewController {
-    static func Create()-> PermissionsViewController {
+    static func create()-> PermissionsViewController {
         let vm = PermissionViewModel()
         
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
-            withIdentifier: "PermissionsViewController"
+            withIdentifier: "TabbarController"
             ) as! PermissionsViewController
         vc.viewModel = vm
+        return vc
+    }
+    static func createTabbar()-> UITabBarController {
+        let sb = UIStoryboard.init(name: "Main", bundle: nil)
+        let vc = sb.instantiateViewController(
+            withIdentifier: "TabbarController"
+            ) as! UITabBarController
         return vc
     }
 }

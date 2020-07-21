@@ -1,12 +1,13 @@
 import XCTest
 @testable import BlueToothScanner
 
-class testFilterSettingViewController: XCTestCase {
+class FilterSettingViewControllerTests: XCTestCase {
     private var filterSettingVC: FilterSettingViewController!
     
     override func setUp() {
         super.setUp()
-        self.filterSettingVC = FilterSettingViewController.Create()
+        let viewModel = FillterSettingViewModel(model: FilterModel())
+        self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel)
         self.filterSettingVC.loadViewIfNeeded()
     }
     
@@ -41,8 +42,32 @@ class testFilterSettingViewController: XCTestCase {
         _ = try? XCTUnwrap(filterSettingVC.rssiSwitchControll, "not connected")
         _ = try? XCTUnwrap(filterSettingVC.emptyDeviceNameSwitchControll, "not connected")
     }
+    func testbindViewModel() {
+        let viewModel = FillterSettingViewModel(model: FilterModel())
+        self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel)
+        self.filterSettingVC.loadViewIfNeeded()
+        
+        XCTAssertEqual(self.filterSettingVC.rssiFromTextField.text, "")
+        XCTAssertEqual(self.filterSettingVC.rssiToTextField.text, "")
+        XCTAssertEqual(self.filterSettingVC.rssiSwitchControll.isOn, false)
+        XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControll.isOn, true)
+        
+        let filterModel = FilterModel(rssiFrom: 10,
+                                      rssiTo: 12,
+                                      fillterRSSI: true,
+                                      fillterEmptyName: true)
+        let viewModel1 = FillterSettingViewModel(model: filterModel)
+        self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel1)
+        self.filterSettingVC.loadViewIfNeeded()
+        
+        XCTAssertEqual(self.filterSettingVC.rssiFromTextField.text, "10")
+        XCTAssertEqual(self.filterSettingVC.rssiToTextField.text, "12")
+        XCTAssertEqual(self.filterSettingVC.rssiSwitchControll.isOn, true)
+        XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControll.isOn, true)
+    }
+    
 }
-extension testFilterSettingViewController{
+extension FilterSettingViewControllerTests{
     func canInsertTextIn(textField: UITextField, string: String) -> Bool {
         let range = NSMakeRange(textField.text!.count,
                                 textField.text!.count + string.count)

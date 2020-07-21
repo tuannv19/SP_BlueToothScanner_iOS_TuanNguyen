@@ -6,19 +6,4 @@ class ScanDeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var lbName: UILabel!
     @IBOutlet weak var lbRSSI: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    func loaddCell(with peripheralModel: PeripheralModel) {
-        self.lbName.text = peripheralModel.name ?? ""
-        self.lbRSSI.text = peripheralModel.rssi?.stringValue ?? ""
-    }
-    
 }

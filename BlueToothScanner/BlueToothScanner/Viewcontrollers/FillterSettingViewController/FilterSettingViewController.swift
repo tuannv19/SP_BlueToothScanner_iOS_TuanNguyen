@@ -5,7 +5,6 @@ class FilterSettingViewController: UIViewController {
     @IBOutlet weak var rssiToTextField: UITextField!
     @IBOutlet weak var rssiSwitchControll: UISwitch!
     @IBOutlet weak var emptyDeviceNameSwitchControll: UISwitch!
-    internal static let MaxNumCharacters = 5
     
     var viewModel : FillterSettingViewModel!
     
@@ -16,6 +15,10 @@ class FilterSettingViewController: UIViewController {
         self.rssiToTextField.delegate = self
         self.rssiFromTextField.delegate = self
         
+        self.bindViewModel()
+    }
+
+    func bindViewModel() {
         
         if let from = viewModel.filterModel.rssiFrom {
             self.rssiFromTextField.text = "\(from)"
@@ -70,31 +73,22 @@ extension FilterSettingViewController: UITextFieldDelegate {
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         
-        let newLength = textField.text!.count + string.count - range.length
-        if (newLength >= Self.MaxNumCharacters){
-            return false
-        }
-        
-        if string == "-", range.location != 0 {
-            return false
-        }
-        
-        let allowedCharacters = CharacterSet(charactersIn:"-0123456789 ")
-        let characterSet = CharacterSet(charactersIn: string)
-        return allowedCharacters.isSuperset(of: characterSet)
+        return viewModel.shouldChangeCharactersIn(currentText: textField.text!,
+                                                  range: range,
+                                                  replacementString: string)
     }
 }
 
 //MARK: - Factory
 extension FilterSettingViewController {
-    static func Create(viewModel: FillterSettingViewModel)-> FilterSettingViewController {
+    static func create(viewModel: FillterSettingViewModel)-> FilterSettingViewController {
         
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
             withIdentifier: "FillterSettingViewController"
             ) as! FilterSettingViewController
         vc.viewModel = viewModel
-        
+
         return vc
     }
 }
