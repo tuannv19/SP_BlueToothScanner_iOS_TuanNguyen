@@ -9,12 +9,11 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var lodadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var stackView: UIStackView!
-    
-    
+
     let viewModel = UserProfileViewModel(
         userService: UserServices(networkProvider: NetworkProvider())
     )
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
@@ -25,7 +24,7 @@ class UserProfileViewController: UIViewController {
         self.avatarImageView.layer.cornerRadius = self.avatarImageView.frame.width / 2
         self.title = "Profile"
     }
-    
+
     func bindViewModel() {
         self.viewModel.userInfoDidChange = { [unowned self] user in
             self.nameLabel.text = user.name
@@ -35,15 +34,15 @@ class UserProfileViewController: UIViewController {
             self.addressLabel.text = user.getFullAddress()
         }
         self.viewModel.isFetchDataDidChange = { [unowned self] isFetchingData in
-            if isFetchingData  {
+            if isFetchingData {
                 self.stackView.isHidden = true
                 self.lodadingIndicator.startAnimating()
-            }else {
+            } else {
                 self.stackView.isHidden = false
                 self.lodadingIndicator.stopAnimating()
             }
         }
-        
+
         self.viewModel.errorHasOcur = { [unowned self] error in
             DispatchQueue.main.async {
                 self.lodadingIndicator.stopAnimating()
@@ -54,10 +53,10 @@ class UserProfileViewController: UIViewController {
         self.viewModel.avartarDidChange = { [unowned self] image in
             self.avatarImageView.image = image
         }
-        
+
         self.viewModel.fetchUser()
     }
-    
+
     func setupNavigationBarButton() {
         let rightBtn = UIBarButtonItem(title: "Reload",
                                        style: .plain,
@@ -68,9 +67,9 @@ class UserProfileViewController: UIViewController {
         self.viewModel.fetchUser()
     }
 }
-//MARK: - Factory
+// MARK: - Factory
 extension UserProfileViewController {
-    static func create()-> UserProfileViewController {
+    static func create() -> UserProfileViewController {
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
             withIdentifier: "UserProfileViewController"
@@ -78,4 +77,3 @@ extension UserProfileViewController {
         return vc
     }
 }
-

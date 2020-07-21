@@ -11,8 +11,11 @@ struct UserInfo: Codable {
     let company: Company
 }
 extension UserInfo {
-    func getFullAddress()-> String{
-        return " \(self.address.street), \(self.address.building), \(self.address.unit),\(self.address.city), \(self.address.zipcode)"
+    func getFullAddress() -> String {
+        return """
+        \(self.address.street), \(self.address.building)",
+        \(self.address.unit), \(self.address.city), \(self.address.zipcode)
+        """
     }
 }
 // MARK: - Address

@@ -1,7 +1,7 @@
 import UIKit
 
-extension UIViewController{
-    func showAlert(title: String, message: String,completion: (() -> ())? = nil)  {
+extension UIViewController {
+    func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: UIAlertController.Style.alert)

@@ -5,32 +5,32 @@ class FilterSettingViewController: UIViewController {
     @IBOutlet weak var rssiToTextField: UITextField!
     @IBOutlet weak var rssiSwitchControll: UISwitch!
     @IBOutlet weak var emptyDeviceNameSwitchControll: UISwitch!
-    
-    var viewModel : FillterSettingViewModel!
-    
+
+    var viewModel: FillterSettingViewModel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
         self.rssiToTextField.delegate = self
         self.rssiFromTextField.delegate = self
-        
+
         self.bindViewModel()
     }
 
     func bindViewModel() {
-        
+
         if let from = viewModel.filterModel.rssiFrom {
             self.rssiFromTextField.text = "\(from)"
         }
         if let to = viewModel.filterModel.rssiTo {
             self.rssiToTextField.text = "\(to)"
         }
-        
+
         self.rssiSwitchControll.isOn = viewModel.filterModel.fillterRSSI
         self.emptyDeviceNameSwitchControll.isOn = viewModel.filterModel.fillterEmptyName
     }
-    
+
     @IBAction func applyButtonDidclick(_ sender: Any) {
         self.viewModel?
             .verifyBluetoothState(fromRSSI: Int( self.rssiFromTextField.text!) ?? nil,
@@ -45,24 +45,23 @@ class FilterSettingViewController: UIViewController {
                     self.viewModel?.didSendData?(model)
                     self.dismissAndCLoseKeyboad()
                 }
-                
+
                 if let error = error {
                     self.showAlert(title: "Error", message: error.localizedDescription)
                     return
                 }
                 self.dismissAndCLoseKeyboad()
         }
-        
+
     }
     @IBAction func closeButtonDidClick(_ sender: Any) {
         self.dismissAndCLoseKeyboad()
     }
-    func dismissAndCLoseKeyboad(){
+    func dismissAndCLoseKeyboad() {
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+
 }
 
 extension FilterSettingViewController: UITextFieldDelegate {
@@ -72,17 +71,17 @@ extension FilterSettingViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        
+
         return viewModel.shouldChangeCharactersIn(currentText: textField.text!,
                                                   range: range,
                                                   replacementString: string)
     }
 }
 
-//MARK: - Factory
+// MARK: - Factory
 extension FilterSettingViewController {
-    static func create(viewModel: FillterSettingViewModel)-> FilterSettingViewController {
-        
+    static func create(viewModel: FillterSettingViewModel) -> FilterSettingViewController {
+
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
             withIdentifier: "FillterSettingViewController"

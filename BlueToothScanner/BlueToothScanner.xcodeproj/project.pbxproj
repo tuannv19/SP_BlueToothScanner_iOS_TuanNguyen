@@ -37,6 +37,7 @@
 		DB837B5D24C6857800AB922F /* UserProfileViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */; };
 		DB837B6124C6876100AB922F /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6024C6876100AB922F /* UserProfileViewModel.swift */; };
 		DB837B6324C68E6000AB922F /* UserProfileViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6224C68E6000AB922F /* UserProfileViewModelTest.swift */; };
+		DB837B6724C6C3C300AB922F /* FillterSettingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6624C6C3C300AB922F /* FillterSettingViewModelTests.swift */; };
 		DBE7188524C011E500EB9734 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE7188424C011E500EB9734 /* AppDelegate.swift */; };
 		DBE7188C24C011E500EB9734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBE7188A24C011E500EB9734 /* Main.storyboard */; };
 		DBE7188E24C011E700EB9734 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBE7188D24C011E700EB9734 /* Assets.xcassets */; };
@@ -87,6 +88,7 @@
 		DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewControllerTest.swift; sourceTree = "<group>"; };
 		DB837B6024C6876100AB922F /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		DB837B6224C68E6000AB922F /* UserProfileViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModelTest.swift; sourceTree = "<group>"; };
+		DB837B6624C6C3C300AB922F /* FillterSettingViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FillterSettingViewModelTests.swift; path = BlueToothScannerTests/ViewModels/FillterSettingViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		DBE7188124C011E500EB9734 /* BlueToothScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueToothScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBE7188424C011E500EB9734 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBE7188B24C011E500EB9734 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -246,6 +248,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		DB837B6524C6C3B900AB922F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB837B6624C6C3C300AB922F /* FillterSettingViewModelTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DBE7187824C011E500EB9734 = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +295,7 @@
 		DBE7189A24C011E800EB9734 /* BlueToothScannerTests */ = {
 			isa = PBXGroup;
 			children = (
+				DB837B6524C6C3B900AB922F /* Model */,
 				DB57C06824C67F5F00AFF765 /* Resources */,
 				DB20611124C612B3009E94B0 /* Helper */,
 				DB20610E24C60BFE009E94B0 /* Exentions */,
@@ -350,6 +361,7 @@
 				DBE7187D24C011E500EB9734 /* Sources */,
 				DBE7187E24C011E500EB9734 /* Frameworks */,
 				DBE7187F24C011E500EB9734 /* Resources */,
+				DB837B6424C6C1FF00AB922F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -439,6 +451,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DB837B6424C6C1FF00AB922F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DBE7187D24C011E500EB9734 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -473,6 +505,7 @@
 				DB20611024C60C0E009E94B0 /* UserInfoServiceTest.swift in Sources */,
 				DB20610D24C5FAB7009E94B0 /* NetworkingTest.swift in Sources */,
 				DB2060FC24C583B9009E94B0 /* FilterSettingViewControllerTests.swift in Sources */,
+				DB837B6724C6C3C300AB922F /* FillterSettingViewModelTests.swift in Sources */,
 				DB2060F924C57F0B009E94B0 /* FilterSettingViewModelTests.swift in Sources */,
 				DB20610A24C5F933009E94B0 /* BluetoothServiceTest.swift in Sources */,
 				DB837B6324C68E6000AB922F /* UserProfileViewModelTest.swift in Sources */,

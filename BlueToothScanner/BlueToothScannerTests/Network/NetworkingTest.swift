@@ -1,23 +1,22 @@
 import XCTest
 @testable import BlueToothScanner
 
-
 class NetworkingTest: XCTestCase {
-    var networking : NetworkProvider!
-    var urlSession : URLSession!
+    var networking: NetworkProvider!
+    var urlSession: URLSession!
     let url = URL(string: "https://anypoint.mulesoft.com/mocking/api/v1/links/6b4d76c6-59e1-462d-b0ec-a2034c899983/user-info")!
-    
+
     override func setUp() {
-        
+
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [MockURLProtocol.self]
         urlSession = URLSession.init(configuration: configuration)
         self.networking = NetworkProvider(urlSession: urlSession)
-        
+
     }
-    
+
     func testNetworkError() {
-        
+
         XCTAssertEqual(
             NetworkError.notFoundError.localizedDescription,
             "The request cannot be fulfilled because the resource does not exist."
@@ -55,17 +54,17 @@ class NetworkingTest: XCTestCase {
         XCTAssertEqual(self.networking.urlSession, self.urlSession)
     }
     func testSuccessGetRequest() {
-        
+
         var responseData: Data?
         var err: Error?
-        
+
         let expect = expectation(description: "Expectation")
-        
+
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)!
             return (response, Data())
         }
-        
+
         self.networking.request(requestUrl: self.url, httpMethod: .get, parameters: nil) { (data, netErr) in
             if let error = netErr {
                 err = error
@@ -74,25 +73,25 @@ class NetworkingTest: XCTestCase {
             }
             expect.fulfill()
         }
-        
+
         wait(for: [expect], timeout: 0.5)
-        
+
         XCTAssertNil(err)
         XCTAssertNotNil(responseData)
     }
     func testSuccessPostRequest() {
-        
+
         var responseData: Data?
         var err: Error?
-        
+
         let expect = expectation(description: "Expectation")
-        
+
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)!
             return (response, Data())
         }
-        
-        self.networking.request(requestUrl: url, httpMethod: .post, parameters: ["key":"value"]) { (data, netErr) in
+
+        self.networking.request(requestUrl: url, httpMethod: .post, parameters: ["key": "value"]) { (data, netErr) in
             if let error = netErr {
                 err = error
             } else if let data = data {
@@ -100,41 +99,41 @@ class NetworkingTest: XCTestCase {
             }
             expect.fulfill()
         }
-        
+
         wait(for: [expect], timeout: 0.5)
-        
+
         XCTAssertNil(err)
         XCTAssertNotNil(responseData)
     }
-    
+
+    // swiftlint:disable function_body_length
     func testErrorCode() {
         var err: NetworkError?
-        
+
         let expect404 = expectation(description: "Expectation")
-        
+
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: 404, httpVersion: nil, headerFields: nil)!
             return (response, Data())
         }
-        
-        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (data, netErr) in
+
+        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (_, netErr) in
             if let error = netErr {
                 err = error
             }
             expect404.fulfill()
         }
-        
+
         wait(for: [expect404], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.notFoundError)
-        
-        
+
         let expectNetworkError = expectation(description: "Expectation")
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)!
             return (response, nil)
         }
-        
-        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (data, netErr) in
+
+        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (_, netErr) in
             if let error = netErr {
                 err = error
             }
@@ -142,14 +141,14 @@ class NetworkingTest: XCTestCase {
         }
         wait(for: [expectNetworkError], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.notFoundError)
-        
+
         let expect400 = expectation(description: "Expectation")
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: 400, httpVersion: nil, headerFields: nil)!
             return (response, Data())
         }
-        
-        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (data, netErr) in
+
+        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (_, netErr) in
             if let error = netErr {
                 err = error
             }
@@ -157,14 +156,14 @@ class NetworkingTest: XCTestCase {
         }
         wait(for: [expect400], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.keyError)
-        
+
         let expect403 = expectation(description: "Expectation")
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: 403, httpVersion: nil, headerFields: nil)!
             return (response, Data())
         }
-        
-        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (data, netErr) in
+
+        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (_, netErr) in
             if let error = netErr {
                 err = error
             }
@@ -172,14 +171,14 @@ class NetworkingTest: XCTestCase {
         }
         wait(for: [expect403], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.forbiddenError)
-        
+
         let expect500 = expectation(description: "Expectation")
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: 500, httpVersion: nil, headerFields: nil)!
             return (response, Data())
         }
-        
-        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (data, netErr) in
+
+        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (_, netErr) in
             if let error = netErr {
                 err = error
             }
@@ -187,14 +186,14 @@ class NetworkingTest: XCTestCase {
         }
         wait(for: [expect500], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.serverError)
-        
+
         let expectUnknowError = expectation(description: "Expectation")
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url, statusCode: -999, httpVersion: nil, headerFields: nil)!
             return (response, Data())
         }
-        
-        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (data, netErr) in
+
+        self.networking.request(requestUrl: url, httpMethod: .get, parameters: nil  ) { (_, netErr) in
             if let error = netErr {
                 err = error
             }
@@ -203,4 +202,5 @@ class NetworkingTest: XCTestCase {
         wait(for: [expectUnknowError], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.unknownError)
     }
+    // swiftlint:enable function_body_length
 }

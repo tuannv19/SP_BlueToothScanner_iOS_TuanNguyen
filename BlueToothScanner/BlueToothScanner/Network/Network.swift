@@ -37,7 +37,7 @@ enum HttpMethod: String {
 class ResponseObject<T: Codable> {
     var url: URL
     var httpMethod: HttpMethod = .get
-    var body: Data? = nil
+    var body: Data?
     init(url: URL) {
         self.url = url
     }
@@ -45,19 +45,19 @@ class ResponseObject<T: Codable> {
 
 class NetworkProvider {
     let urlSession: URLSession
-    
+
     init(urlSession: URLSession = URLSession.shared) {
        self.urlSession = urlSession
      }
-    
+
     func request(requestUrl: URL,
                  httpMethod: HttpMethod = .get,
-                 parameters: [String:Any]? = nil,
-                 completion: @escaping (_ responseData: Data?,_ networkError: NetworkError?) -> Void) {
+                 parameters: [String: Any]? = nil,
+                 completion: @escaping (_ responseData: Data?, _ networkError: NetworkError?) -> Void) {
         var request = URLRequest(url: requestUrl)
         request.httpMethod = httpMethod.rawValue
 //        request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
-        
+
         switch httpMethod {
         case .get:
             request.httpBody = nil
@@ -90,5 +90,5 @@ class NetworkProvider {
             }
         }.resume()
     }
-    
+
 }

@@ -3,30 +3,30 @@ import UIKit
 
 class UserProfileViewModel {
     let userSevice: UserServices!
-    
-    var userInfoDidChange: ((UserInfo)->())?
-    var avartarDidChange:((UIImage)->())?
-    var errorHasOcur: ((Error)->())?
-    var isFetchDataDidChange: ((Bool)->())?
-    
-    var isFetchingData: Bool?{
+
+    var userInfoDidChange: ((UserInfo) -> Void)?
+    var avartarDidChange: ((UIImage) -> Void)?
+    var errorHasOcur: ((Error) -> Void)?
+    var isFetchDataDidChange: ((Bool) -> Void)?
+
+    var isFetchingData: Bool? {
         didSet {
             DispatchQueue.main.async {
                 self.isFetchDataDidChange?(self.isFetchingData!)
             }
         }
     }
-    
-    var userInfo : UserInfo? {
-        didSet{
+
+    var userInfo: UserInfo? {
+        didSet {
             DispatchQueue.main.async {
                 self.userInfoDidChange?(self.userInfo!)
             }
             self.fetchAvatarImage()
         }
     }
-    var userAvartar : UIImage? {
-        didSet{
+    var userAvartar: UIImage? {
+        didSet {
             guard let userAvartar = self.userAvartar else {
                 return
             }
@@ -35,19 +35,19 @@ class UserProfileViewModel {
             }
         }
     }
-    var error : Error? {
-        didSet{
+    var error: Error? {
+        didSet {
             self.errorHasOcur?(error!)
         }
     }
-    
+
     init(userService: UserServices) {
         self.userSevice = userService
     }
-    
-    func fetchUser(completion: (() -> ())? = nil)  {
+
+    func fetchUser(completion: (() -> Void)? = nil) {
         self.isFetchingData = true
-        
+
         self.userSevice.fecthUserInfo { [unowned self]result in
             switch result {
             case.failure(let error):
@@ -57,16 +57,16 @@ class UserProfileViewModel {
                 self.isFetchingData = false
             }
             completion?()
-            
+
         }
     }
-    func fetchAvatarImage(completion: (() -> ())? = nil) {
+    func fetchAvatarImage(completion: (() -> Void)? = nil) {
         guard let urlString = userInfo?.avatar else {
             return
         }
-        
+
         self.userSevice.fetchData(url: urlString) { [unowned self](result) in
-            switch result{
+            switch result {
             case .success(let data) :
                 self.userAvartar = UIImage(data: data)
             default:

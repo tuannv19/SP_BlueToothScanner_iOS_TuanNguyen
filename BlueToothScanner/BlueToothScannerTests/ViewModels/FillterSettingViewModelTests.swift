@@ -2,15 +2,15 @@ import XCTest
 
 @testable import BlueToothScanner
 
-class testFilterSettingViewModel: XCTestCase {
+class FillterSettingViewModelTests: XCTestCase {
 
-    private var filterModel : FillterSettingViewModel!
-    
+    private var filterModel: FillterSettingViewModel!
+
     override func setUp() {
         super.setUp()
-        self.filterModel = FillterSettingViewModel()
+        self.filterModel = FillterSettingViewModel(model: FilterModel())
     }
-    
+
     func testVerifyBluetoothState() {
         self.filterModel.verifyBluetoothState(fromRSSI: -1,
                                               toRSSI: -21,
@@ -20,7 +20,7 @@ class testFilterSettingViewModel: XCTestCase {
             XCTAssertNil(model)
             XCTAssertNotNil(error)
         }
-        
+
         self.filterModel.verifyBluetoothState(fromRSSI: nil,
                                               toRSSI: -21, fillterRSSI: true,
                                               fillterEmptyName: false
@@ -28,7 +28,7 @@ class testFilterSettingViewModel: XCTestCase {
             XCTAssertNotNil(model)
             XCTAssertNil(error)
         }
-        
+
         self.filterModel.verifyBluetoothState(fromRSSI: nil,
                                               toRSSI: nil,
                                               fillterRSSI: true,
@@ -37,7 +37,7 @@ class testFilterSettingViewModel: XCTestCase {
             XCTAssertNotNil(model)
             XCTAssertNil(error)
         }
-        
+
         self.filterModel.verifyBluetoothState(fromRSSI: -12,
                                               toRSSI: nil,
                                               fillterRSSI: true,
@@ -46,7 +46,7 @@ class testFilterSettingViewModel: XCTestCase {
             XCTAssertNotNil(model)
             XCTAssertNil(error)
         }
-        
+
         self.filterModel.verifyBluetoothState(fromRSSI: -32,
                                               toRSSI: -21,
                                               fillterRSSI: true,
@@ -57,10 +57,9 @@ class testFilterSettingViewModel: XCTestCase {
             XCTAssertEqual(model?.rssiTo, -21, "")
             XCTAssertEqual(model?.fillterRSSI, true, "")
             XCTAssertEqual(model?.fillterEmptyName, false, "")
-            
+
             XCTAssertNil(error)
         }
     }
-    
 
 }
