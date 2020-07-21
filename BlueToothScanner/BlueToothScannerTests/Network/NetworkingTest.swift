@@ -182,7 +182,7 @@ class NetworkingTest: XCTestCase {
         wait(for: [expect500], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.serverError)
 
-        let expectUnknowError = expectation(description: "Expectation")
+        let expectUnknownError = expectation(description: "Expectation")
         MockURLProtocol.requestHandler = MockURLProtocol.create(code: -999,
                                                               data: Data(),
                                                               url: self.url)
@@ -192,9 +192,9 @@ class NetworkingTest: XCTestCase {
             if let error = netErr {
                 err = error
             }
-            expectUnknowError.fulfill()
+            expectUnknownError.fulfill()
         }
-        wait(for: [expectUnknowError], timeout: 0.5)
+        wait(for: [expectUnknownError], timeout: 0.5)
         XCTAssertEqual(err, NetworkError.unknownError)
     }
     // swiftlint:enable function_body_length

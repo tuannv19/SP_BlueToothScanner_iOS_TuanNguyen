@@ -2,11 +2,11 @@ import Foundation
 import UIKit
 
 class UserProfileViewModel {
-    let userSevice: UserServices!
+    let userService: UserServices!
 
     var userInfoDidChange: ((UserInfo) -> Void)?
-    var avartarDidChange: ((UIImage) -> Void)?
-    var errorHasOcur: ((Error) -> Void)?
+    var avatarDidChange: ((UIImage) -> Void)?
+    var errorHasOccur: ((Error) -> Void)?
     var isFetchDataDidChange: ((Bool) -> Void)?
 
     var isFetchingData: Bool? {
@@ -25,29 +25,29 @@ class UserProfileViewModel {
             self.fetchAvatarImage()
         }
     }
-    var userAvartar: UIImage? {
+    var userAvatar: UIImage? {
         didSet {
-            if let userAvartar = self.userAvartar {
+            if let userAvatar = self.userAvatar {
                 DispatchQueue.main.async {
-                    self.avartarDidChange?(userAvartar)
+                    self.avatarDidChange?(userAvatar)
                 }
             }
         }
     }
     var error: Error? {
         didSet {
-            self.errorHasOcur?(error!)
+            self.errorHasOccur?(error!)
         }
     }
 
     init(userService: UserServices) {
-        self.userSevice = userService
+        self.userService = userService
     }
 
     func fetchUser(completion: (() -> Void)? = nil) {
         self.isFetchingData = true
 
-        self.userSevice.fecthUserInfo { [unowned self]result in
+        self.userService.fetchUserInfo { [unowned self]result in
             switch result {
             case.failure(let error):
                 self.error = error
@@ -64,10 +64,10 @@ class UserProfileViewModel {
             return
         }
 
-        self.userSevice.fetchData(url: urlString) { [unowned self](result) in
+        self.userService.fetchData(url: urlString) { [unowned self](result) in
             switch result {
             case .success(let data) :
-                self.userAvartar = UIImage(data: data)
+                self.userAvatar = UIImage(data: data)
             default:
                 break
             }

@@ -4,31 +4,31 @@ import XCTest
 
 class FilterSettingViewModelTests: XCTestCase {
 
-    private var filterModel: FillterSettingViewModel!
+    private var filterModel: FilterSettingViewModel!
 
     override func setUp() {
         super.setUp()
-        self.filterModel = FillterSettingViewModel(model: FilterModel())
+        self.filterModel = FilterSettingViewModel(model: FilterModel())
     }
 
     func testFillterModelError() {
-        let error = FillterSettingViewModel.FillterModelError.fromMustLessThanTo
+        let error = FilterSettingViewModel.FilterModelError.fromMustLessThanTo
         XCTAssertEqual(error.localizedDescription, "fromMustLessThanTo")
     }
 
     func testVerifyBluetoothState() {
         self.filterModel.verifyBluetoothState(fromRSSI: -1,
                                               toRSSI: -21,
-                                              fillterRSSI: true,
-                                              fillterEmptyName: false
+                                              filterRSSI: true,
+                                              filterEmptyName: false
         ) { (model, error) in
             XCTAssertNil(model)
             XCTAssertNotNil(error)
         }
 
         self.filterModel.verifyBluetoothState(fromRSSI: nil,
-                                              toRSSI: -21, fillterRSSI: true,
-                                              fillterEmptyName: false
+                                              toRSSI: -21, filterRSSI: true,
+                                              filterEmptyName: false
         ) { (model, error) in
             XCTAssertNotNil(model)
             XCTAssertNil(error)
@@ -36,8 +36,8 @@ class FilterSettingViewModelTests: XCTestCase {
 
         self.filterModel.verifyBluetoothState(fromRSSI: nil,
                                               toRSSI: nil,
-                                              fillterRSSI: true,
-                                              fillterEmptyName: false
+                                              filterRSSI: true,
+                                              filterEmptyName: false
         ) { (model, error) in
             XCTAssertNotNil(model)
             XCTAssertNil(error)
@@ -45,8 +45,8 @@ class FilterSettingViewModelTests: XCTestCase {
 
         self.filterModel.verifyBluetoothState(fromRSSI: -12,
                                               toRSSI: nil,
-                                              fillterRSSI: true,
-                                              fillterEmptyName: false
+                                              filterRSSI: true,
+                                              filterEmptyName: false
         ) { (model, error) in
             XCTAssertNotNil(model)
             XCTAssertNil(error)
@@ -54,53 +54,53 @@ class FilterSettingViewModelTests: XCTestCase {
 
         self.filterModel.verifyBluetoothState(fromRSSI: -32,
                                               toRSSI: -21,
-                                              fillterRSSI: true,
-                                              fillterEmptyName: false
+                                              filterRSSI: true,
+                                              filterEmptyName: false
         ) { (model, error) in
             XCTAssertNotNil(model)
             XCTAssertEqual(model?.rssiFrom, -32, "")
             XCTAssertEqual(model?.rssiTo, -21, "")
-            XCTAssertEqual(model?.fillterRSSI, true, "")
-            XCTAssertEqual(model?.fillterEmptyName, false, "")
+            XCTAssertEqual(model?.filterRSSI, true, "")
+            XCTAssertEqual(model?.filterEmptyName, false, "")
 
             XCTAssertNil(error)
         }
     }
-    func testshouldChangeCharactersIn() {
-        let vaildInput = self.filterModel
+    func testShouldChangeCharactersIn() {
+        let validInput = self.filterModel
             .shouldChangeCharactersIn(currentText: "",
                                       range: NSRange(location: 0, length: 1),
                                       replacementString: "1")
 
-        let inVaildInput = self.filterModel
+        let inValidInput = self.filterModel
         .shouldChangeCharactersIn(currentText: "",
                                   range: NSRange(location: 0, length: 1),
                                   replacementString: "a")
 
         let invalidInputStringLengt = "1234567898889989"
-        let inVaildInputLenght = self.filterModel
+        let invalidInputLength = self.filterModel
         .shouldChangeCharactersIn(currentText: "",
                                   range: NSRange(location: 0, length: 1),
                                   replacementString: invalidInputStringLengt)
 
         let validSpecialInputString = "-"
-        let vaildSpecialInput = self.filterModel
+        let validSpecialInput = self.filterModel
         .shouldChangeCharactersIn(currentText: "",
                                   range: NSRange(location: 0, length: 1),
                                   replacementString: validSpecialInputString)
 
         let invalidSpecialInputString = "-"
-        let invaildSpecialInput = self.filterModel
+        let invalidSpecialInput = self.filterModel
         .shouldChangeCharactersIn(currentText: "1",
                                   range: NSRange(location: 1, length: 2),
                                   replacementString: invalidSpecialInputString)
 
-        XCTAssertTrue(vaildInput)
-        XCTAssertTrue(vaildSpecialInput)
+        XCTAssertTrue(validInput)
+        XCTAssertTrue(validSpecialInput)
 
-        XCTAssertFalse(inVaildInput)
-        XCTAssertFalse(inVaildInputLenght)
-        XCTAssertFalse(invaildSpecialInput)
+        XCTAssertFalse(inValidInput)
+        XCTAssertFalse(invalidInputLength)
+        XCTAssertFalse(invalidSpecialInput)
 
     }
 

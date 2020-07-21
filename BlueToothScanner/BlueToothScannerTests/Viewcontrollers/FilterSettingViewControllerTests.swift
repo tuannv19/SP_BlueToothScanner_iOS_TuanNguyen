@@ -6,7 +6,7 @@ class FilterSettingViewControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let viewModel = FillterSettingViewModel(model: FilterModel())
+        let viewModel = FilterSettingViewModel(model: FilterModel())
         self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel)
         self.filterSettingVC.loadViewIfNeeded()
     }
@@ -39,31 +39,31 @@ class FilterSettingViewControllerTests: XCTestCase {
     func testAllControllAreConnected() {
         _ = try? XCTUnwrap(filterSettingVC.rssiFromTextField, "not connected")
         _ = try? XCTUnwrap(filterSettingVC.rssiToTextField, "not connected")
-        _ = try? XCTUnwrap(filterSettingVC.rssiSwitchControll, "not connected")
-        _ = try? XCTUnwrap(filterSettingVC.emptyDeviceNameSwitchControll, "not connected")
+        _ = try? XCTUnwrap(filterSettingVC.rssiSwitchControl, "not connected")
+        _ = try? XCTUnwrap(filterSettingVC.emptyDeviceNameSwitchControl, "not connected")
     }
     func testbindViewModel() {
-        let viewModel = FillterSettingViewModel(model: FilterModel())
+        let viewModel = FilterSettingViewModel(model: FilterModel())
         self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel)
         self.filterSettingVC.loadViewIfNeeded()
 
         XCTAssertEqual(self.filterSettingVC.rssiFromTextField.text, "")
         XCTAssertEqual(self.filterSettingVC.rssiToTextField.text, "")
-        XCTAssertEqual(self.filterSettingVC.rssiSwitchControll.isOn, false)
-        XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControll.isOn, true)
+        XCTAssertEqual(self.filterSettingVC.rssiSwitchControl.isOn, false)
+        XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControl.isOn, true)
 
         let filterModel = FilterModel(rssiFrom: 10,
                                       rssiTo: 12,
-                                      fillterRSSI: true,
-                                      fillterEmptyName: true)
-        let viewModel1 = FillterSettingViewModel(model: filterModel)
+                                      filterRSSI: true,
+                                      filterEmptyName: true)
+        let viewModel1 = FilterSettingViewModel(model: filterModel)
         self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel1)
         self.filterSettingVC.loadViewIfNeeded()
 
         XCTAssertEqual(self.filterSettingVC.rssiFromTextField.text, "10")
         XCTAssertEqual(self.filterSettingVC.rssiToTextField.text, "12")
-        XCTAssertEqual(self.filterSettingVC.rssiSwitchControll.isOn, true)
-        XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControll.isOn, true)
+        XCTAssertEqual(self.filterSettingVC.rssiSwitchControl.isOn, true)
+        XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControl.isOn, true)
     }
 
 }

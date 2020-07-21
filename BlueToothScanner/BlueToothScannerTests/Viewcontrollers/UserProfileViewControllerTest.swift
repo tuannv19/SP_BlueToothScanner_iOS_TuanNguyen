@@ -9,7 +9,7 @@ class UserProfileViewControllerTest: XCTestCase {
         self.userProfileVC = UserProfileViewController.create()
         self.userProfileVC.loadViewIfNeeded()
     }
-    func testAllControllAreConnected() {
+    func testAllControlAreConnected() {
         _ = try? XCTUnwrap(self.userProfileVC.avatarImageView, "not connected")
         _ = try? XCTUnwrap(self.userProfileVC.nameLabel, "not connected")
         _ = try? XCTUnwrap(self.userProfileVC.userNameLabel, "not connected")
@@ -17,8 +17,8 @@ class UserProfileViewControllerTest: XCTestCase {
         _ = try? XCTUnwrap(self.userProfileVC.companyLabel, "not connected")
         _ = try? XCTUnwrap(self.userProfileVC.addressLabel, "not connected")
     }
-    func testHadImplementAllClourse() {
-        XCTAssertNotNil(self.userProfileVC.viewModel.errorHasOcur)
+    func testHadImplementAllClosure() {
+        XCTAssertNotNil(self.userProfileVC.viewModel.errorHasOccur)
         XCTAssertNotNil(self.userProfileVC.viewModel.userInfoDidChange)
     }
 }

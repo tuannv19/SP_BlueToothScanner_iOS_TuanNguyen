@@ -39,7 +39,7 @@ class BluetoothService: NSObject {
     // MARK: - Private Properties
     private var cbManager: CBCentralManager!
 
-    // MARK: - Clourse Properties
+    // MARK: - Closure Properties
     var bluetoothStateCallBack: BluetoothStateCallback?
     var peripheralStateCallback: BluetoothPeripheralStateCallback?
 

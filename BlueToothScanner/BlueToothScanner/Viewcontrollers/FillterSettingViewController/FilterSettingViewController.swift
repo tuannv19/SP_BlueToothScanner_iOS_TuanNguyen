@@ -3,10 +3,10 @@ import UIKit
 class FilterSettingViewController: UIViewController {
     @IBOutlet weak var rssiFromTextField: UITextField!
     @IBOutlet weak var rssiToTextField: UITextField!
-    @IBOutlet weak var rssiSwitchControll: UISwitch!
-    @IBOutlet weak var emptyDeviceNameSwitchControll: UISwitch!
+    @IBOutlet weak var rssiSwitchControl: UISwitch!
+    @IBOutlet weak var emptyDeviceNameSwitchControl: UISwitch!
 
-    var viewModel: FillterSettingViewModel!
+    var viewModel: FilterSettingViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,34 +27,35 @@ class FilterSettingViewController: UIViewController {
             self.rssiToTextField.text = "\(to)"
         }
 
-        self.rssiSwitchControll.isOn = viewModel.filterModel.fillterRSSI
-        self.emptyDeviceNameSwitchControll.isOn = viewModel.filterModel.fillterEmptyName
+        self.rssiSwitchControl.isOn = viewModel.filterModel.filterRSSI
+        self.emptyDeviceNameSwitchControl.isOn = viewModel.filterModel.filterEmptyName
     }
 
     @IBAction func applyButtonDidclick(_ sender: Any) {
         self.viewModel?
-            .verifyBluetoothState(fromRSSI: Int( self.rssiFromTextField.text!) ?? nil,
+            .verifyBluetoothState(
+                fromRSSI: Int( self.rssiFromTextField.text!) ?? nil,
                                   toRSSI: Int(self.rssiToTextField.text!) ?? nil,
-                                  fillterRSSI: self.rssiSwitchControll.isOn,
-                                  fillterEmptyName: self.emptyDeviceNameSwitchControll.isOn
+                                  filterRSSI: self.rssiSwitchControl.isOn,
+                                  filterEmptyName: self.emptyDeviceNameSwitchControl.isOn
             ) { [ unowned self] (model, error) in
                 if let  model = model {
                     self.viewModel?.didSendData?(model)
-                    self.dismissAndCLoseKeyboad()
+                    self.dismissAndCLoseKeyboard()
                 }
 
                 if let error = error {
                     self.showAlert(title: "Error", message: error.localizedDescription)
                     return
                 }
-                self.dismissAndCLoseKeyboad()
+                self.dismissAndCLoseKeyboard()
         }
 
     }
     @IBAction func closeButtonDidClick(_ sender: Any) {
-        self.dismissAndCLoseKeyboad()
+        self.dismissAndCLoseKeyboard()
     }
-    func dismissAndCLoseKeyboad() {
+    func dismissAndCLoseKeyboard() {
         self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
@@ -77,11 +78,11 @@ extension FilterSettingViewController: UITextFieldDelegate {
 
 // MARK: - Factory
 extension FilterSettingViewController {
-    static func create(viewModel: FillterSettingViewModel) -> FilterSettingViewController {
+    static func create(viewModel: FilterSettingViewModel) -> FilterSettingViewController {
 
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
-            withIdentifier: "FillterSettingViewController"
+            withIdentifier: "FilterSettingViewController"
             ) as! FilterSettingViewController
         vc.viewModel = viewModel
 

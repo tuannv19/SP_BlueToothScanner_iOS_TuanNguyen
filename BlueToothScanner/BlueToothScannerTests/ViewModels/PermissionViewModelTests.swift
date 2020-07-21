@@ -4,7 +4,7 @@ import XCTest
 class PermissionViewModelTests: XCTestCase {
     private let viewModel = PermissionViewModel()
 
-    func testverifyAndprocessNextScreen() {
+    func testVerifyAndProcessNextScreen() {
 
     }
 

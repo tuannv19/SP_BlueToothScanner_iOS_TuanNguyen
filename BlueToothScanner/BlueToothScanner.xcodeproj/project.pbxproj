@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		DB2060ED24C54773009E94B0 /* FilterSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060EC24C54773009E94B0 /* FilterSettingViewController.swift */; };
 		DB2060EF24C54C4F009E94B0 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060EE24C54C4F009E94B0 /* FilterModel.swift */; };
-		DB2060F124C54D57009E94B0 /* FillterSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060F024C54D57009E94B0 /* FillterSettingViewModel.swift */; };
+		DB2060F124C54D57009E94B0 /* FilterSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060F024C54D57009E94B0 /* FilterSettingViewModel.swift */; };
 		DB2060F424C57599009E94B0 /* BluetoothViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060F324C57599009E94B0 /* BluetoothViewModelTest.swift */; };
 		DB2060F724C57ECA009E94B0 /* PeripheralViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060F624C57ECA009E94B0 /* PeripheralViewModelTests.swift */; };
 		DB2060F924C57F0B009E94B0 /* FilterSettingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060F824C57F0B009E94B0 /* FilterSettingViewModelTests.swift */; };
@@ -59,7 +59,7 @@
 /* Begin PBXFileReference section */
 		DB2060EC24C54773009E94B0 /* FilterSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingViewController.swift; sourceTree = "<group>"; };
 		DB2060EE24C54C4F009E94B0 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
-		DB2060F024C54D57009E94B0 /* FillterSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillterSettingViewModel.swift; sourceTree = "<group>"; };
+		DB2060F024C54D57009E94B0 /* FilterSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingViewModel.swift; sourceTree = "<group>"; };
 		DB2060F224C57598009E94B0 /* BlueToothScannerTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlueToothScannerTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		DB2060F324C57599009E94B0 /* BluetoothViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewModelTest.swift; sourceTree = "<group>"; };
 		DB2060F624C57ECA009E94B0 /* PeripheralViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewModelTests.swift; sourceTree = "<group>"; };
@@ -345,7 +345,7 @@
 				DBE718AE24C0171700EB9734 /* BluetoothViewModel.swift */,
 				DB267E0124C1A929004C83B2 /* PeripheralViewModel.swift */,
 				DB28F15D24C533F000908C31 /* PermissionViewModel.swift */,
-				DB2060F024C54D57009E94B0 /* FillterSettingViewModel.swift */,
+				DB2060F024C54D57009E94B0 /* FilterSettingViewModel.swift */,
 				DB837B6024C6876100AB922F /* UserProfileViewModel.swift */,
 			);
 			path = ViewModels;
@@ -483,7 +483,7 @@
 				DB267DEE24C14BFC004C83B2 /* ScanDeviceTableViewCell.swift in Sources */,
 				DB20610124C5A73E009E94B0 /* UserInfo.swift in Sources */,
 				DB28F15E24C533F000908C31 /* PermissionViewModel.swift in Sources */,
-				DB2060F124C54D57009E94B0 /* FillterSettingViewModel.swift in Sources */,
+				DB2060F124C54D57009E94B0 /* FilterSettingViewModel.swift in Sources */,
 				DBE718AC24C014FA00EB9734 /* BluetoothViewController.swift in Sources */,
 				DBE718AF24C0171700EB9734 /* BluetoothViewModel.swift in Sources */,
 				DB267E0024C1A588004C83B2 /* PeripheralViewController.swift in Sources */,

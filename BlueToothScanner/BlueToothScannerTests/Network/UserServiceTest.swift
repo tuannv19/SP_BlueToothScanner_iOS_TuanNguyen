@@ -13,10 +13,11 @@ class UserServiceTest: XCTestCase {
 
         self.userInfoService = UserServices(networkProvider: netWorkProvider)
     }
+
     func testInit() {
         XCTAssertNotNil(self.userInfoService.networkProvider)
     }
-    func testfecthUserInfoSuccess() {
+    func testFetchUserInfoSuccess() {
 
         var responseData: UserInfo?
         var err: NetworkError?
@@ -25,16 +26,13 @@ class UserServiceTest: XCTestCase {
         let path = Bundle(for: type(of: self)).url(forResource: "user.json", withExtension: nil)
         let userData = try? Data(contentsOf: path!)
 
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: self.url,
-                                           statusCode: 200,
-                                           httpVersion: nil,
-                                           headerFields: nil)!
+        MockURLProtocol.requestHandler = MockURLProtocol.create(
+            code: 200,
+            data: userData,
+            url: self.url
+        )
 
-            return (response, userData)
-        }
-
-        self.userInfoService.fecthUserInfo { result in
+        self.userInfoService.fetchUserInfo { result in
             switch result {
             case .failure(let error) :
                 err = error
@@ -48,20 +46,19 @@ class UserServiceTest: XCTestCase {
         XCTAssertNotNil(responseData)
         XCTAssertNil(err)
     }
-    func testfecthUserInfoSuccessButEmptyData() {
+    func testFecthUserInfoSuccessButEmptyData() {
 
         var responseData: UserInfo?
         var err: NetworkError?
 
         let expect = expectation(description: "Expectation")
 
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        MockURLProtocol.requestHandler = MockURLProtocol.create(
+            code: 200,
+            url: self.url
+        )
 
-            return (response, Data())
-        }
-
-        self.userInfoService.fecthUserInfo { result in
+        self.userInfoService.fetchUserInfo { result in
             switch result {
             case .failure(let error) :
                 err = error
@@ -75,21 +72,15 @@ class UserServiceTest: XCTestCase {
         XCTAssertNil(responseData)
         XCTAssertEqual(err, NetworkError.noResultError)
     }
-    func testfecthUserInfoError() {
+    func testFetchUserInfoError() {
         var responseData: UserInfo?
         var err: NetworkError?
 
         let expect = expectation(description: "Expectation")
 
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: self.url,
-                                           statusCode: 404,
-                                           httpVersion: nil,
-                                           headerFields: nil)!
-            return (response, Data())
-        }
+        MockURLProtocol.requestHandler = MockURLProtocol.create(code: 404, url: self.url)
 
-        self.userInfoService.fecthUserInfo { result in
+        self.userInfoService.fetchUserInfo { result in
             switch result {
             case .failure(let error) :
                 err = error
@@ -103,5 +94,57 @@ class UserServiceTest: XCTestCase {
 
         XCTAssertEqual(err, NetworkError.notFoundError)
         XCTAssertNil(responseData)
+    }
+
+    func testFetchDataSuccess() {
+        var responseData: Data?
+        var err: NetworkError?
+
+        let expect = expectation(description: "Expectation")
+
+        MockURLProtocol.requestHandler = MockURLProtocol.create(
+            code: 200,
+            data: UIImage().pngData(),
+            url: self.url
+        )
+
+        self.userInfoService.fetchData(url: self.url.absoluteString) { result in
+            switch result {
+            case .failure(let error) :
+                err = error
+            case .success(let userInfo) :
+                responseData = userInfo
+            }
+            expect.fulfill()
+        }
+
+        wait(for: [expect], timeout: 0.5)
+        XCTAssertNotNil(responseData)
+    }
+
+    func testFetchDataFail() {
+        var responseData: Data?
+        var err: NetworkError?
+
+        let expect = expectation(description: "Expectation")
+
+        MockURLProtocol.requestHandler = MockURLProtocol.create(
+            code: 404,
+            data: UIImage().pngData(),
+            url: self.url
+        )
+
+        self.userInfoService.fetchData(url: self.url.absoluteString) { result in
+            switch result {
+            case .failure(let error) :
+                err = error
+            case .success(let userInfo) :
+                responseData = userInfo
+            }
+            expect.fulfill()
+        }
+
+        wait(for: [expect], timeout: 0.5)
+        XCTAssertNotNil(err)
     }
 }
