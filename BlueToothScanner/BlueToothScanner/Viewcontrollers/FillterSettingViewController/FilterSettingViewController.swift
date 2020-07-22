@@ -1,6 +1,6 @@
 import UIKit
 
-class FilterSettingViewController: UIViewController {
+class FilterSettingViewController: UIViewController, ViewControllerType {
     @IBOutlet weak var rssiFromTextField: UITextField!
     @IBOutlet weak var rssiToTextField: UITextField!
     @IBOutlet weak var rssiSwitchControl: UISwitch!
@@ -20,19 +20,19 @@ class FilterSettingViewController: UIViewController {
 
     func bindViewModel() {
 
-        if let from = viewModel.filterModel.rssiFrom {
+        if let from = self.viewModel.filterModel.rssiFrom {
             self.rssiFromTextField.text = "\(from)"
         }
-        if let to = viewModel.filterModel.rssiTo {
+        if let to = self.viewModel.filterModel.rssiTo {
             self.rssiToTextField.text = "\(to)"
         }
 
-        self.rssiSwitchControl.isOn = viewModel.filterModel.filterRSSI
-        self.emptyDeviceNameSwitchControl.isOn = viewModel.filterModel.filterEmptyName
+        self.rssiSwitchControl.isOn = self.viewModel.filterModel.filterRSSI
+        self.emptyDeviceNameSwitchControl.isOn = self.viewModel.filterModel.filterEmptyName
     }
 
     @IBAction func applyButtonDidclick(_ sender: Any) {
-        self.viewModel?
+        self.viewModel
             .verifyBluetoothState(
                 fromRSSI: Int( self.rssiFromTextField.text!) ?? nil,
                                   toRSSI: Int(self.rssiToTextField.text!) ?? nil,
@@ -40,7 +40,7 @@ class FilterSettingViewController: UIViewController {
                                   filterEmptyName: self.emptyDeviceNameSwitchControl.isOn
             ) { [ unowned self] (model, error) in
                 if let  model = model {
-                    self.viewModel?.didSendData?(model)
+                    self.viewModel.didSendData?(model)
                     self.dismissAndCLoseKeyboard()
                 }
 
@@ -70,22 +70,8 @@ extension FilterSettingViewController: UITextFieldDelegate {
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
 
-        return viewModel.shouldChangeCharactersIn(currentText: textField.text!,
-                                                  range: range,
-                                                  replacementString: string)
-    }
-}
-
-// MARK: - Factory
-extension FilterSettingViewController {
-    static func create(viewModel: FilterSettingViewModel) -> FilterSettingViewController {
-
-        let sb = UIStoryboard.init(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewController(
-            withIdentifier: "FilterSettingViewController"
-            ) as! FilterSettingViewController
-        vc.viewModel = viewModel
-
-        return vc
+        return self.viewModel.shouldChangeCharactersIn(currentText: textField.text!,
+                                                    range: range,
+                                                    replacementString: string)
     }
 }

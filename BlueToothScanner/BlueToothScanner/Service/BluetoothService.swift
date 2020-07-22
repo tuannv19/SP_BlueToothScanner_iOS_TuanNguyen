@@ -37,7 +37,7 @@ class BluetoothService: NSObject {
     static let shared = BluetoothService()
 
     // MARK: - Private Properties
-    private var cbManager: CBCentralManager!
+    var cbManager: CBCentralManager!
 
     // MARK: - Closure Properties
     var bluetoothStateCallBack: BluetoothStateCallback?
@@ -69,9 +69,7 @@ extension BluetoothService {
     }
 
     func stopScan() {
-        if self.cbManager.isScanning {
-            self.cbManager.stopScan()
-        }
+        self.cbManager.stopScan()
     }
 }
 extension BluetoothService: CBCentralManagerDelegate {

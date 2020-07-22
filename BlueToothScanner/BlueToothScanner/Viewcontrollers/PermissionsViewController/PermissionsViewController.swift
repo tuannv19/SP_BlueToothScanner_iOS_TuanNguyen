@@ -1,7 +1,7 @@
 import UIKit
 
-class PermissionsViewController: UIViewController {
-    var viewModel: PermissionViewModel?
+class PermissionsViewController: UIViewController, ViewControllerType {
+    var viewModel: PermissionViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -13,33 +13,24 @@ class PermissionsViewController: UIViewController {
     }
 
     @IBAction func continueButtonDidClick(_ sender: Any) {
-        self.viewModel?.verifyAndProcessNextScreen(completion: { (error) in
+        self.viewModel.verifyAndProcessNextScreen(completion: { [unowned self] (error) in
             guard let error = error else {
-                let vc = Self.createTabbar()
-                UIApplication.shared.keyWindow?.rootViewController = vc
-                UIApplication.shared.keyWindow?.makeKeyAndVisible()
-
+                self.moveToTabBarController()
                 return
             }
-
             self.showAlert(title: "Error", message: error.localizedDescription)
         })
+    }
+    func moveToTabBarController() {
+        let vc = Self.createTabBar()
+        UIApplication.shared.keyWindow?.rootViewController = vc
+        UIApplication.shared.keyWindow?.makeKeyAndVisible()
     }
 }
 
 // MARK: - Factory
 extension PermissionsViewController {
-    static func create() -> PermissionsViewController {
-        let vm = PermissionViewModel()
-
-        let sb = UIStoryboard.init(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewController(
-            withIdentifier: "TabbarController"
-            ) as! PermissionsViewController
-        vc.viewModel = vm
-        return vc
-    }
-    static func createTabbar() -> UITabBarController {
+    static func createTabBar() -> UITabBarController {
         let sb = UIStoryboard.init(name: "Main", bundle: nil)
         let vc = sb.instantiateViewController(
             withIdentifier: "TabbarController"

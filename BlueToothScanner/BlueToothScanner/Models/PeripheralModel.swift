@@ -8,7 +8,7 @@ struct PeripheralModel {
     var name: String?
     var identifier: String?//same with UUID
     var rssi: NSNumber?
-    var customValue: [String: Any]?
+    var customValue: [String: Any]
 
     init?(info: PeripheralInfo) {
 
@@ -19,14 +19,14 @@ struct PeripheralModel {
     }
 
     func prettyString() -> String {
-        let info: [String]? = self.customValue?.map { return ("\($0): \($1)") }
-        let infoString = info?.joined(separator: "\n")
+        let info: [String] = self.customValue.map { return ("\($0): \($1)")}
+        let infoString = info.joined(separator: "\n")
 
         return """
         name: \(self.name ?? "")
-        UUID: \(self.identifier ?? "")
+        UUID: \(self.identifier!)
         RSSI: \(String(describing: self.rssi))
-        info: \(infoString ?? "")
+        info: \(infoString )
         """
     }
 }

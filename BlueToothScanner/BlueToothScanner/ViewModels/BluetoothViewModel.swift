@@ -3,40 +3,30 @@ import  CoreBluetooth
 class BluetoothViewModel {
 
     // MARK: - Private Properties
-    private var isScanning: Bool = false {
-        didSet {
-            self.bluetoothScanStateDidChange?(isScanning)
-        }
-    }
 
     private var bluetoothState: CBManagerState = .unknown {
         didSet {
-            self.bluetoothStateDidChange?(bluetoothState)
-            if bluetoothState != .poweredOn && isScanning == true {
+            bluetoothStateDidChange.value = bluetoothState
+            if bluetoothState != .poweredOn && isScanning.value == true {
                 // stop all services
                 self.stopScan()
-                self.isScanning = false
+                self.isScanning.value = false
             }
         }
     }
 
     // MARK: - Public Properties
     var numberOfPeripheralModel: Int {
-        return self.peripherals.count
-    }
-    var peripherals: [PeripheralModel] = [] {
-        didSet {
-            self.reloadTableview?()
-        }
+        return self.peripherals.value.count
     }
 
-    // MARK: - Clousure Properties
-    var reloadTableview:(() -> Void)?
-    var bluetoothScanStateDidChange: ((Bool) -> Void)?
-    var bluetoothStateDidChange: ((CBManagerState) -> Void)?
+    // MARK: - Dynamic Properties
+    var peripherals = Dynamic<[PeripheralModel]>([])
+    var isScanning  = Dynamic<Bool>(false)
+    var bluetoothStateDidChange = Dynamic<CBManagerState>(.unknown)
 
     // MARK: - Bluetooth
-    private let bluetoothService = BluetoothService.shared
+    let bluetoothService = BluetoothService.shared
     private var peripheralInfos = [PeripheralInfo]()
 
     var filterModel = FilterModel()
@@ -44,7 +34,7 @@ class BluetoothViewModel {
 
 extension BluetoothViewModel {
     func initialBluetoothService() {
-        self.isScanning = self.bluetoothService.isScanning
+        self.isScanning.value = self.bluetoothService.isScanning
         self.registerBluetoothServicesCallback()
         self.bluetoothState = self.bluetoothService.state
     }
@@ -70,7 +60,7 @@ extension BluetoothViewModel {
 
 extension BluetoothViewModel {
     func scan(isScanning: Bool) {
-        self.isScanning = isScanning
+        self.isScanning.value = isScanning
         if isScanning {
             self.startScan()
         } else {
@@ -84,9 +74,10 @@ extension BluetoothViewModel {
     func stopScan() {
         self.bluetoothService.stopScan()
     }
+
     func applyNewFilter(filterModel: FilterModel) {
         self.filterModel = filterModel
-        self.peripherals = self.applyFilter()
+        self.peripherals.value = self.applyFilter()
     }
 
     internal func addOrUpdatePeripheralIfNeed(peripheralInfo: PeripheralInfo) {
@@ -99,15 +90,16 @@ extension BluetoothViewModel {
 
                 //if not exit just add and update UI
                 self.peripheralInfos.append(peripheralInfo)
+                self.peripherals.value = self.applyFilter()
                 return
         }
 
         //update peripheral data
         // RSSI
-        self.peripheralInfos[indexOfExistPeripheral].2 = peripheralInfo.2
+        self.peripheralInfos[indexOfExistPeripheral] = peripheralInfo
 
-        //fillter data
-        self.peripherals = self.applyFilter()
+        //filter data
+        self.peripherals.value = self.applyFilter()
 
     }
 
