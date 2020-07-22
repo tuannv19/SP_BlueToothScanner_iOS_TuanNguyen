@@ -1,7 +1,7 @@
 import UIKit
 import CoreBluetooth
 
-class BluetoothViewController: UIViewController {
+class BluetoothViewController: UIViewController, ViewControllerType {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var switchControl: UISwitch!
@@ -9,7 +9,7 @@ class BluetoothViewController: UIViewController {
     @IBOutlet weak var bluetoothScanIndicator: UIActivityIndicatorView!
     @IBOutlet weak var totalDeviceLabel: UILabel!
 
-    var viewModel = BluetoothViewModel()
+    var viewModel: BluetoothViewModel! = BluetoothViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ class BluetoothViewController: UIViewController {
         let viewModel = FilterSettingViewModel(model: self.viewModel.filterModel)
         let vc = FilterSettingViewController.create(viewModel: viewModel)
 
-        vc.viewModel?.didSendData = { [weak self] filterMode in
+        vc.viewModel.didSendData = { [weak self] filterMode in
             guard let self = self  else {
                 return
             }
@@ -112,7 +112,9 @@ extension BluetoothViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let model  = viewModel.peripherals.value[indexPath.row]
-        let vc = PeripheralViewController.create(peripheral: model)
+        let vc = PeripheralViewController.create(
+            viewModel: PeripheralViewModel(peripheralModel: model)
+        )
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
@@ -137,15 +139,4 @@ extension BluetoothViewController: UITableViewDataSource {
         return cell
     }
 
-}
-
-// MARK: - Factory
-extension BluetoothViewController {
-    static func create() -> BluetoothViewController {
-        let sb = UIStoryboard.init(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewController(
-            withIdentifier: "BluetoothViewController"
-            ) as! BluetoothViewController
-        return vc
-    }
 }

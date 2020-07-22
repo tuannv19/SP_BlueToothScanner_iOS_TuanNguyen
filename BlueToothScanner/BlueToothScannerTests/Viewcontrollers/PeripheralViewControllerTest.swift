@@ -9,7 +9,8 @@ class PeripheralViewControllerTest: XCTestCase {
 
         let peripheralInfo: PeripheralInfo = (mock, [:], -1)
         let peripheralModel = PeripheralModel(info: peripheralInfo)
-        self.peripheralVC = PeripheralViewController.create(peripheral: peripheralModel!)
+        let viewModel = PeripheralViewModel(peripheralModel: peripheralModel!)
+        self.peripheralVC = PeripheralViewController.create(viewModel: viewModel)
     }
 
     func testCreate() {
@@ -17,11 +18,11 @@ class PeripheralViewControllerTest: XCTestCase {
 
         let peripheralInfo: PeripheralInfo = (mock, [:], -1)
         let peripheralModel = PeripheralModel(info: peripheralInfo)
-        let vc = PeripheralViewController.create(peripheral: peripheralModel!)
+        let viewModel = PeripheralViewModel(peripheralModel: peripheralModel!)
+        let vc = PeripheralViewController.create(viewModel: viewModel)
         vc.loadViewIfNeeded()
 
         XCTAssertNotNil(vc.infoTextView.text)
-        XCTAssertNotNil(vc)
     }
 
 }

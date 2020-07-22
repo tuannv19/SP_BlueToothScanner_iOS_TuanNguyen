@@ -1,29 +1,15 @@
 import UIKit
 
-class PeripheralViewController: UIViewController {
+class PeripheralViewController: UIViewController, ViewControllerType {
     @IBOutlet weak var infoTextView: UITextView!
-    var viewModel: PeripheralViewModel?
+    var viewModel: PeripheralViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let vm = viewModel {
+        if let vm = self.viewModel {
             self.infoTextView.text = vm.peripheralModel?.prettyString()
             self.title = vm.peripheralModel?.name
         }
 
-    }
-}
-
-// MARK: - Factory
-extension PeripheralViewController {
-    static func create(peripheral: PeripheralModel) -> PeripheralViewController {
-        let vm = PeripheralViewModel(peripheralModel: peripheral)
-
-        let sb = UIStoryboard.init(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewController(
-            withIdentifier: "PeripheralViewController"
-            ) as! PeripheralViewController
-        vc.viewModel = vm
-        return vc
     }
 }

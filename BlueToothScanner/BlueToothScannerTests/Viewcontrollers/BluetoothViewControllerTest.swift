@@ -9,9 +9,4 @@ class BluetoothViewControllerTest: XCTestCase {
         self.bluetoothVC = BluetoothViewController.create()
         self.bluetoothVC.loadViewIfNeeded()
     }
-
-    func testCreate() {
-        let vc = BluetoothViewController.create()
-        XCTAssertNotNil(vc)
-    }
 }

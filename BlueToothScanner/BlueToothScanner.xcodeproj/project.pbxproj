@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB159FE224C7E2F5000D6025 /* PermissionsViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB159FE124C7E2F5000D6025 /* PermissionsViewControllerTest.swift */; };
+		DB159FE424C7E96B000D6025 /* UIViewController+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB159FE324C7E96B000D6025 /* UIViewController+Protocol.swift */; };
+		DB159FE624C7E9A1000D6025 /* UIViewController+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB159FE524C7E9A1000D6025 /* UIViewController+Create.swift */; };
 		DB2060ED24C54773009E94B0 /* FilterSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060EC24C54773009E94B0 /* FilterSettingViewController.swift */; };
 		DB2060EF24C54C4F009E94B0 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060EE24C54C4F009E94B0 /* FilterModel.swift */; };
 		DB2060F124C54D57009E94B0 /* FilterSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2060F024C54D57009E94B0 /* FilterSettingViewModel.swift */; };
@@ -66,6 +69,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DB159FE124C7E2F5000D6025 /* PermissionsViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsViewControllerTest.swift; sourceTree = "<group>"; };
+		DB159FE324C7E96B000D6025 /* UIViewController+Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Protocol.swift"; sourceTree = "<group>"; };
+		DB159FE524C7E9A1000D6025 /* UIViewController+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Create.swift"; sourceTree = "<group>"; };
 		DB2060EC24C54773009E94B0 /* FilterSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingViewController.swift; sourceTree = "<group>"; };
 		DB2060EE24C54C4F009E94B0 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		DB2060F024C54D57009E94B0 /* FilterSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingViewModel.swift; sourceTree = "<group>"; };
@@ -176,6 +182,7 @@
 				DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */,
 				DB6C2C5824C7189E0046C3CC /* BluetoothViewControllerTest.swift */,
 				DB6C2C5A24C719DE0046C3CC /* PeripheralViewControllerTest.swift */,
+				DB159FE124C7E2F5000D6025 /* PermissionsViewControllerTest.swift */,
 			);
 			path = Viewcontrollers;
 			sourceTree = "<group>";
@@ -253,6 +260,8 @@
 			children = (
 				DB267DFC24C18B03004C83B2 /* UIViewController+Alert.swift */,
 				DB6C2C5624C70FF00046C3CC /* Dynamic.swift */,
+				DB159FE324C7E96B000D6025 /* UIViewController+Protocol.swift */,
+				DB159FE524C7E9A1000D6025 /* UIViewController+Create.swift */,
 			);
 			path = Exentions;
 			sourceTree = "<group>";
@@ -527,12 +536,14 @@
 				DB28F15E24C533F000908C31 /* PermissionViewModel.swift in Sources */,
 				DB2060F124C54D57009E94B0 /* FilterSettingViewModel.swift in Sources */,
 				DBE718AC24C014FA00EB9734 /* BluetoothViewController.swift in Sources */,
+				DB159FE424C7E96B000D6025 /* UIViewController+Protocol.swift in Sources */,
 				DBE718AF24C0171700EB9734 /* BluetoothViewModel.swift in Sources */,
 				DB267E0024C1A588004C83B2 /* PeripheralViewController.swift in Sources */,
 				DB6C2C5724C70FF00046C3CC /* Dynamic.swift in Sources */,
 				DB20610324C5A7B0009E94B0 /* Network.swift in Sources */,
 				DB28F15C24C5325E00908C31 /* PermissionsViewController.swift in Sources */,
 				DB837B6124C6876100AB922F /* UserProfileViewModel.swift in Sources */,
+				DB159FE624C7E9A1000D6025 /* UIViewController+Create.swift in Sources */,
 				DB267E0224C1A929004C83B2 /* PeripheralViewModel.swift in Sources */,
 				DB267DF424C15F2B004C83B2 /* BluetoothService.swift in Sources */,
 				DB267DFD24C18B03004C83B2 /* UIViewController+Alert.swift in Sources */,
@@ -549,6 +560,7 @@
 				DB6C2C6724C724600046C3CC /* CBPeripheralMock.m in Sources */,
 				DB20610D24C5FAB7009E94B0 /* NetworkingTest.swift in Sources */,
 				DB2060FC24C583B9009E94B0 /* FilterSettingViewControllerTests.swift in Sources */,
+				DB159FE224C7E2F5000D6025 /* PermissionsViewControllerTest.swift in Sources */,
 				DB2060F924C57F0B009E94B0 /* FilterSettingViewModelTests.swift in Sources */,
 				DB6C2C5F24C71C7A0046C3CC /* BLErrorTest.swift in Sources */,
 				DB20610A24C5F933009E94B0 /* BluetoothServiceTest.swift in Sources */,

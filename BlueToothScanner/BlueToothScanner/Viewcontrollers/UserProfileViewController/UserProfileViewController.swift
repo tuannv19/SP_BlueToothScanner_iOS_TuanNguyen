@@ -1,6 +1,6 @@
 import UIKit
 
-class UserProfileViewController: UIViewController {
+class UserProfileViewController: UIViewController, ViewControllerType {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -10,7 +10,7 @@ class UserProfileViewController: UIViewController {
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var stackView: UIStackView!
 
-    internal let viewModel = UserProfileViewModel(
+    var viewModel: UserProfileViewModel! = UserProfileViewModel(
         userService: UserServices(networkProvider: NetworkProvider())
     )
 
@@ -78,15 +78,5 @@ class UserProfileViewController: UIViewController {
     }
     @objc func  rightBarButtonCLick() {
         self.viewModel.fetchUser()
-    }
-}
-// MARK: - Factory
-extension UserProfileViewController {
-    static func create() -> UserProfileViewController {
-        let sb = UIStoryboard.init(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewController(
-            withIdentifier: "UserProfileViewController"
-            ) as! UserProfileViewController
-        return vc
     }
 }
