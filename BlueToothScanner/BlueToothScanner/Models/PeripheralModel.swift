@@ -24,7 +24,7 @@ struct PeripheralModel {
 
         return """
         name: \(self.name ?? "")
-        UUID: \(self.identifier ?? "")
+        UUID: \(self.identifier!)
         RSSI: \(String(describing: self.rssi))
         info: \(infoString ?? "")
         """

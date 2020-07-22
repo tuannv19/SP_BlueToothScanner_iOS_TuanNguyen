@@ -12,6 +12,9 @@
 //    }];
     return self;
 }
+- (void)setState:(CBManagerState)state{
+    [given(_mock.state) willReturnInteger:state];
+}
 
 - (void)verifyPeripheralEquals:(CBPeripheral *) expected  {
     [verify(self.mock) connectPeripheral:expected

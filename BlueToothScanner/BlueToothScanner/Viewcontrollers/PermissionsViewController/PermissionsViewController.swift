@@ -13,17 +13,18 @@ class PermissionsViewController: UIViewController, ViewControllerType {
     }
 
     @IBAction func continueButtonDidClick(_ sender: Any) {
-        self.viewModel.verifyAndProcessNextScreen(completion: { (error) in
+        self.viewModel.verifyAndProcessNextScreen(completion: { [unowned self] (error) in
             guard let error = error else {
-                let vc = Self.createTabBar()
-                UIApplication.shared.keyWindow?.rootViewController = vc
-                UIApplication.shared.keyWindow?.makeKeyAndVisible()
-
+                self.moveToTabBarController()
                 return
             }
-
             self.showAlert(title: "Error", message: error.localizedDescription)
         })
+    }
+    func moveToTabBarController() {
+        let vc = Self.createTabBar()
+        UIApplication.shared.keyWindow?.rootViewController = vc
+        UIApplication.shared.keyWindow?.makeKeyAndVisible()
     }
 }
 

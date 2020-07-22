@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(strong, nonatomic) CBCentralManager *mock;
 @property(readonly, nonatomic) BOOL isScanning;
 @property(readonly, nonatomic) NSInteger state;
+- (void)setState:(CBManagerState) state;
 @end
 
 NS_ASSUME_NONNULL_END

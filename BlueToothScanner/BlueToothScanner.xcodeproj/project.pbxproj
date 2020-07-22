@@ -198,6 +198,7 @@
 		DB20610824C5F925009E94B0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				DB20610F24C60C0E009E94B0 /* UserServiceTest.swift */,
 				DB20610924C5F933009E94B0 /* BluetoothServiceTest.swift */,
 			);
 			path = Services;
@@ -207,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				DB20610C24C5FAB7009E94B0 /* NetworkingTest.swift */,
-				DB20610F24C60C0E009E94B0 /* UserServiceTest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
