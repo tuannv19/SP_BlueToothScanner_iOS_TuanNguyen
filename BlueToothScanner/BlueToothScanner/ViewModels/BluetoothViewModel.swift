@@ -26,7 +26,7 @@ class BluetoothViewModel {
     var bluetoothStateDidChange = Dynamic<CBManagerState>(.unknown)
 
     // MARK: - Bluetooth
-    private let bluetoothService = BluetoothService.shared
+    let bluetoothService = BluetoothService.shared
     private var peripheralInfos = [PeripheralInfo]()
 
     var filterModel = FilterModel()
@@ -90,12 +90,13 @@ extension BluetoothViewModel {
 
                 //if not exit just add and update UI
                 self.peripheralInfos.append(peripheralInfo)
+                self.peripherals.value = self.applyFilter()
                 return
         }
 
         //update peripheral data
         // RSSI
-        self.peripheralInfos[indexOfExistPeripheral].2 = peripheralInfo.2
+        self.peripheralInfos[indexOfExistPeripheral] = peripheralInfo
 
         //filter data
         self.peripherals.value = self.applyFilter()

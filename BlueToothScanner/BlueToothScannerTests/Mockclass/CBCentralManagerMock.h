@@ -10,7 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface CBCentralManagerMock: NSObject
-@property(readonly, nonatomic) CBCentralManager *mock;
+@property(strong, nonatomic) CBCentralManager *mock;
+@property(readonly, nonatomic) BOOL isScanning;
+@property(readonly, nonatomic) NSInteger state;
 @end
 
 NS_ASSUME_NONNULL_END

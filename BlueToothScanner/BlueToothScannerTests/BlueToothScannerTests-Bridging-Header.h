@@ -3,3 +3,4 @@
 //
 
 #import "CBPeripheralMock.h"
+#import "CBCentralManagerMock.h"

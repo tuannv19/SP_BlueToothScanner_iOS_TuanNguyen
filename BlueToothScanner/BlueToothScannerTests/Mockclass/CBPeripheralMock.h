@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nonatomic) CBPeripheral *mock;
 
 - (instancetype)initWithUUID:(NSString*)UUID;
+- (instancetype)initWithUUID:(NSString*)UUID name:(NSString*)name;
 @end
 
 NS_ASSUME_NONNULL_END
