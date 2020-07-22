@@ -120,6 +120,7 @@ class UserServiceTest: XCTestCase {
 
         wait(for: [expect], timeout: 0.5)
         XCTAssertNotNil(responseData)
+        XCTAssertNil(err)
     }
 
     func testFetchDataFail() {
