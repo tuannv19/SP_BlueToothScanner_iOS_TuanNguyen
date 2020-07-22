@@ -44,10 +44,7 @@ class BluetoothViewController: UIViewController, ViewControllerType {
         let viewModel = FilterSettingViewModel(model: self.viewModel.filterModel)
         let vc = FilterSettingViewController.create(viewModel: viewModel)
 
-        vc.viewModel.didSendData = { [weak self] filterMode in
-            guard let self = self  else {
-                return
-            }
+        vc.viewModel.didSendData = { [unowned self] filterMode in
             self.viewModel.applyNewFilter(filterModel: filterMode)
         }
         vc.modalPresentationStyle = .overFullScreen
@@ -57,10 +54,7 @@ class BluetoothViewController: UIViewController, ViewControllerType {
 }
 extension BluetoothViewController {
     func bindViewModel() {
-        self.viewModel.bluetoothStateDidChange.bind { [weak self] (state) in
-            guard let self = self else {
-                return
-            }
+        self.viewModel.bluetoothStateDidChange.bind { [unowned self] (state) in
             DispatchQueue.main.async {
                 var currentState: String
                 switch state {
@@ -81,13 +75,13 @@ extension BluetoothViewController {
             }
         }
 
-        self.viewModel.peripherals.bind { _ in
+        self.viewModel.peripherals.bind { [unowned self] _ in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.totalDeviceLabel.text = " (number of devices founded:\(self.viewModel.numberOfPeripheralModel))"
             }
         }
-        self.viewModel.isScanning.bind { isScanning in
+        self.viewModel.isScanning.bind { [unowned self] isScanning in
             DispatchQueue.main.async {
                 self.switchControl.setOn(isScanning, animated: true)
                 if isScanning == true {

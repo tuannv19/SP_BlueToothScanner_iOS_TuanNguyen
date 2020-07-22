@@ -9,4 +9,7 @@ class BluetoothViewControllerTest: XCTestCase {
         self.bluetoothVC = BluetoothViewController.create()
         self.bluetoothVC.loadViewIfNeeded()
     }
+    func testSetupNavigationBar() {
+        XCTAssertEqual(bluetoothVC.navigationItem.rightBarButtonItem?.title, "Filter")
+    }
 }
