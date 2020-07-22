@@ -78,7 +78,7 @@ extension BluetoothViewController {
         self.viewModel.peripherals.bind { [unowned self] _ in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.totalDeviceLabel.text = " (number of devices founded:\(self.viewModel.numberOfPeripheralModel))"
+                self.totalDeviceLabel.text = " (founded:\(self.viewModel.numberOfPeripheralModel))"
             }
         }
         self.viewModel.isScanning.bind { [unowned self] isScanning in

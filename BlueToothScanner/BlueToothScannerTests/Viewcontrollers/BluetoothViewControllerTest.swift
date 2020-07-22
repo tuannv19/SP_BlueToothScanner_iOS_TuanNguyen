@@ -12,4 +12,9 @@ class BluetoothViewControllerTest: XCTestCase {
     func testSetupNavigationBar() {
         XCTAssertEqual(bluetoothVC.navigationItem.rightBarButtonItem?.title, "Filter")
     }
+    func testAllControlAreConnected() {
+        _ = try? XCTUnwrap(self.bluetoothVC.bluetoothScanIndicator, "not connected")
+        _ = try? XCTUnwrap(self.bluetoothVC.tableView, "not connected")
+        _ = try? XCTUnwrap(self.bluetoothVC.navigationItem.rightBarButtonItem, "not connected")
+    }
 }

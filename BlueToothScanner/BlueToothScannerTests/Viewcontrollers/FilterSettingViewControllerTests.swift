@@ -36,7 +36,7 @@ class FilterSettingViewControllerTests: XCTestCase {
         }
     }
 
-    func testAllControllAreConnected() {
+    func testAllControlAreConnected() {
         _ = try? XCTUnwrap(filterSettingVC.rssiFromTextField, "not connected")
         _ = try? XCTUnwrap(filterSettingVC.rssiToTextField, "not connected")
         _ = try? XCTUnwrap(filterSettingVC.rssiSwitchControl, "not connected")

@@ -26,8 +26,8 @@ class UserProfileViewController: UIViewController, ViewControllerType {
     }
 
     func bindViewModel() {
-        self.viewModel.userInfo.bind({ (userInfo) in
-            guard let userInfo = userInfo else {
+        self.viewModel.userInfo.bind({ [weak self] (userInfo) in
+            guard let userInfo = userInfo, let self = self else {
                 return
             }
             DispatchQueue.main.async {
@@ -39,8 +39,8 @@ class UserProfileViewController: UIViewController, ViewControllerType {
             }
         })
 
-        self.viewModel.error.bind({ (error) in
-            guard let error = error else {
+        self.viewModel.error.bind({ [weak self] (error) in
+            guard let error = error, let self = self else {
                 return
             }
             DispatchQueue.main.async {
@@ -49,7 +49,10 @@ class UserProfileViewController: UIViewController, ViewControllerType {
                 self.stackView.isHidden = true
             }
         })
-        self.viewModel.isFetchingData.bind({ isFetchData in
+        self.viewModel.isFetchingData.bind({[weak self] isFetchData in
+            guard let self = self else {
+                return
+            }
             DispatchQueue.main.async {
                 if isFetchData {
                     self.stackView.isHidden = true
@@ -61,7 +64,10 @@ class UserProfileViewController: UIViewController, ViewControllerType {
             }
         })
 
-        self.viewModel.userAvatar.bind({ image in
+        self.viewModel.userAvatar.bind({ [weak self]image in
+            guard let self = self else {
+                return
+            }
             DispatchQueue.main.async {
                 self.avatarImageView.image = image
             }
