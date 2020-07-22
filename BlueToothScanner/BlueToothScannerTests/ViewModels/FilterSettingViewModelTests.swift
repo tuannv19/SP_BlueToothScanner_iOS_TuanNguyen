@@ -11,7 +11,12 @@ class FilterSettingViewModelTests: XCTestCase {
         self.filterModel = FilterSettingViewModel(model: FilterModel())
     }
 
-    func testFillterModelError() {
+    override func tearDown() {
+        self.filterModel = nil
+        super.tearDown()
+    }
+
+    func testFilterModelError() {
         let error = FilterSettingViewModel.FilterModelError.fromMustLessThanTo
         XCTAssertEqual(error.localizedDescription, "fromMustLessThanTo")
     }

@@ -34,6 +34,15 @@
 		DB28F15E24C533F000908C31 /* PermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB28F15D24C533F000908C31 /* PermissionViewModel.swift */; };
 		DB57C06724C67EE600AFF765 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB57C06624C67EE600AFF765 /* MockURLProtocol.swift */; };
 		DB57C06A24C67F8800AFF765 /* user.json in Resources */ = {isa = PBXBuildFile; fileRef = DB57C06924C67F8800AFF765 /* user.json */; };
+		DB6C2C5524C70D810046C3CC /* Sincere@spdigital.sg.png in Resources */ = {isa = PBXBuildFile; fileRef = DB6C2C5424C70D810046C3CC /* Sincere@spdigital.sg.png */; };
+		DB6C2C5724C70FF00046C3CC /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C2C5624C70FF00046C3CC /* Dynamic.swift */; };
+		DB6C2C5924C7189E0046C3CC /* BluetoothViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C2C5824C7189E0046C3CC /* BluetoothViewControllerTest.swift */; };
+		DB6C2C5B24C719DE0046C3CC /* PeripheralViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C2C5A24C719DE0046C3CC /* PeripheralViewControllerTest.swift */; };
+		DB6C2C5F24C71C7A0046C3CC /* BLErrorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C2C5E24C71C7A0046C3CC /* BLErrorTest.swift */; };
+		DB6C2C6324C7240F0046C3CC /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB6C2C6224C7240F0046C3CC /* OCMockitoIOS.framework */; };
+		DB6C2C6724C724600046C3CC /* CBPeripheralMock.m in Sources */ = {isa = PBXBuildFile; fileRef = DB6C2C6624C724600046C3CC /* CBPeripheralMock.m */; };
+		DB6C2C6924C725DC0046C3CC /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB6C2C6824C725DC0046C3CC /* OCHamcrestIOS.framework */; };
+		DB6C2C6C24C728A20046C3CC /* CBCentralManagerMock.m in Sources */ = {isa = PBXBuildFile; fileRef = DB6C2C6B24C728A20046C3CC /* CBCentralManagerMock.m */; };
 		DB837B5D24C6857800AB922F /* UserProfileViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */; };
 		DB837B6124C6876100AB922F /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6024C6876100AB922F /* UserProfileViewModel.swift */; };
 		DB837B6324C68E6000AB922F /* UserProfileViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB837B6224C68E6000AB922F /* UserProfileViewModelTest.swift */; };
@@ -85,6 +94,17 @@
 		DB28F15D24C533F000908C31 /* PermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionViewModel.swift; sourceTree = "<group>"; };
 		DB57C06624C67EE600AFF765 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		DB57C06924C67F8800AFF765 /* user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = user.json; sourceTree = "<group>"; };
+		DB6C2C5424C70D810046C3CC /* Sincere@spdigital.sg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sincere@spdigital.sg.png"; sourceTree = "<group>"; };
+		DB6C2C5624C70FF00046C3CC /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		DB6C2C5824C7189E0046C3CC /* BluetoothViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothViewControllerTest.swift; sourceTree = "<group>"; };
+		DB6C2C5A24C719DE0046C3CC /* PeripheralViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewControllerTest.swift; sourceTree = "<group>"; };
+		DB6C2C5E24C71C7A0046C3CC /* BLErrorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLErrorTest.swift; sourceTree = "<group>"; };
+		DB6C2C6224C7240F0046C3CC /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMockitoIOS.framework; sourceTree = "<group>"; };
+		DB6C2C6524C724600046C3CC /* CBPeripheralMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBPeripheralMock.h; sourceTree = "<group>"; };
+		DB6C2C6624C724600046C3CC /* CBPeripheralMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBPeripheralMock.m; sourceTree = "<group>"; };
+		DB6C2C6824C725DC0046C3CC /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
+		DB6C2C6A24C728A20046C3CC /* CBCentralManagerMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBCentralManagerMock.h; sourceTree = "<group>"; };
+		DB6C2C6B24C728A20046C3CC /* CBCentralManagerMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBCentralManagerMock.m; sourceTree = "<group>"; };
 		DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewControllerTest.swift; sourceTree = "<group>"; };
 		DB837B6024C6876100AB922F /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		DB837B6224C68E6000AB922F /* UserProfileViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModelTest.swift; sourceTree = "<group>"; };
@@ -113,6 +133,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB6C2C6324C7240F0046C3CC /* OCMockitoIOS.framework in Frameworks */,
+				DB6C2C6924C725DC0046C3CC /* OCHamcrestIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +174,8 @@
 			children = (
 				DB2060FB24C583B9009E94B0 /* FilterSettingViewControllerTests.swift */,
 				DB837B5C24C6857800AB922F /* UserProfileViewControllerTest.swift */,
+				DB6C2C5824C7189E0046C3CC /* BluetoothViewControllerTest.swift */,
+				DB6C2C5A24C719DE0046C3CC /* PeripheralViewControllerTest.swift */,
 			);
 			path = Viewcontrollers;
 			sourceTree = "<group>";
@@ -228,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				DB267DFC24C18B03004C83B2 /* UIViewController+Alert.swift */,
+				DB6C2C5624C70FF00046C3CC /* Dynamic.swift */,
 			);
 			path = Exentions;
 			sourceTree = "<group>";
@@ -243,15 +268,30 @@
 		DB57C06824C67F5F00AFF765 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DB6C2C6824C725DC0046C3CC /* OCHamcrestIOS.framework */,
+				DB6C2C6224C7240F0046C3CC /* OCMockitoIOS.framework */,
+				DB6C2C5424C70D810046C3CC /* Sincere@spdigital.sg.png */,
 				DB57C06924C67F8800AFF765 /* user.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		DB6C2C6424C724410046C3CC /* Mockclass */ = {
+			isa = PBXGroup;
+			children = (
+				DB6C2C6524C724600046C3CC /* CBPeripheralMock.h */,
+				DB6C2C6624C724600046C3CC /* CBPeripheralMock.m */,
+				DB6C2C6A24C728A20046C3CC /* CBCentralManagerMock.h */,
+				DB6C2C6B24C728A20046C3CC /* CBCentralManagerMock.m */,
+			);
+			path = Mockclass;
 			sourceTree = "<group>";
 		};
 		DBB5454824C6CE0B009E9796 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				DBB5454924C6CE1C009E9796 /* UserInfoTest.swift */,
+				DB6C2C5E24C71C7A0046C3CC /* BLErrorTest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,6 +335,7 @@
 		DBE7189A24C011E800EB9734 /* BlueToothScannerTests */ = {
 			isa = PBXGroup;
 			children = (
+				DB6C2C6424C724410046C3CC /* Mockclass */,
 				DBB5454824C6CE0B009E9796 /* Model */,
 				DB57C06824C67F5F00AFF765 /* Resources */,
 				DB20611124C612B3009E94B0 /* Helper */,
@@ -446,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB57C06A24C67F8800AFF765 /* user.json in Resources */,
+				DB6C2C5524C70D810046C3CC /* Sincere@spdigital.sg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +529,7 @@
 				DBE718AC24C014FA00EB9734 /* BluetoothViewController.swift in Sources */,
 				DBE718AF24C0171700EB9734 /* BluetoothViewModel.swift in Sources */,
 				DB267E0024C1A588004C83B2 /* PeripheralViewController.swift in Sources */,
+				DB6C2C5724C70FF00046C3CC /* Dynamic.swift in Sources */,
 				DB20610324C5A7B0009E94B0 /* Network.swift in Sources */,
 				DB28F15C24C5325E00908C31 /* PermissionsViewController.swift in Sources */,
 				DB837B6124C6876100AB922F /* UserProfileViewModel.swift in Sources */,
@@ -503,14 +546,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB20611024C60C0E009E94B0 /* UserServiceTest.swift in Sources */,
+				DB6C2C6724C724600046C3CC /* CBPeripheralMock.m in Sources */,
 				DB20610D24C5FAB7009E94B0 /* NetworkingTest.swift in Sources */,
 				DB2060FC24C583B9009E94B0 /* FilterSettingViewControllerTests.swift in Sources */,
 				DB2060F924C57F0B009E94B0 /* FilterSettingViewModelTests.swift in Sources */,
+				DB6C2C5F24C71C7A0046C3CC /* BLErrorTest.swift in Sources */,
 				DB20610A24C5F933009E94B0 /* BluetoothServiceTest.swift in Sources */,
 				DB837B6324C68E6000AB922F /* UserProfileViewModelTest.swift in Sources */,
+				DB6C2C5B24C719DE0046C3CC /* PeripheralViewControllerTest.swift in Sources */,
 				DB20610724C5EBC2009E94B0 /* PermissionViewModelTests.swift in Sources */,
+				DB6C2C6C24C728A20046C3CC /* CBCentralManagerMock.m in Sources */,
 				DBB5454A24C6CE1C009E9796 /* UserInfoTest.swift in Sources */,
 				DB2060F724C57ECA009E94B0 /* PeripheralViewModelTests.swift in Sources */,
+				DB6C2C5924C7189E0046C3CC /* BluetoothViewControllerTest.swift in Sources */,
 				DB57C06724C67EE600AFF765 /* MockURLProtocol.swift in Sources */,
 				DB837B5D24C6857800AB922F /* UserProfileViewControllerTest.swift in Sources */,
 				DB20611324C612D8009E94B0 /* UIViewControllerExtentionTest.swift in Sources */,
@@ -707,6 +755,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BlueToothScannerTests/Resources",
+				);
 				INFOPLIST_FILE = BlueToothScannerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -714,6 +766,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = vnn.vn.BlueToothScannerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlueToothScannerTests/BlueToothScannerTests-Bridging-Header.h";
@@ -731,6 +784,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/BlueToothScannerTests/Resources",
+				);
 				INFOPLIST_FILE = BlueToothScannerTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -738,6 +795,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = vnn.vn.BlueToothScannerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlueToothScannerTests/BlueToothScannerTests-Bridging-Header.h";

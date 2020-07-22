@@ -17,8 +17,11 @@ class UserProfileViewControllerTest: XCTestCase {
         _ = try? XCTUnwrap(self.userProfileVC.companyLabel, "not connected")
         _ = try? XCTUnwrap(self.userProfileVC.addressLabel, "not connected")
     }
+    func testBindData() {
+
+    }
     func testHadImplementAllClosure() {
-        XCTAssertNotNil(self.userProfileVC.viewModel.errorHasOccur)
-        XCTAssertNotNil(self.userProfileVC.viewModel.userInfoDidChange)
+        XCTAssertNotNil(self.userProfileVC.viewModel.error)
+        XCTAssertNotNil(self.userProfileVC.viewModel.userInfo)
     }
 }

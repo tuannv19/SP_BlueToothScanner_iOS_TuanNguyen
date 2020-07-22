@@ -9,59 +9,16 @@ class BluetoothViewController: UIViewController {
     @IBOutlet weak var bluetoothScanIndicator: UIActivityIndicatorView!
     @IBOutlet weak var totalDeviceLabel: UILabel!
 
-    lazy var viewModel: BluetoothViewModel = {
-        let vm  = BluetoothViewModel()
-
-        vm.bluetoothStateDidChange = { [unowned self] state in
-            var currentState: String
-            switch state {
-            case .poweredOff:
-                currentState = "poweredOff"
-                self.switchControl.isEnabled = false
-            case .poweredOn:
-                currentState = "poweredOn"
-                self.switchControl.isEnabled = true
-            case.unauthorized:
-                currentState = "unauthorized"
-                self.switchControl.isEnabled = false
-            default:
-                currentState = "unknown"
-                self.switchControl.isEnabled = false
-            }
-            self.bluetoothStateLabel.text = currentState
-        }
-
-        vm.reloadTableview = { [unowned self] in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.totalDeviceLabel.text = " (number of devices founded:\(self.viewModel.numberOfPeripheralModel))"
-            }
-        }
-
-        vm.bluetoothScanStateDidChange = { [unowned self] isScanning in
-            DispatchQueue.main.async {
-                self.switchControl.setOn(isScanning, animated: true)
-                if isScanning == true {
-                    self.bluetoothScanIndicator.startAnimating()
-                    self.bluetoothScanIndicator.isHidden = false
-                } else {
-                    self.bluetoothScanIndicator.stopAnimating()
-                    self.bluetoothScanIndicator.isHidden = true
-                }
-            }
-        }
-
-        vm.initialBluetoothService()
-
-        return vm
-    }()
+    var viewModel = BluetoothViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Bluetooth"
         self.setupNavigationBarButton()
+        self.bindViewModel()
         self.setupTableView()
+        self.viewModel.initialBluetoothService()
     }
     func setupTableView() {
         self.tableView.delegate  = self
@@ -79,8 +36,8 @@ class BluetoothViewController: UIViewController {
 
     func setupNavigationBarButton() {
         let rightButton = UIBarButtonItem(title: "Filter",
-                                       style: .plain,
-                                       target: self, action: #selector(rightBarButtonCLick))
+                                          style: .plain,
+                                          target: self, action: #selector(rightBarButtonCLick))
         self.navigationItem.rightBarButtonItem = rightButton
     }
     @objc func  rightBarButtonCLick() {
@@ -97,7 +54,52 @@ class BluetoothViewController: UIViewController {
         vc.modalTransitionStyle = .crossDissolve
         self.present(vc, animated: true)
     }
+}
+extension BluetoothViewController {
+    func bindViewModel() {
+        self.viewModel.bluetoothStateDidChange.bind { [weak self] (state) in
+            guard let self = self else {
+                return
+            }
+            DispatchQueue.main.async {
+                var currentState: String
+                switch state {
+                case .poweredOff:
+                    currentState = "poweredOff"
+                    self.switchControl.isEnabled = false
+                case .poweredOn:
+                    currentState = "poweredOn"
+                    self.switchControl.isEnabled = true
+                case.unauthorized:
+                    currentState = "unauthorized"
+                    self.switchControl.isEnabled = false
+                default:
+                    currentState = "unknown"
+                    self.switchControl.isEnabled = false
+                }
+                self.bluetoothStateLabel.text = currentState
+            }
+        }
 
+        self.viewModel.peripherals.bind { _ in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.totalDeviceLabel.text = " (number of devices founded:\(self.viewModel.numberOfPeripheralModel))"
+            }
+        }
+        self.viewModel.isScanning.bind { isScanning in
+            DispatchQueue.main.async {
+                self.switchControl.setOn(isScanning, animated: true)
+                if isScanning == true {
+                    self.bluetoothScanIndicator.startAnimating()
+                    self.bluetoothScanIndicator.isHidden = false
+                } else {
+                    self.bluetoothScanIndicator.stopAnimating()
+                    self.bluetoothScanIndicator.isHidden = true
+                }
+            }
+        }
+    }
 }
 
 extension BluetoothViewController {
@@ -109,7 +111,7 @@ extension BluetoothViewController {
 extension BluetoothViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        let model  = viewModel.peripherals[indexPath.row]
+        let model  = viewModel.peripherals.value[indexPath.row]
         let vc = PeripheralViewController.create(peripheral: model)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -129,7 +131,7 @@ extension BluetoothViewController: UITableViewDataSource {
             for: indexPath
             ) as! ScanDeviceTableViewCell
 
-        let model  = viewModel.peripherals[indexPath.row]
+        let model  = viewModel.peripherals.value[indexPath.row]
         cell.nameLabel.text = model.name ?? ""
         cell.rssiLabel.text = model.rssi?.stringValue
         return cell

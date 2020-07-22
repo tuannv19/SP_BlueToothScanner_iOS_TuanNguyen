@@ -14,8 +14,12 @@ class UserProfileViewModelTest: XCTestCase {
         let userInfoService = UserServices(networkProvider: netWorkProvider)
         self.viewModel = UserProfileViewModel(userService: userInfoService)
     }
+    override func tearDown() {
+        self.viewModel = nil
+        super.tearDown()
+    }
 
-    func testFecthUserSuccess() {
+    func testFetchUserSuccess() {
 
         let expect = expectation(description: "Expectation")
         let path = Bundle(for: type(of: self)).url(forResource: "user.json", withExtension: nil)
@@ -34,15 +38,13 @@ class UserProfileViewModelTest: XCTestCase {
             expect.fulfill()
         }
 
-        wait(for: [expect], timeout: 1)
+        wait(for: [expect], timeout: 5)
         XCTAssertNotNil(self.viewModel.userInfo)
 
     }
-    func testFecthUserFail() {
+    func testFetchUserFail() {
 
         let expect = expectation(description: "Expectation")
-        let path = Bundle(for: type(of: self)).url(forResource: "user.json", withExtension: nil)
-        let userData = try? Data(contentsOf: path!)
 
         MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url,
@@ -50,7 +52,7 @@ class UserProfileViewModelTest: XCTestCase {
                                            httpVersion: nil,
                                            headerFields: nil)!
 
-            return (response, userData)
+            return (response, nil)
         }
 
         self.viewModel.fetchUser {
@@ -58,33 +60,57 @@ class UserProfileViewModelTest: XCTestCase {
         }
 
         wait(for: [expect], timeout: 1)
-        XCTAssertNil(self.viewModel.userInfo)
+        XCTAssertNil(self.viewModel.userInfo.value)
         XCTAssertNotNil(self.viewModel.error)
-
     }
-
-    static func mockURLProtocolGetImage() -> ((URLRequest) throws -> (HTTPURLResponse, Data?))? {
-        return { request in
-            let response = HTTPURLResponse(url: URL(string: "https://api.adorable.io/avatars/285/Sincere@spdigital.sg.png")!,
-                                           statusCode: 200,
-                                           httpVersion: nil,
-                                           headerFields: nil)!
-
-            return (response, UIImage().pngData())
-        }
-    }
-    func mockURLProtocolGetUserInfo() -> ((URLRequest) throws -> (HTTPURLResponse, Data?))? {
-        let path = Bundle(for: type(of: self))
-            .url(forResource: "user.json", withExtension: nil)
+    func testFetchDataSuccess() {
+        let expect = expectation(description: "Expectation")
+        let path = Bundle(for: type(of: self)).url(forResource: "user.json", withExtension: nil)
         let userData = try? Data(contentsOf: path!)
+        let userInfo = try? JSONDecoder().decode(UserInfo.self, from: userData!)
+        self.viewModel.userInfo.value = userInfo
 
-        return { request in
+        let imagePath = Bundle(for: type(of: self)).url(
+            forResource: "Sincere@spdigital.sg.png", withExtension: nil
+        )
+        let imageData = try? Data(contentsOf: imagePath!)
+
+        MockURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(url: self.url,
                                            statusCode: 200,
                                            httpVersion: nil,
                                            headerFields: nil)!
 
-            return (response, userData)
+            return (response, imageData)
         }
+        self.viewModel.fetchAvatarImage {
+            expect.fulfill()
+        }
+
+        wait(for: [expect], timeout: 1)
+        XCTAssertNotNil(self.viewModel.userAvatar.value)
+    }
+
+    func testFetchDataSuccessButEmptyResult() {
+        let expect = expectation(description: "Expectation")
+        let path = Bundle(for: type(of: self)).url(forResource: "user.json", withExtension: nil)
+        let userData = try? Data(contentsOf: path!)
+        let userInfo = try? JSONDecoder().decode(UserInfo.self, from: userData!)
+        self.viewModel.userInfo.value = userInfo
+
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: self.url,
+                                           statusCode: 200,
+                                           httpVersion: nil,
+                                           headerFields: nil)!
+
+            return (response, nil)
+        }
+        self.viewModel.fetchAvatarImage {
+            expect.fulfill()
+        }
+
+        wait(for: [expect], timeout: 1)
+        XCTAssertNil(self.viewModel.userAvatar.value)
     }
 }

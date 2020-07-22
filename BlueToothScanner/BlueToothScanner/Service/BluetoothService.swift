@@ -69,9 +69,7 @@ extension BluetoothService {
     }
 
     func stopScan() {
-        if self.cbManager.isScanning {
-            self.cbManager.stopScan()
-        }
+        self.cbManager.stopScan()
     }
 }
 extension BluetoothService: CBCentralManagerDelegate {
