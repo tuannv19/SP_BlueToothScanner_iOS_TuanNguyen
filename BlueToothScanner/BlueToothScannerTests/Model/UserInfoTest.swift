@@ -5,8 +5,8 @@ class UserInfoTest: XCTestCase {
     func testUserInfo() {
         let path = Bundle(for: type(of: self)).url(forResource: "user.json", withExtension: nil)
         let userData = try? Data(contentsOf: path!)
-
         let userInfo = try? JSONDecoder().decode(UserInfo.self, from: userData!)
+
         let address = Address(street: "180 Clemenceau Ave",
                               building: "Haw Par Centre", unit: "#03-01/04",
                               city: "Singapore", zipcode: "239922",

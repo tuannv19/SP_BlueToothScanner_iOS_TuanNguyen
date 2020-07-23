@@ -19,7 +19,7 @@ class FilterSettingViewModel {
         self.filterModel = model
     }
 
-    func verifyBluetoothState(fromRSSI: Int?,
+    func verifyFilterSetting(fromRSSI: Int?,
                               toRSSI: Int?,
                               filterRSSI: Bool,
                               filterEmptyName: Bool,

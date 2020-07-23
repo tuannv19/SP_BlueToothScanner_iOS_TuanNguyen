@@ -33,7 +33,7 @@ class FilterSettingViewController: UIViewController, ViewControllerType {
 
     @IBAction func applyButtonDidclick(_ sender: Any) {
         self.viewModel
-            .verifyBluetoothState(
+            .verifyFilterSetting(
                 fromRSSI: Int( self.rssiFromTextField.text!) ?? nil,
                                   toRSSI: Int(self.rssiToTextField.text!) ?? nil,
                                   filterRSSI: self.rssiSwitchControl.isOn,

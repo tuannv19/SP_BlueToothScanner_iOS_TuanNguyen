@@ -22,7 +22,7 @@ class FilterSettingViewModelTests: XCTestCase {
     }
 
     func testVerifyBluetoothState() {
-        self.filterModel.verifyBluetoothState(fromRSSI: -1,
+        self.filterModel.verifyFilterSetting(fromRSSI: -1,
                                               toRSSI: -21,
                                               filterRSSI: true,
                                               filterEmptyName: false
@@ -31,7 +31,7 @@ class FilterSettingViewModelTests: XCTestCase {
             XCTAssertNotNil(error)
         }
 
-        self.filterModel.verifyBluetoothState(fromRSSI: nil,
+        self.filterModel.verifyFilterSetting(fromRSSI: nil,
                                               toRSSI: -21, filterRSSI: true,
                                               filterEmptyName: false
         ) { (model, error) in
@@ -39,7 +39,7 @@ class FilterSettingViewModelTests: XCTestCase {
             XCTAssertNil(error)
         }
 
-        self.filterModel.verifyBluetoothState(fromRSSI: nil,
+        self.filterModel.verifyFilterSetting(fromRSSI: nil,
                                               toRSSI: nil,
                                               filterRSSI: true,
                                               filterEmptyName: false
@@ -48,7 +48,7 @@ class FilterSettingViewModelTests: XCTestCase {
             XCTAssertNil(error)
         }
 
-        self.filterModel.verifyBluetoothState(fromRSSI: -12,
+        self.filterModel.verifyFilterSetting(fromRSSI: -12,
                                               toRSSI: nil,
                                               filterRSSI: true,
                                               filterEmptyName: false
@@ -57,7 +57,7 @@ class FilterSettingViewModelTests: XCTestCase {
             XCTAssertNil(error)
         }
 
-        self.filterModel.verifyBluetoothState(fromRSSI: -32,
+        self.filterModel.verifyFilterSetting(fromRSSI: -32,
                                               toRSSI: -21,
                                               filterRSSI: true,
                                               filterEmptyName: false

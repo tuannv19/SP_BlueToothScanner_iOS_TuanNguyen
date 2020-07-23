@@ -3,14 +3,18 @@ import XCTest
 
 class FilterSettingViewControllerTests: XCTestCase {
     private var filterSettingVC: FilterSettingViewController!
-
+    
     override func setUp() {
         super.setUp()
         let viewModel = FilterSettingViewModel(model: FilterModel())
         self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel)
         self.filterSettingVC.loadViewIfNeeded()
     }
-
+    override func tearDown() {
+        self.filterSettingVC = nil
+        super.tearDown()
+    }
+    
     func testTextFieldShouldReturn() {
         //ensure input correct value type
         _ = [filterSettingVC.rssiToTextField, filterSettingVC.rssiFromTextField]
@@ -19,23 +23,23 @@ class FilterSettingViewControllerTests: XCTestCase {
                     textField: self.filterSettingVC.rssiToTextField,
                     string: "1"
                 )
-
+                
                 let validInput1 = self.canInsertTextIn(
                     textField: self.filterSettingVC.rssiToTextField,
                     string: "-"
                 )
-
+                
                 let invalidInput = self.canInsertTextIn(
                     textField: self.filterSettingVC.rssiToTextField,
                     string: "a"
                 )
-
+                
                 XCTAssertTrue(validInput)
                 XCTAssertTrue(validInput1)
                 XCTAssertFalse(invalidInput)
         }
     }
-
+    
     func testAllControlAreConnected() {
         _ = try? XCTUnwrap(filterSettingVC.rssiFromTextField, "not connected")
         _ = try? XCTUnwrap(filterSettingVC.rssiToTextField, "not connected")
@@ -46,12 +50,12 @@ class FilterSettingViewControllerTests: XCTestCase {
         let viewModel = FilterSettingViewModel(model: FilterModel())
         self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel)
         self.filterSettingVC.loadViewIfNeeded()
-
+        
         XCTAssertEqual(self.filterSettingVC.rssiFromTextField.text, "")
         XCTAssertEqual(self.filterSettingVC.rssiToTextField.text, "")
         XCTAssertEqual(self.filterSettingVC.rssiSwitchControl.isOn, false)
         XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControl.isOn, true)
-
+        
         let filterModel = FilterModel(rssiFrom: 10,
                                       rssiTo: 12,
                                       filterRSSI: true,
@@ -65,7 +69,6 @@ class FilterSettingViewControllerTests: XCTestCase {
         XCTAssertEqual(self.filterSettingVC.rssiSwitchControl.isOn, true)
         XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControl.isOn, true)
     }
-
 }
 extension FilterSettingViewControllerTests {
     func canInsertTextIn(textField: UITextField, string: String) -> Bool {
