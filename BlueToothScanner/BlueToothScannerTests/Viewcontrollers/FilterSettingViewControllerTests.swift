@@ -10,6 +10,10 @@ class FilterSettingViewControllerTests: XCTestCase {
         self.filterSettingVC = FilterSettingViewController.create(viewModel: viewModel)
         self.filterSettingVC.loadViewIfNeeded()
     }
+    override func tearDown() {
+        self.filterSettingVC = nil
+        super.tearDown()
+    }
 
     func testTextFieldShouldReturn() {
         //ensure input correct value type
@@ -65,7 +69,6 @@ class FilterSettingViewControllerTests: XCTestCase {
         XCTAssertEqual(self.filterSettingVC.rssiSwitchControl.isOn, true)
         XCTAssertEqual(self.filterSettingVC.emptyDeviceNameSwitchControl.isOn, true)
     }
-
 }
 extension FilterSettingViewControllerTests {
     func canInsertTextIn(textField: UITextField, string: String) -> Bool {
