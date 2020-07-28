@@ -1,10 +1,12 @@
 import UIKit
+import RxSwift
 
 class FilterSettingViewController: UIViewController, ViewControllerType {
     @IBOutlet weak var rssiFromTextField: UITextField!
     @IBOutlet weak var rssiToTextField: UITextField!
     @IBOutlet weak var rssiSwitchControl: UISwitch!
     @IBOutlet weak var emptyDeviceNameSwitchControl: UISwitch!
+    let disposeBag = DisposeBag()
 
     var viewModel: FilterSettingViewModel!
 
@@ -45,7 +47,14 @@ class FilterSettingViewController: UIViewController, ViewControllerType {
                 }
 
                 if let error = error {
-                    self.showAlert(title: "Error", message: error.localizedDescription)
+//                    self.showAlert(title: "Error", message: error.localizedDescription)
+                    self.showAlert(
+                        title: "Error",
+                        message: error.localizedDescription,
+                        style: .alert,
+                        actions: [])
+                        .subscribe()
+                        .disposed(by: self.disposeBag)
                     return
                 }
                 self.dismissAndCLoseKeyboard()

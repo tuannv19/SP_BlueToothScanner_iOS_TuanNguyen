@@ -45,7 +45,8 @@ class UserProfileViewController: UIViewController, ViewControllerType {
             }
             DispatchQueue.main.async {
                 self.loadingIndicator.stopAnimating()
-                self.showAlert(title: "Error", message: error.localizedDescription)
+//                self.showAlert(title: "Error", message: error.localizedDescription)
+                
                 self.stackView.isHidden = true
             }
         })

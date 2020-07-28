@@ -1,30 +1,67 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PermissionsViewController: UIViewController, ViewControllerType {
     var viewModel: PermissionViewModel!
+    let disposeBag = DisposeBag()
+    @IBOutlet weak var continueButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         self.title = "BlueToothScanner"
-
         self.viewModel = PermissionViewModel()
-
+        self.transform()
     }
-
-    @IBAction func continueButtonDidClick(_ sender: Any) {
-        self.viewModel.verifyAndProcessNextScreen(completion: { [unowned self] (error) in
-            guard let error = error else {
-                self.moveToTabBarController()
-                return
-            }
-            self.showAlert(title: "Error", message: error.localizedDescription)
-        })
+    func transform() {
+        let input = PermissionViewModel.Input(
+            continueButtonTrigger: self.continueButton.rx.tap.asObservable()
+        )
+        let output = self.viewModel.transform(input: input)
+        
+        output.perFormNextScreen.drive(onNext: { [unowned self] _ in
+            self.moveToTabBarController()
+        }).disposed(by: self.disposeBag)
+        
+        output.errorDidOccur.drive(onNext: { [unowned self] error in
+            self.showAlert(
+                title: "Error",
+                message: error.localizedDescription,
+                style: .alert,
+                actions: [AlertAction(title: "Close", style: .cancel)]
+            ).asDriver(onErrorJustReturn: 99)
+                .drive()
+                .disposed(by: self.disposeBag)
+        }).disposed(by: self.disposeBag)
     }
+    func bind(){
+        self.viewModel
+            .verifyAndProcessNextScreen()
+            .subscribeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { result in
+                switch result{
+                case .failure(let error):
+                    self.showAlert(
+                        title: "Error",
+                        message: error.localizedDescription,
+                        style: .alert,
+                        actions: []).subscribe { _ in
+                    }.disposed(by: self.disposeBag)
+                case .success:
+                    print("success")
+                    self.moveToTabBarController()
+                }
+            }).disposed(by: self.disposeBag)
+    }
+    
     func moveToTabBarController() {
         let vc = Self.createTabBar()
-        UIApplication.shared.keyWindow?.rootViewController = vc
-        UIApplication.shared.keyWindow?.makeKeyAndVisible()
+        guard let  keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
+            return
+        }
+        keyWindow.rootViewController = vc
+        keyWindow.makeKeyAndVisible()
     }
 }
 
