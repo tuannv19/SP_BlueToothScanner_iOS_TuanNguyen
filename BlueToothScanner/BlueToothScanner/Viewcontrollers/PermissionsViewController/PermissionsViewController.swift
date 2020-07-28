@@ -12,9 +12,9 @@ class PermissionsViewController: UIViewController, ViewControllerType {
         // Do any additional setup after loading the view.
         self.title = "BlueToothScanner"
         self.viewModel = PermissionViewModel()
-        self.transform()
+        self.bind()
     }
-    func transform() {
+    func bind() {
         let input = PermissionViewModel.Input(
             continueButtonTrigger: self.continueButton.rx.tap.asObservable()
         )
@@ -35,26 +35,6 @@ class PermissionsViewController: UIViewController, ViewControllerType {
                 .disposed(by: self.disposeBag)
         }).disposed(by: self.disposeBag)
     }
-    func bind(){
-        self.viewModel
-            .verifyAndProcessNextScreen()
-            .subscribeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { result in
-                switch result{
-                case .failure(let error):
-                    self.showAlert(
-                        title: "Error",
-                        message: error.localizedDescription,
-                        style: .alert,
-                        actions: []).subscribe { _ in
-                    }.disposed(by: self.disposeBag)
-                case .success:
-                    print("success")
-                    self.moveToTabBarController()
-                }
-            }).disposed(by: self.disposeBag)
-    }
-    
     func moveToTabBarController() {
         let vc = Self.createTabBar()
         guard let  keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
