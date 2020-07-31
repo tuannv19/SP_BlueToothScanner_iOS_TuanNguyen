@@ -1,76 +1,89 @@
 import XCTest
+import RxTest
+import RxBlocking
+import RxSwift
+
 @testable import BlueToothScanner
-
+//
 class PermissionViewModelTests: XCTestCase {
-    private let viewModel = PermissionViewModel()
-
-    var centralManagerMock: CBCentralManagerMock!
-
+    var scheduler: TestScheduler!
+    var disposeBag: DisposeBag!
+    var viewModel : PermissionViewModel!
+    var bluetoothService: BluetoothService!
+    var cbCentralManager : CBCentralManagerMock!
+    
     override func setUp() {
-        self.centralManagerMock = CBCentralManagerMock()
-        BluetoothService.shared.setDefaultCBManager(manager: centralManagerMock.mock)
+        super.setUp()
+        self.scheduler = TestScheduler(initialClock: 0)
+        self.disposeBag = DisposeBag()
+        self.viewModel = PermissionViewModel(navigator: PermissionsNavigator(nav: UINavigationController()))
+        self.bluetoothService = BluetoothService.shared
+        self.cbCentralManager =  CBCentralManagerMock()
+        self.bluetoothService.setCBManagerMock(cbManager: self.cbCentralManager.mock)
+        
     }
-
     override func tearDown() {
-        self.centralManagerMock = nil
-        super.tearDown()
+        self.scheduler = nil
+        self.disposeBag = nil
+        self.viewModel = nil
+        self.cbCentralManager = nil
+        self.bluetoothService = nil
     }
-
-    func testVerifyAndProcessNextScreen() {
-        var err: BLError?
-        let expectUnknown = expectation(description: "Expectation-unknown")
-        self.centralManagerMock.setState(.unknown)
-        self.viewModel.verifyAndProcessNextScreen { (error) in
-            err = error
-            expectUnknown.fulfill()
-        }
-        wait(for: [expectUnknown], timeout: 0.5)
-        XCTAssertEqual(err?.localizedDescription, "unknown")
-
-        let expectPowerOn = expectation(description: "Expectation-powerOn")
-        self.centralManagerMock.setState(.poweredOn)
-        self.viewModel.verifyAndProcessNextScreen { (error) in
-            err = error
-            expectPowerOn.fulfill()
-        }
-        wait(for: [expectPowerOn], timeout: 0.5)
-        XCTAssertNil(err)
-
-        let expectPowerOff = expectation(description: "Expectation-powerOff")
-        self.centralManagerMock.setState(.poweredOff)
-        self.viewModel.verifyAndProcessNextScreen { (error) in
-            err = error
-            expectPowerOff.fulfill()
-        }
-        wait(for: [expectPowerOff], timeout: 0.5)
-        XCTAssertEqual(err?.localizedDescription, "poweredOff")
-
-        let expectUnauthorized = expectation(description: "Expectation-unauthorized")
-        self.centralManagerMock.setState(.unauthorized)
-        self.viewModel.verifyAndProcessNextScreen { (error) in
-            err = error
-            expectUnauthorized.fulfill()
-        }
-        wait(for: [expectUnauthorized], timeout: 0.5)
-        XCTAssertEqual(err?.localizedDescription, "unauthorized")
-
-        let expectResetting = expectation(description: "Expectation-resetting")
-        self.centralManagerMock.setState(.resetting)
-        self.viewModel.verifyAndProcessNextScreen { (error) in
-            err = error
-            expectResetting.fulfill()
-        }
-        wait(for: [expectResetting], timeout: 0.5)
-        XCTAssertEqual(err?.localizedDescription, "resetting")
-
-        let expectUnsupported = expectation(description: "Expectation-unsupported")
-        self.centralManagerMock.setState(.unsupported)
-        self.viewModel.verifyAndProcessNextScreen { (error) in
-            err = error
-            expectUnsupported.fulfill()
-        }
-        wait(for: [expectUnsupported], timeout: 0.5)
-        XCTAssertEqual(err?.localizedDescription, "unsupported")
+    func testVerifyAndProcessNextScreenError() {
+        self.verifyState(state: .poweredOff,
+                         errorKind: BLError.bluetoothUnavailable(reason: .poweredOff))
+        self.verifyState(state: .unsupported,
+                         errorKind: BLError.bluetoothUnavailable(reason: .unsupported))
+        self.verifyState(state: .unknown,
+                         errorKind: BLError.bluetoothUnavailable(reason: .unknown))
+        self.verifyState(state: .resetting,
+                         errorKind: BLError.bluetoothUnavailable(reason: .resetting))
+        self.verifyState(state: .unauthorized,
+                         errorKind: BLError.bluetoothUnavailable(reason: .unauthorized))
     }
-
+    func testVerifyAndProcessNextScreenSuccess() {
+        let performAction = scheduler.createObserver(Void.self)
+        //
+        self.cbCentralManager.setState(.poweredOn)
+        //
+        let nextAction = PublishSubject<Void>().asObserver()
+        let input = PermissionViewModel.Input(continueButtonTrigger: nextAction)
+        
+        
+        let output = viewModel.transform(input: input)
+        output.perFormNextScreen.drive(performAction).disposed(by: self.disposeBag)
+        scheduler.createHotObservable([.next(10, ())])
+            .bind(to: nextAction)
+            .disposed(by: self.disposeBag)
+        scheduler.start()
+        XCTAssertNotNil(performAction.events)
+    }
+    func verifyState(state: CBManagerState, errorKind: BLError) {
+        let error = scheduler.createObserver(BLError.self)
+        let performAction = scheduler.createObserver(Void.self)
+        
+        let nextAction = PublishSubject<Void>().asObserver()
+        
+        let input = PermissionViewModel.Input(continueButtonTrigger: nextAction)
+        let output = viewModel.transform(input: input)
+        self.cbCentralManager.setState(state)
+        
+        output.errorDidOccur.drive(error).disposed(by: self.disposeBag)
+        output.perFormNextScreen.drive(performAction).disposed(by: self.disposeBag)
+        
+        let tap = scheduler
+            .createHotObservable([
+                .next(10, ())
+            ])
+        tap.bind(to: nextAction).disposed(by: self.disposeBag)
+        
+        
+        
+        scheduler.start()
+        let expectError1: [Recorded<Event<BLError>>] = [
+            .next(10, errorKind)
+        ]
+        
+        XCTAssertEqual(error.events, expectError1)
+    }
 }

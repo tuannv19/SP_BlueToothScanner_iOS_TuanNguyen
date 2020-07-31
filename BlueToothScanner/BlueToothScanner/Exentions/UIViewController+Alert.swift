@@ -25,7 +25,6 @@ extension UIViewController {
             }
             
             self.present(alertController, animated: true, completion: nil)
-
             return Disposables.create { alertController.dismiss(animated: true, completion: nil) }
         }
     }

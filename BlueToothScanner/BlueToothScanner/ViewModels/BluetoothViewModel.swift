@@ -1,108 +1,121 @@
 import  CoreBluetooth
-
-class BluetoothViewModel {
-
-    // MARK: - Private Properties
-
-    private var bluetoothState: CBManagerState = .unknown {
-        didSet {
-            bluetoothStateDidChange.value = bluetoothState
-            if bluetoothState != .poweredOn && isScanning.value == true {
-                // stop all services
-                self.stopScan()
-                self.isScanning.value = false
-            }
-        }
+import RxSwift
+import RxCocoa
+class BluetoothViewModel: ViewModelType{
+    let disposeBag = DisposeBag()
+    struct Input {
+        var isScanning : Observable<Bool>
+        var itemSelected: Observable<IndexPath>
     }
-
+    
+    struct Output {
+        var bluetoothState: Driver<String>
+        var isEnableSwitchButton: Driver<Bool>
+        var isScanning : Driver<Bool>
+        var peripherals: Driver<[PeripheralModel]>
+    }
+    
+    //    private var currentState: Observable<String>!
+    
     // MARK: - Public Properties
     var numberOfPeripheralModel: Int {
-        return self.peripherals.value.count
+        return  0//self.peripherals.value.count
     }
-
+    
     // MARK: - Dynamic Properties
-    var peripherals = Dynamic<[PeripheralModel]>([])
-    var isScanning  = Dynamic<Bool>(false)
-    var bluetoothStateDidChange = Dynamic<CBManagerState>(.unknown)
-
+    private var peripherals = BehaviorSubject<[PeripheralModel]>(value: [])
+    
     // MARK: - Bluetooth
     let bluetoothService = BluetoothService.shared
+    
     private var peripheralInfos = [PeripheralInfo]()
-
+    
     var filterModel = FilterModel()
+    
+    init() {
+        self.bluetoothService
+            .peripheralsDidReceive.map { device in
+                self.addOrUpdatePeripheralIfNeed(peripheralInfo: device)
+        }.subscribe()
+            .disposed(by: self.disposeBag)
+    }
+    
+    func transform(input: Input) -> Output {
+        input.isScanning.subscribe(onNext: { startScan in
+            if startScan == true {
+                self.bluetoothService.startScan()
+            }else {
+                self.bluetoothService.stopScan()
+            }
+            
+        }).disposed(by: self.disposeBag)
+        
+        
+        let stateObservable = Observable.merge(
+            bluetoothService.state, bluetoothService.bluetoothStateDidReceive
+        ).share()
+        
+        let  currentState =   stateObservable.map { state -> String in
+            var currentState: String
+            switch state {
+            case .poweredOff:
+                currentState = "poweredOff"
+            case .poweredOn:
+                currentState = "poweredOn"
+            case.unauthorized:
+                currentState = "unauthorized"
+            default:
+                currentState = "unknown"
+            }
+            return currentState
+        }
+        
+        let isEnableSwitchButton = stateObservable.map { state -> Bool in
+            guard state == .poweredOn else {
+                return false
+            }
+            return true
+        }
+        return Output(
+            bluetoothState: currentState.asDriver(onErrorJustReturn: ""),
+            isEnableSwitchButton: isEnableSwitchButton.asDriver(onErrorJustReturn: false),
+            isScanning: input.isScanning.asDriver(onErrorJustReturn: false),
+            peripherals: self.peripherals.asDriver(onErrorJustReturn: [])
+        )
+    }
 }
 
 extension BluetoothViewModel {
-    func initialBluetoothService() {
-        self.isScanning.value = self.bluetoothService.isScanning
-        self.registerBluetoothServicesCallback()
-        self.bluetoothState = self.bluetoothService.state
-    }
-
-    private func registerBluetoothServicesCallback() {
-
-        self.bluetoothService.bluetoothStateCallBack = { [weak self] state in
-            guard let self = self else {
-                return
-            }
-            self.bluetoothState = state
-        }
-
-        self.bluetoothService.peripheralStateCallback = { [weak self] peripheralInfo in
-            guard let self = self else {
-                return
-            }
-
-            self.addOrUpdatePeripheralIfNeed(peripheralInfo: peripheralInfo)
-        }
-    }
-}
-
-extension BluetoothViewModel {
-    func scan(isScanning: Bool) {
-        self.isScanning.value = isScanning
-        if isScanning {
-            self.startScan()
-        } else {
-            self.stopScan()
-        }
-    }
-    func startScan() {
-        self.bluetoothService.startScan()
-    }
-
-    func stopScan() {
-        self.bluetoothService.stopScan()
-    }
-
     func applyNewFilter(filterModel: FilterModel) {
         self.filterModel = filterModel
-        self.peripherals.value = self.applyFilter()
+        self.peripherals.onNext(self.applyFilter())
     }
-
+    
     internal func addOrUpdatePeripheralIfNeed(peripheralInfo: PeripheralInfo) {
-
+        
         //check if Peripheral had existing
         guard let indexOfExistPeripheral = self.peripheralInfos
             .firstIndex(where: { (model: PeripheralInfo) -> Bool in
                 model.0.identifier.uuidString == peripheralInfo.0.identifier.uuidString
             }) as Int? else {
-
+                
                 //if not exit just add and update UI
                 self.peripheralInfos.append(peripheralInfo)
-                self.peripherals.value = self.applyFilter()
+                //                self.peripherals.value = self.applyFilter()
                 return
         }
-
+        
         //update peripheral data
         // RSSI
         self.peripheralInfos[indexOfExistPeripheral] = peripheralInfo
-
+        
         //filter data
-        self.peripherals.value = self.applyFilter()
-
+        //                self.peripherals.value = self.applyFilter()
+        self.peripherals.onNext(self.applyFilter())
+        
+        
     }
-
+    
     internal func applyFilter() -> [PeripheralModel] {
         let v = self.peripheralInfos.filter { (peripheralInfo) -> Bool in
             if self.filterModel.filterEmptyName {
@@ -124,7 +137,7 @@ extension BluetoothViewModel {
             }
             return true
         }
-
+        
         return v.compactMap { (info: PeripheralInfo) -> PeripheralModel? in
             var model = PeripheralModel(info: info)
             if model?.name == nil {

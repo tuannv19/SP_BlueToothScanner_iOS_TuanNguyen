@@ -3,12 +3,6 @@ import RxSwift
 import RxCocoa
 
 class PermissionViewModel: ViewModelType {
-    
-    private let disposeBag = DisposeBag()
-    
-    private let errorDidOccur = PublishSubject<BLError>()
-    private let perFormNextScreen = PublishSubject<Void>()
-    
     struct Output {
         let errorDidOccur : Driver<BLError>
         let perFormNextScreen : Driver<Void>
@@ -16,29 +10,41 @@ class PermissionViewModel: ViewModelType {
     struct Input {
         let continueButtonTrigger: Observable<Void>
     }
+
+    var input: Input?
+    var output: Output?
+    var navigator: PermissionsNavigator!
+    
+    private let disposeBag = DisposeBag()
+    private let errorDidOccur = PublishSubject<BLError>()
+    private let perFormNextScreen = PublishSubject<Void>()
+    
+    init(navigator: PermissionsNavigator) {
+        self.navigator = navigator
+    }
     
     func transform(input: Input) -> Output {
+        self.input = input
         input.continueButtonTrigger
-            .flatMap{ self.verifyAndProcessNextScreen() }
-            .subscribe(onNext: { result in
-                switch result{
-                case .success:
-                    self.perFormNextScreen.onNext(())
-                case.failure(let error):
-                    self.errorDidOccur.onNext(error)
+            .flatMap{ self.verifyAndMapErrorIfNeed() }
+            .subscribe(onNext: { (error) in
+                if let  _error = error {
+                    self.errorDidOccur.onNext((_error))
+                } else {
+                    self.navigator.routed(router: .tabBar)
                 }
             }).disposed(by: self.disposeBag)
         
-        return Output(
-            errorDidOccur: self.errorDidOccur
-                .asDriver(onErrorJustReturn: BLError.bluetoothUnavailable(reason: .unknown)),
+        self.output = Output(
+            errorDidOccur: self.errorDidOccur.asDriver(onErrorJustReturn: BLError.bluetoothUnavailable(reason: .unknown)),
             perFormNextScreen: self.perFormNextScreen.asDriver(onErrorJustReturn: ())
         )
+        return self.output!
     }
-    func verifyAndProcessNextScreen() -> Single<Result<Void, BLError>> {
-        return Single<Result<Void, BLError>>.create { (single)  in
+    func verifyAndMapErrorIfNeed() -> Observable<BLError?> {
+        return BluetoothService.shared.state.map { state -> BLError? in
             var error: BLError?
-            switch BluetoothService.shared.state {
+            switch state {
             case .poweredOn:
                 error = nil
             case .poweredOff:
@@ -52,12 +58,7 @@ class PermissionViewModel: ViewModelType {
             default:
                 error = .bluetoothUnavailable(reason: .unknown)
             }
-            if let error = error {
-                single(.success(.failure(error)))
-            }else {
-                single(.success(.success(())))
-            }
-            return Disposables.create()
+            return error
         }
     }
 }

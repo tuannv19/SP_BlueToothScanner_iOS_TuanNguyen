@@ -1,6 +1,7 @@
 import CoreBluetooth
+import RxSwift
 
-public enum BLError: Error {
+public enum BLError: Error, Equatable {
     public enum BLErrorReason {
         case poweredOff
         case unauthorized
@@ -30,9 +31,9 @@ public enum BLError: Error {
 
 class BluetoothService: NSObject {
 
-    public typealias BluetoothStateCallback = (CBManagerState) -> Void
-    public typealias BluetoothPeripheralStateCallback = (PeripheralInfo) -> Void
-    public typealias BlueToothErrorCallBack = (BLError) -> Void
+//    public typealias BluetoothStateCallback = (CBManagerState) -> Void
+//    public typealias BluetoothPeripheralStateCallback = (PeripheralInfo) -> Void
+//    public typealias BlueToothErrorCallBack = (BLError) -> Void
 
     static let shared = BluetoothService()
 
@@ -40,18 +41,19 @@ class BluetoothService: NSObject {
     var cbManager: CBCentralManager!
 
     // MARK: - Closure Properties
-    var bluetoothStateCallBack: BluetoothStateCallback?
-    var peripheralStateCallback: BluetoothPeripheralStateCallback?
+    var bluetoothStateDidReceive = PublishSubject<CBManagerState>()
+    var peripheralsDidReceive = PublishSubject<PeripheralInfo>()
 
     // MARK: -
-    var isScanning: Bool {
-        return self.cbManager.isScanning
+    var isScanning :Observable<Bool> {
+        return Observable.just(self.cbManager.isScanning)
     }
-    var isAuthority: Bool {
-        return self.cbManager.state != .unauthorized
+    var isAuthority: Observable<Bool> {
+        return Observable.just(self.cbManager.state != .unauthorized)
     }
-    var state: CBManagerState {
-        return self.cbManager.state
+
+    var state: Observable<CBManagerState> {
+        return Observable.just(self.cbManager.state)
     }
 
     // Initialization
@@ -74,13 +76,13 @@ extension BluetoothService {
 }
 extension BluetoothService: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        self.bluetoothStateCallBack?(central.state)
+        self.bluetoothStateDidReceive.onNext(central.state)
     }
 
     func centralManager(_ central: CBCentralManager,
                         didDiscover peripheral: CBPeripheral,
                         advertisementData: [String: Any],
                         rssi RSSI: NSNumber) {
-        self.peripheralStateCallback?((peripheral, advertisementData, RSSI))
+        self.peripheralsDidReceive.onNext((peripheral, advertisementData, RSSI))
     }
 }

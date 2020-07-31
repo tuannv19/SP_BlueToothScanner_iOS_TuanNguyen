@@ -26,54 +26,54 @@ class UserProfileViewController: UIViewController, ViewControllerType {
     }
 
     func bindViewModel() {
-        self.viewModel.userInfo.bind({ [weak self] (userInfo) in
-            guard let userInfo = userInfo, let self = self else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.nameLabel.text = userInfo.name
-                self.userNameLabel.text = userInfo.username
-                self.companyLabel.text = userInfo.company.name
-                self.phoneLabel.text = userInfo.phone
-                self.addressLabel.text = userInfo.getFullAddress()
-            }
-        })
-
-        self.viewModel.error.bind({ [weak self] (error) in
-            guard let error = error, let self = self else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.loadingIndicator.stopAnimating()
-//                self.showAlert(title: "Error", message: error.localizedDescription)
-                
-                self.stackView.isHidden = true
-            }
-        })
-        self.viewModel.isFetchingData.bind({[weak self] isFetchData in
-            guard let self = self else {
-                return
-            }
-            DispatchQueue.main.async {
-                if isFetchData {
-                    self.stackView.isHidden = true
-                    self.loadingIndicator.startAnimating()
-                } else {
-                    self.stackView.isHidden = false
-                    self.loadingIndicator.stopAnimating()
-                }
-            }
-        })
-
-        self.viewModel.userAvatar.bind({ [weak self]image in
-            guard let self = self else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.avatarImageView.image = image
-            }
-        })
-        self.viewModel.fetchUser()
+//        self.viewModel.userInfo.bind({ [weak self] (userInfo) in
+//            guard let userInfo = userInfo, let self = self else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self.nameLabel.text = userInfo.name
+//                self.userNameLabel.text = userInfo.username
+//                self.companyLabel.text = userInfo.company.name
+//                self.phoneLabel.text = userInfo.phone
+//                self.addressLabel.text = userInfo.getFullAddress()
+//            }
+//        })
+//
+//        self.viewModel.error.bind({ [weak self] (error) in
+//            guard let error = error, let self = self else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self.loadingIndicator.stopAnimating()
+////                self.showAlert(title: "Error", message: error.localizedDescription)
+//
+//                self.stackView.isHidden = true
+//            }
+//        })
+//        self.viewModel.isFetchingData.bind({[weak self] isFetchData in
+//            guard let self = self else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                if isFetchData {
+//                    self.stackView.isHidden = true
+//                    self.loadingIndicator.startAnimating()
+//                } else {
+//                    self.stackView.isHidden = false
+//                    self.loadingIndicator.stopAnimating()
+//                }
+//            }
+//        })
+//
+//        self.viewModel.userAvatar.bind({ [weak self]image in
+//            guard let self = self else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self.avatarImageView.image = image
+//            }
+//        })
+//        self.viewModel.fetchUser()
     }
 
     func setupNavigationBarButton() {

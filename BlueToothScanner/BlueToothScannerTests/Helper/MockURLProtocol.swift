@@ -70,3 +70,10 @@
 //            }
 //    }
 //}
+import CoreBluetooth
+@testable import BlueToothScanner
+extension BluetoothService{
+    func setCBManagerMock(cbManager: CBCentralManager) {
+        self.cbManager = cbManager
+    }
+}

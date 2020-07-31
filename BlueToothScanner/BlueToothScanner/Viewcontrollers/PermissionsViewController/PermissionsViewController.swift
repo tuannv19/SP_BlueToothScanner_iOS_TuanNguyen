@@ -2,28 +2,23 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class PermissionsViewController: UIViewController, ViewControllerType {
+class PermissionsViewController: UIViewController, Storyboarded {
     var viewModel: PermissionViewModel!
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
     @IBOutlet weak var continueButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "BlueToothScanner"
-        self.viewModel = PermissionViewModel()
         self.bind()
     }
     func bind() {
         let input = PermissionViewModel.Input(
-            continueButtonTrigger: self.continueButton.rx.tap.asObservable()
+            continueButtonTrigger: self.continueButton.rx.controlEvent(.touchUpInside).asObservable()
         )
         let output = self.viewModel.transform(input: input)
-        
-        output.perFormNextScreen.drive(onNext: { [unowned self] _ in
-            self.moveToTabBarController()
-        }).disposed(by: self.disposeBag)
-        
+    
         output.errorDidOccur.drive(onNext: { [unowned self] error in
             self.showAlert(
                 title: "Error",
@@ -34,24 +29,5 @@ class PermissionsViewController: UIViewController, ViewControllerType {
                 .drive()
                 .disposed(by: self.disposeBag)
         }).disposed(by: self.disposeBag)
-    }
-    func moveToTabBarController() {
-        let vc = Self.createTabBar()
-        guard let  keyWindow = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else {
-            return
-        }
-        keyWindow.rootViewController = vc
-        keyWindow.makeKeyAndVisible()
-    }
-}
-
-// MARK: - Factory
-extension PermissionsViewController {
-    static func createTabBar() -> UITabBarController {
-        let sb = UIStoryboard.init(name: "Main", bundle: nil)
-        let vc = sb.instantiateViewController(
-            withIdentifier: "TabbarController"
-            ) as! UITabBarController
-        return vc
     }
 }

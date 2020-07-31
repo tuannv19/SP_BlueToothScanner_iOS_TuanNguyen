@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="K8T-oV-7Sf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -231,9 +231,6 @@
                                             </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="n04-3l-mVG">
                                                 <rect key="frame" x="345" y="18" width="51" height="20.5"/>
-                                                <connections>
-                                                    <action selector="sliderStartsScanValueChanged:" destination="yFW-2u-h12" eventType="valueChanged" id="wZI-Dj-hcL"/>
-                                                </connections>
                                             </switch>
                                         </subviews>
                                         <edgeInsets key="layoutMargins" top="18" left="20" bottom="8" right="20"/>
@@ -299,8 +296,8 @@
                     <navigationItem key="navigationItem" id="a2N-0P-3TD"/>
                     <size key="freeformSize" width="414" height="896"/>
                     <connections>
-                        <outlet property="bluetoothScanIndicator" destination="TSU-gC-x7r" id="NPn-sU-ucI"/>
                         <outlet property="bluetoothStateLabel" destination="tjs-uH-u6Z" id="r3k-ag-ysl"/>
+                        <outlet property="scanDeviceIndicator" destination="TSU-gC-x7r" id="NPn-sU-ucI"/>
                         <outlet property="switchControl" destination="n04-3l-mVG" id="cDz-f6-AF1"/>
                         <outlet property="tableView" destination="AgX-5w-FIl" id="vma-NY-hyI"/>
                         <outlet property="totalDeviceLabel" destination="aUb-Dq-29U" id="ubQ-gT-csd"/>
@@ -503,7 +500,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ensure you has given all permissions to proceed on the next screen" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ha-Ts-Vos">
-                                <rect key="frame" x="10" y="98" width="394" height="100"/>
+                                <rect key="frame" x="10" y="54" width="394" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="ZBG-I8-IGa"/>
                                 </constraints>
@@ -547,28 +544,10 @@
             </objects>
             <point key="canvasLocation" x="-3001" y="-690"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="exC-2F-ZO4">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K8T-oV-7Sf" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="il9-ha-0kx">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="snX-20-iFd" kind="relationship" relationship="rootViewController" id="dBL-mF-bVM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p8u-DO-WBG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3845" y="-691"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="aNu-lj-y7A">
             <objects>
-                <tabBarController storyboardIdentifier="TabbarController" automaticallyAdjustsScrollViewInsets="NO" id="MsN-97-Su1" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="MsN-97-Su1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <size key="freeformSize" width="414" height="896"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Wjc-vJ-KR1">
